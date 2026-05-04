@@ -1,0 +1,39 @@
+﻿@page "/Dialog-Component"
+@inherits BaseComponent
+
+<div>
+    <h3>Dialog component</h3>
+    
+    <button @onclick="OpenFirstDialog">Open eerste dialog</button>
+    <button @onclick="OpenTweedeDialog">Open tweede dialog</button>
+</div>
+
+@code {
+    public async Task OpenFirstDialog()
+    {
+        var parameters = new DialogParameters
+        {
+            { "Animation", AppDialog.DialogAnimation.BlowUp }
+        };
+
+        var result = await DialogService.ShowAsync<TestDialog, string>(parameters);
+        if (result != null)
+        {
+            Console.WriteLine($"Name entered: {result}");
+        }
+    }
+
+    public async Task OpenTweedeDialog()
+    {
+        var parameters = new DialogParameters
+        {
+            { "Animation", AppDialog.DialogAnimation.MeepMeep }
+        };
+
+        var result = await DialogService.ShowAsync<TestDialog, string>(parameters);
+        if (result != null)
+        {
+            Console.WriteLine($"Name entered: {result}");
+        }
+    }
+}

@@ -1,21 +1,661 @@
-﻿.my-dialog {
+﻿﻿ /* base styling
+------------------------------------------------------------------------- */
+dialog {
     padding: 1.5rem;
     border: none;
     border-radius: 8px;
     max-width: 500px;
     width: 90%;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background-color: var(--color-light);
 }
 
-/* For top-level centering */
 dialog::backdrop {
-    background: rgba(0, 0, 0, 0.5); /* dark semi-transparent overlay */
+    background: var(--color-overlay);
 }
 
-/* Center using absolute/flex */
-.my-dialog {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+dialog {
+    margin: auto;
+}
+
+/* animation
+------------------------------------------------------------------------- */
+
+@media(prefers-reduced-motion: no-preference) {
+    dialog.unfolding {
+        --cubic-bezier: cubic-bezier(0.165, 0.84, 0.44, 1);
+        --fill-mode: forwards;
+        transform: scale(0);
+        animation: zoomIn 0.5s 0.8s var(--cubic-bezier) var(--fill-mode);
+
+        &::backdrop {
+            transform: scaleY(0.01) scaleX(0);
+            animation: unfoldIn 1s var(--cubic-bezier) var(--fill-mode);
+        }
+
+        &.out {
+            transform: scale(1);
+            animation: zoomOut 1.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+            &::backdrop {
+                transform: scale(1);
+                animation: unfoldOut 1s 0.3s var(--cubic-bezier) var(--fill-mode);
+            }
+        }
+    }
+
+    dialog.revealing-bottom {
+        --speed: 0.5s;
+        --cubic-bezier: cubic-bezier(0.165, 0.84, 0.44, 1);
+        --fill-mode: forwards;
+        opacity: 0;
+        animation: scaleUpIn var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+        &::backdrop {
+            background: rgba(0, 0, 0, .0);
+            animation: fadeIn var(--speed) var(--cubic-bezier) var(--fill-mode);
+        }
+
+        &.out {
+            animation: scaleUpOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+            &::backdrop {
+                animation: fadeOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+            }
+        }
+    }
+
+    dialog.revealing-top {
+        --speed: 0.5s;
+        --cubic-bezier: cubic-bezier(0.165, 0.84, 0.44, 1);
+        --fill-mode: forwards;
+        opacity: 0;
+        animation: scaleDownIn var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+        &::backdrop {
+            background: rgba(0, 0, 0, .0);
+            animation: fadeIn var(--speed) var(--cubic-bezier) var(--fill-mode);
+        }
+
+        &.out {
+            animation: scaleDownOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+            &::backdrop {
+                animation: fadeOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+            }
+        }
+    }
+
+    dialog.revealing-left {
+        --speed: 0.5s;
+        --cubic-bezier: cubic-bezier(0.165, 0.84, 0.44, 1);
+        --fill-mode: forwards;
+        opacity: 0;
+        animation: scaleLeftIn var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+        &::backdrop {
+            background: rgba(0, 0, 0, .0);
+            animation: fadeIn var(--speed) var(--cubic-bezier) var(--fill-mode);
+        }
+
+        &.out {
+            animation: scaleLeftOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+            &::backdrop {
+                animation: fadeOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+            }
+        }
+    }
+
+    dialog.revealing-right {
+        --speed: 0.5s;
+        --cubic-bezier: cubic-bezier(0.165, 0.84, 0.44, 1);
+        --fill-mode: forwards;
+        opacity: 0;
+        animation: scaleRightIn var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+        &::backdrop {
+            background: rgba(0, 0, 0, .0);
+            animation: fadeIn var(--speed) var(--cubic-bezier) var(--fill-mode);
+        }
+
+        &.out {
+            animation: scaleRightOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+            &::backdrop {
+                animation: fadeOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+            }
+        }
+    }
+
+    dialog.uncovering {
+        --speed: 0.5s;
+        --cubic-bezier: cubic-bezier(0.165, 0.84, 0.44, 1);
+        --fill-mode: forwards;
+        animation: uncoverIn var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+        &::backdrop {
+            background: rgba(0, 0, 0, .6);
+        }
+
+        &.out {
+            animation: uncoverOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+            &::backdrop {
+                background: rgba(0, 0, 0, .0);
+            }
+        }
+    }
+
+    dialog.blow-up {
+        --speed: 0.5s;
+        --cubic-bezier: cubic-bezier(0.165, 0.84, 0.44, 1);
+        --fill-mode: forwards;
+        animation: blowUpIn var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+        &::backdrop {
+            background: rgba(0, 0, 0, .7);
+        }
+
+        &.out {
+            animation: blowUpOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+            &::backdrop {
+                background: rgba(0, 0, 0, .0);
+            }
+        }
+    }
+
+    dialog.meep-meep {
+        --speed: 0.5s;
+        --cubic-bezier: cubic-bezier(0.165, 0.84, 0.44, 1);
+        --fill-mode: forwards;
+        transform: translateX(-1500px);
+        animation: roadRunnerIn 0.3s var(--cubic-bezier) var(--fill-mode);
+
+        &::backdrop {
+            background: rgba(0, 0, 0, .0);
+            animation: fadeIn var(--speed) var(--cubic-bezier) var(--fill-mode);
+        }
+
+        &.out {
+            animation: roadRunnerOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+            &::backdrop {
+                animation: fadeOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+            }
+        }
+    }
+
+    dialog.meep-meep-right {
+        --speed: 0.5s;
+        --cubic-bezier: cubic-bezier(0.165, 0.84, 0.44, 1);
+        --fill-mode: forwards;
+        transform: translateX(-1500px);
+        animation: roadRunnerRightIn 0.3s var(--cubic-bezier) var(--fill-mode);
+
+        &::backdrop {
+            background: rgba(0, 0, 0, .0);
+            animation: fadeIn var(--speed) var(--cubic-bezier) var(--fill-mode);
+        }
+
+        &.out {
+            animation: roadRunnerRightOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+            &::backdrop {
+                animation: fadeOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+            }
+        }
+    }
+
+    dialog.tada {
+        --speed: 0.5s;
+        --cubic-bezier: cubic-bezier(0.165, 0.84, 0.44, 1);
+        --fill-mode: forwards;
+        animation: tadaIn 1s linear var(--fill-mode);
+
+        &::backdrop {
+            background: rgba(0, 0, 0, .7);
+        }
+
+        &.out {
+            animation: tadaOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+            &::backdrop {
+                background: rgba(0, 0, 0, .0);
+            }
+        }
+    }
+
+    dialog.shrink {
+        --speed: 0.5s;
+        --cubic-bezier: cubic-bezier(0.165, 0.84, 0.44, 1);
+        --fill-mode: forwards;
+        animation: shrinkIn var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+
+        &::backdrop {
+            background: rgba(0, 0, 0, .7);
+        }
+
+        &.out {
+            animation: shrinkOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+            &::backdrop {
+                background: rgba(0, 0, 0, .0);
+            }
+        }
+    }
+
+    dialog.wobble {
+        --speed: 0.5s;
+        --cubic-bezier: cubic-bezier(0.165, 0.84, 0.44, 1);
+        --fill-mode: forwards;
+        animation: wobbleIn 1s linear var(--fill-mode);
+
+
+        &::backdrop {
+            background: rgba(0, 0, 0, .7);
+        }
+
+        &.out {
+            animation: wobbleOut var(--speed) var(--cubic-bezier) var(--fill-mode);
+
+            &::backdrop {
+                background: rgba(0, 0, 0, .0);
+            }
+        }
+    }
+
+    @keyframes scaleUpIn {
+        0% {
+            transform: scale(0.8) translateY(1000px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scale(1) translateY(0px);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scaleUpOut {
+        0% {
+            transform: scale(1) translateY(0px);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(0.8) translateY(1000px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes scaleDownIn {
+        0% {
+            transform: scale(.8) translateY(-1000px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scale(1) translateY(0px);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scaleDownOut {
+        0% {
+            transform: scale(1) translateY(0px);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(0.8) translateY(-1000px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes scaleLeftIn {
+        0% {
+            transform: scale(0.8) translateX(1000px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scale(1) translateX(0px);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scaleLeftOut {
+        0% {
+            transform: scale(1) translateX(0px);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(0.8) translateX(-1000px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes scaleRightIn {
+        0% {
+            transform: scale(0.8) translateX(-1000px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scale(1) translateX(0px);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scaleRightOut {
+        0% {
+            transform: scale(1) translateX(0px);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(0.8) translateX(1000px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeIn {
+        0% {
+            background: rgba(0, 0, 0, .0);
+        }
+
+        100% {
+            background: rgba(0, 0, 0, .7);
+        }
+    }
+
+    @keyframes fadeOut {
+        0% {
+            background: rgba(0, 0, 0, .7);
+        }
+
+        100% {
+            background: rgba(0, 0, 0, .0);
+        }
+    }
+
+    @keyframes zoomIn {
+        0% {
+            transform: scale(0);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes zoomOut {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(0);
+        }
+
+        100% {
+            transform: scale(0);
+        }
+    }
+
+    @keyframes unfoldIn {
+        0% {
+            transform: scaleY(0.005) scaleX(0);
+        }
+
+        50% {
+            transform: scaleY(0.005) scaleX(1);
+        }
+
+        100% {
+            transform: scaleY(1) scaleX(1);
+        }
+    }
+
+    @keyframes unfoldOut {
+        0% {
+            transform: scaleY(1) scaleX(1);
+        }
+
+        50% {
+            transform: scaleY(0.005) scaleX(1);
+        }
+
+        99.9% {
+            transform: scaleY(0.005) scaleX(0);
+        }
+
+        100% {
+            transform: scaleY(0) scaleX(0);
+        }
+    }
+
+    @keyframes uncoverIn {
+        0% {
+            transform: translateY(150px);
+            opacity: 0
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1
+        }
+    }
+
+    @keyframes uncoverOut {
+        0% {
+            transform: translateY(0px);
+            opacity: 1
+        }
+
+        100% {
+            transform: translateY(150px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes blowUpIn {
+        0% {
+            transform: scale(0);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes blowUpOut {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(0);
+            opacity: 0;
+        }
+    }
+
+    @keyframes roadRunnerIn {
+        0% {
+            transform: translateX(-1500px) skewX(30deg) scaleX(1.3);
+        }
+
+        70% {
+            transform: translateX(30px) skewX(0deg) scaleX(0.9);
+        }
+
+        100% {
+            transform: translateX(0px) skewX(0deg) scaleX(1);
+        }
+    }
+
+    @keyframes roadRunnerOut {
+        0% {
+            transform: translateX(0px) skewX(0deg) scaleX(1);
+        }
+
+        30% {
+            transform: translateX(-30px) skewX(-5deg) scaleX(0.9);
+        }
+
+        100% {
+            transform: translateX(1500px) skewX(30deg) scaleX(1.3);
+        }
+    }
+
+    @keyframes roadRunnerRightIn {
+        0% {
+            transform: translateX(1500px) skewX(-30deg) scaleX(1.3);
+        }
+
+        70% {
+            transform: translateX(-30px) skewX(0deg) scaleX(0.9);
+        }
+
+        100% {
+            transform: translateX(0px) skewX(0deg) scaleX(1);
+        }
+    }
+
+    @keyframes roadRunnerRightOut {
+        0% {
+            transform: translateX(0px) skewX(0deg) scaleX(1);
+        }
+
+        30% {
+            transform: translateX(30px) skewX(5deg) scaleX(0.9);
+        }
+
+        100% {
+            transform: translateX(-1500px) skewX(-30deg) scaleX(1.3);
+        }
+    }
+
+    @keyframes tadaIn {
+        0% {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+
+        10%, 20% {
+            -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+            transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+        }
+
+        30%, 50%, 70%, 90% {
+            -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+            transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+        }
+
+        40%, 60%, 80% {
+            -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+            transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+        }
+
+        100% {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+    }
+
+    @keyframes tadaOut {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(0);
+            opacity: 0;
+        }
+    }
+
+    @keyframes shrinkIn {
+        0% {
+            transform: scale(1.5);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes shrinkOut {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(0);
+            opacity: 0;
+        }
+    }
+
+    @keyframes wobbleIn {
+        0% {
+            -webkit-transform: none;
+            -ms-transform: none;
+            transform: none
+        }
+
+        15% {
+            -webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+            -ms-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+            transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg)
+        }
+
+        30% {
+            -webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+            -ms-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+            transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg)
+        }
+
+        45% {
+            -webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+            -ms-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+            transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg)
+        }
+
+        60% {
+            -webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+            -ms-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+            transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg)
+        }
+
+        75% {
+            -webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+            -ms-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+            transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg)
+        }
+
+        100% {
+            -webkit-transform: none;
+            -ms-transform: none;
+            transform: none
+        }
+    }
+
+    @keyframes wobbleOut {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(0);
+            opacity: 0;
+        }
+    }
 }

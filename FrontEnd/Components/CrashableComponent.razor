@@ -1,0 +1,25 @@
+@if (shouldCrash)
+{
+    @ThrowException()
+}
+else
+{
+    <div>
+        <p>This component is inside the ErrorBoundary. Click 'Trigger component crash' to crash it.</p>
+    </div>
+}
+
+@code {
+    private bool shouldCrash = false;
+
+    public void TriggerCrash()
+    {
+        shouldCrash = true;
+        StateHasChanged();
+    }
+
+    private string ThrowException()
+    {
+        throw new InvalidOperationException();
+    }
+}

@@ -1,6 +1,6 @@
 ﻿@inject IDialogService DialogService
 
-<AppDialog>
+<AppDialog Animation="Animation">
     <ChildContent>
                 <h3>Test Dialog</h3>
                 <input @bind="Name" placeholder="Enter name..." />
@@ -13,6 +13,8 @@
 
 @code {
     private string Name = string.Empty;
+
+    [Parameter] public AppDialog.DialogAnimation Animation { get; set; }
 
     void Save()
     {

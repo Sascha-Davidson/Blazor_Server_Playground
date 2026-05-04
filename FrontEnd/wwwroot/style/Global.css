@@ -1,195 +1,11 @@
-/* Sora variable font normal
-------------------------------------------------- */
-@font-face {
-    font-family: 'Sora';
-    font-style: normal;
-    font-weight: 100 800; /* Range of weights for variable fonts */
-    font-display: swap;
-    src: url('https://example.com/font-variable.woff2') format('woff2-variations'), 
-         url('https://example.com/font-variable.woff') format('woff'), 
-         url('https://example.com/font-variable.ttf') format('truetype');
-}
-
-/* Sora fallback font normal
-------------------------------------------------- */
-@font-face {
-    font-family: 'Sora';
-    font-style: normal;
-    font-weight: 100;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdSn0-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdSn0-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdSn0-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: normal;
-    font-weight: 200;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSfSnk-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSfSnk-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSfSnk-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: normal;
-    font-weight: 300;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmScMnk-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmScMnk-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmScMnk-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdSnk-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdSnk-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdSnk-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: normal;
-    font-weight: 500;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdgnk-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdgnk-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdgnk-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSeMmU-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSeMmU-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSeMmU-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSe1mU-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSe1mU-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSe1mU-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: normal;
-    font-weight: 800;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSfSmU-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSfSmU-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSfSmU-DKQc.ttf) format('truetype');
-}
-
-/* Sora variable font italic
-------------------------------------------------- */
-@font-face {
-    font-family: 'Sora';
-    font-style: italic;
-    font-weight: 100 800; /* Range of weights for variable fonts */
-    font-display: swap;
-    src: url('https://example.com/font-variable.woff2') format('woff2-variations'), 
-         url('https://example.com/font-variable.woff') format('woff'), 
-         url('https://example.com/font-variable.ttf') format('truetype');
-}
-
-/* Sora fallback font italic
-------------------------------------------------- */
-@font-face {
-    font-family: 'Sora';
-    font-style: italic;
-    font-weight: 100;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdSn0-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdSn0-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdSn0-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: italic;
-    font-weight: 200;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSfSnk-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSfSnk-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSfSnk-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: italic;
-    font-weight: 300;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmScMnk-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmScMnk-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmScMnk-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: italic;
-    font-weight: 400;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdSnk-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdSnk-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdSnk-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: italic;
-    font-weight: 500;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdgnk-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdgnk-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSdgnk-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: italic;
-    font-weight: 600;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSeMmU-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSeMmU-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSeMmU-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: italic;
-    font-weight: 700;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSe1mU-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSe1mU-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSe1mU-DKQc.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Sora';
-    font-style: italic;
-    font-weight: 800;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSfSmU-DKQI.woff2) format('woff2'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSfSmU-DKQQ.woff) format('woff'), 
-         url(https://fonts.gstatic.com/s/sora/v11/xMQOuFFYT72X5wkB_18qmnndmSfSmU-DKQc.ttf) format('truetype');
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
 
 :root {
     /*color
     ------------------------------------------------- */
-    --color-primary: #6CFFD1;
+    --color-primary: #133416;
     --color-secondary: #133416;
     --color-tertiary: 235C28;
     --color-light: #f5f5f5;
@@ -339,19 +155,22 @@ body {
 ------------------------------------------------------------------- */
 
 #blazor-error-ui {
-    background: #11121a;
+    background: #b32121;
+    color: var(--color-light);
+    border-top: 1px solid #efefef;
+    position: fixed;
     bottom: 0;
+    left: 0;
     box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
     display: none;
-    left: 0;
     padding: 0.6rem 1.25rem 0.7rem 1.25rem;
-    position: fixed;
     width: 100%;
     z-index: 1000;
 }
 
     #blazor-error-ui .reload {
-        color: var(--color-primary);
+        margin: 2rem;
+        color: var(--color-light);
     }
 
     #blazor-error-ui .dismiss {

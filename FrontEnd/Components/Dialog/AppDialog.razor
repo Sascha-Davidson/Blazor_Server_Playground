@@ -1,5 +1,5 @@
 ﻿<dialog @ref="_dialog"
-        class="my-dialog"
+        class="@Animation.ToCssClass()"
         @onkeydown="HandleKeyDown"
         @oncancel="HandleNativeCancel">
     <div class="dialog-content">
@@ -22,8 +22,6 @@
     </div>
 </dialog>
 
-@implements IDisposable
-
 @code {
     private ElementReference _dialog;
     private DotNetObjectReference<AppDialog>? _dotNetRef;
@@ -33,6 +31,8 @@
     [Parameter] public RenderFragment ChildContent { get; set; } = default!;
     [Parameter] public RenderFragment? Footer { get; set; }
     [Parameter] public EventCallback OnClose { get; set; }
+
+    [Parameter] public DialogAnimation Animation { get; set; } = DialogAnimation.BlowUp;
 
     [Inject] private IJSRuntime JS { get; set; } = default!;
 
@@ -78,5 +78,46 @@
     public void Dispose()
     {
         _dotNetRef?.Dispose();
+    }
+
+    public enum DialogAnimation
+    {
+        None,
+
+        [CssClass("unfolding")]
+        Unfolding,
+
+        [CssClass("revealing-bottom")]
+        RevealingBottom,
+
+        [CssClass("revealing-top")]
+        RevealingTop,
+
+        [CssClass("revealing-left")]
+        RevealingLeft,
+
+        [CssClass("revealing-right")]
+        RevealingRight,
+
+        [CssClass("uncovering")]
+        Uncovering,
+
+        [CssClass("blow-up")]
+        BlowUp,
+
+        [CssClass("meep-meep")]
+        MeepMeep,
+
+        [CssClass("meep-meep-right")]
+        MeepMeepRight,
+
+        [CssClass("tada")]
+        Tada,
+
+        [CssClass("shrink")]
+        Shrink,
+
+        [CssClass("wobble")]
+        Wobble
     }
 }

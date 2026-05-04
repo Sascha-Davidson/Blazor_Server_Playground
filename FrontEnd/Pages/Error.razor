@@ -4,15 +4,8 @@
 <PageTitle>@Global.FullName</PageTitle>
 
 <div class="contact-details">
-    <h1><span class="primary-color">@Global.FirstName</span> @Global.LastName</h1>
 
-    <p>
-        ComingSoonForFurtherInformationPleaseContactMeAt
-        <br />
-        <a href="@Global.MailLink" class="primary-color">@Global.Mail</a>
-        &
-        <a href="@Global.PhoneLink" class="primary-color">@Global.Phone</a>
-    </p>
+    <h1>error component test</h1>
 
     <div class="btn-container">
         <button @onclick="TriggerCrash">Trigger component crashCrash</button>
@@ -21,33 +14,24 @@
 
     <ErrorBoundary>
         <ErrorContent>
-            <p class="blazor-error-boundary">An error has occurred. Please try again later.</p>
+            <p class="blazor-error-boundary">An error has occurred in the ErrorBoundary. Please try again later.</p>
         </ErrorContent>
         <ChildContent>
-            @if (shouldCrash)
-            {
-                throw new InvalidOperationException("Crash triggered via button.");
-            }
-            else
-            {
-                <p>This is a componenent sample</p>
-            }
+            <CrashableComponent @ref="crashableComponent" />
         </ChildContent>
     </ErrorBoundary>
 </div>
 
-
-
 @code {
+    private CrashableComponent? crashableComponent;
+
     private void TriggerPageCrash()
     {
-        throw new InvalidOperationException("This is a test crash.");
+        throw new InvalidOperationException();
     }
-
-    private bool shouldCrash = false;
 
     private void TriggerCrash()
     {
-        shouldCrash = true;
+        crashableComponent?.TriggerCrash();
     }
 }
