@@ -2,6 +2,7 @@
 using Microsoft.JSInterop;
 using Playground.FrontEnd.Base.Functions;
 using Playground.Services;
+using System.Linq.Expressions;
 
 namespace Playground.FrontEnd.Base
 {
@@ -57,5 +58,20 @@ namespace Playground.FrontEnd.Base
                 await _breakPoint.DisposeAsync();
             }
         }
+    }
+
+    public class EditorBase<T> : ComponentBase
+    {
+        [Parameter]
+        public T? Value { get; set; }
+
+        [Parameter]
+        public EventCallback<T?> ValueChanged { get; set; }
+
+        [Parameter]
+        public Expression<Func<T>>? Expression { get; set; }
+
+        [Parameter]
+        public bool Required { get; set; }
     }
 }

@@ -5,8 +5,13 @@
 
 <div class="contact-details">
     <h1>Home</h1>
+    
+    <AppEditor Expression="() => Test" @bind-Value="Test" Required />
+    
+    <TextEditor @bind-Value="Test" Required />
 </div>
 
 @code {
-
+    [Display(Name = "test")]
+    public string? Test { get; set; }
 }
