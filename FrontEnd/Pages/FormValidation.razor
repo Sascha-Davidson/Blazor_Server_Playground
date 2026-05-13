@@ -1,0 +1,77 @@
+﻿@page "/form-validation"
+
+<style>
+    form{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .validation-message{
+        color: red;
+    }
+    
+    input{
+        padding: .8rem;
+    }
+    
+    input[aria-invalid="true"]{
+        border: 1px solid red;
+    }
+
+    button{
+        width: fit-content;
+    }
+</style>
+
+<EditForm EditContext="@editContext" OnValidSubmit="HandleValid">
+    <DataAnnotationsValidator />
+
+    <InputText @bind-Value="person.Name"
+               @bind-Value:after="ValidateName" />
+
+    <ValidationMessage For="@(() => person.Name)" />
+
+    <button type="submit">Save</button>
+</EditForm>
+
+@code {
+    private Person person = new();
+
+    private EditContext editContext = default!;
+    private ValidationMessageStore messageStore = default!;
+
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(person);
+        messageStore = new ValidationMessageStore(editContext);
+    }
+
+    private async Task ValidateName()
+    {
+        var field = FieldIdentifier.Create(() => person.Name);
+
+        // remove old custom messages
+        messageStore.Clear(field);
+
+        // fake database check
+        await Task.Delay(300);
+
+        if (person.Name == "admin")
+        {
+            messageStore.Add(field, "This name is already in use.");
+        }
+
+        editContext.NotifyValidationStateChanged();
+    }
+
+    private void HandleValid()
+    {
+        Console.WriteLine("VALID");
+    }
+
+    public class Person
+    {
+        [Required]
+        public string? Name { get; set; }
+    }
+}

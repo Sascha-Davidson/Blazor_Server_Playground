@@ -1,0 +1,16 @@
+﻿@* <select class="app-select"
+        value="@Value"
+        @onchange="OnChange">
+    <button>@(CommonResources.Theme):<selectedcontent></selectedcontent></button>
+    @ChildContent
+
+    @foreach (var items in SelectList){
+        <option value="@ValueSelector(item)">
+            @OptionContent(item)
+        </option>
+    }
+</select>
+
+@code {
+
+} *@
