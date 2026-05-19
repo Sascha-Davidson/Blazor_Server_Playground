@@ -1,18 +1,19 @@
 ﻿@inherits EditorBase<string>
 
-<InputSelect class="app-select text-editor"
-             required="@Required"
-             id="@ID"
-             name="@Name"
-             placeholder="@PlaceHolder"
-             readonly="@ReadOnly"
-             disabled="@Disabled"
-             @bind-Value="Value"
-             @onchange="HandleInput"
-             @attributes="Attributes">
-    @* <button>@(CommonResources.Theme):<selectedcontent></selectedcontent></button> *@
-    @foreach (var item in SelectList)
-    {
-        <option value="@ValueSelector(item)">@OptionContent(item)</option>
-    }
-</InputSelect>
+<div class="editor-wrapper">
+    <InputSelect class="app-select text-editor"
+                 required="@Required"
+                 id="@ID"
+                 name="@Name"
+                 placeholder="@PlaceHolder"
+                 readonly="@ReadOnly"
+                 disabled="@Disabled"
+                 @bind-Value="Value"
+                 @attributes="Attributes">
+        <button><selectedcontent></selectedcontent></button>
+        @foreach (var item in SelectList)
+        {
+            <option value="@ValueSelector(item)">@OptionContent(item)</option>
+        }
+    </InputSelect>
+</div>

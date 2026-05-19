@@ -1,0 +1,77 @@
+.editor-wrapper ::deep select {
+    appearance: base-select;
+    padding: .75rem 1.2rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface-subtle);
+    color: black;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    min-width: 12ch;
+    width: fit-content;
+    cursor: pointer;
+
+    &:hover {
+        background-color: orange;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+}
+
+button {
+    background-color: transparent;
+    color: black;
+    border: none;
+    cursor: pointer;
+}
+
+.editor-wrapper ::deep ::picker(select) {
+    appearance: base-select;
+    background-color: var(--color-surface);
+    color: black;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+    margin: var(--spacing-sm) 0;
+    box-shadow: var(--shadow-lg);
+}
+
+selectedcontent,
+option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+option {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    color: var(--color-foreground);
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--color-surface-subtle);
+    }
+
+    &::checkmark {
+        display: none;
+    }
+
+    &:checked {
+        background-color: var(--color-default-bg);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .editor-wrapper ::deep select {
+        transition: background-color var(--transition-base) var(--cubic), border-color var(--transition-base) var(--cubic);
+    }
+
+    option {
+        transition: background-color var(--transition-base) var(--cubic);
+    }
+}

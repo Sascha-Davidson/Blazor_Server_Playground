@@ -3,6 +3,7 @@ using Microsoft.JSInterop;
 using Playground.FrontEnd.Base.Functions;
 using Playground.Services;
 using System.Linq.Expressions;
+using Playground.Lib.Extensions;
 
 namespace Playground.FrontEnd.Base
 {
@@ -74,8 +75,8 @@ namespace Playground.FrontEnd.Base
         [Parameter]
         public bool Required { get; set; }
 
-        [Parameter]
-        public int ID { get; set; }
+        [Parameter] 
+        public int ID { get; set; } = Guid.NewGuid().GetHashCode();
 
         [Parameter]
         public string? Name { get; set; }
