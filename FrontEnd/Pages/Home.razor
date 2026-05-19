@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Mvc.Rendering
 @inherits BaseComponent
 
 <PageTitle>@Global.FullName</PageTitle>
@@ -9,9 +10,19 @@
     <AppEditor Expression="() => Test" @bind-Value="Test" Required />
     
     <TextEditor @bind-Value="Test" Required />
+    
+    <SelectEditor Expression="() => Option" @bind-Value="Option" SelectList="SelectList" ValueSelector="x => x" />
 </div>
 
 @code {
     [Display(Name = "test")]
     public string? Test { get; set; }
+
+    private string? Option { get; set; }
+    private static IEnumerable<string> SelectList =>
+    [
+        "Option 1",
+        "Option 2",
+        "Option 3"
+    ];
 }

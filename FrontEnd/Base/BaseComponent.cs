@@ -73,5 +73,32 @@ namespace Playground.FrontEnd.Base
 
         [Parameter]
         public bool Required { get; set; }
+
+        [Parameter]
+        public int ID { get; set; }
+
+        [Parameter]
+        public string? Name { get; set; }
+
+        [Parameter]
+        public string? PlaceHolder { get; set; }
+
+        [Parameter]
+        public bool ReadOnly { get; set; }
+
+        [Parameter]
+        public bool Disabled { get; set; }
+
+        [Parameter(CaptureUnmatchedValues = true)]
+        public Dictionary<string, object>? Attributes { get; set; }
+
+        [Parameter]
+        public IEnumerable<T> SelectList { get; set; } = [];
+
+        [Parameter, EditorRequired]
+        public Func<T, string> ValueSelector { get; set; } = _ => string.Empty;
+
+        [Parameter, EditorRequired]
+        public RenderFragment<T> OptionContent { get; set; } = item => builder => builder.AddContent(0, item?.ToString());
     }
 }

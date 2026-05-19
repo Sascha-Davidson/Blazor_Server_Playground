@@ -1,6 +1,12 @@
 ﻿@inherits EditorBase<string>
 
-<input class="text-editor"
-       value="@Value"
-       required="@Required"
-       @oninput="HandleInput" />
+<InputText class="text-editor"
+           required="@Required"
+           id="@ID"
+           name="@Name"
+           placeholder="@PlaceHolder"
+           readonly="@ReadOnly"
+           disabled="@Disabled"
+           value="@Value"
+           @oninput="HandleInput"
+           @attributes="Attributes" />

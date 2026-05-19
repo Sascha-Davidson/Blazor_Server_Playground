@@ -1,16 +1,18 @@
-﻿@* <select class="app-select"
-        value="@Value"
-        @onchange="OnChange">
-    <button>@(CommonResources.Theme):<selectedcontent></selectedcontent></button>
-    @ChildContent
+﻿@inherits EditorBase<string>
 
-    @foreach (var items in SelectList){
-        <option value="@ValueSelector(item)">
-            @OptionContent(item)
-        </option>
+<InputSelect class="app-select text-editor"
+             required="@Required"
+             id="@ID"
+             name="@Name"
+             placeholder="@PlaceHolder"
+             readonly="@ReadOnly"
+             disabled="@Disabled"
+             @bind-Value="Value"
+             @onchange="HandleInput"
+             @attributes="Attributes">
+    @* <button>@(CommonResources.Theme):<selectedcontent></selectedcontent></button> *@
+    @foreach (var item in SelectList)
+    {
+        <option value="@ValueSelector(item)">@OptionContent(item)</option>
     }
-</select>
-
-@code {
-
-} *@
+</InputSelect>

@@ -1,5 +1,12 @@
 ﻿@inherits EditorBase<DateTime?>
 
-<InputDate class="date-editor"
-           Value="Value"
-           ValueChanged="ValueChanged" />
+<InputDate class="text-editor"
+           required="@Required"
+           id="@ID"
+           name="@Name"
+           placeholder="@PlaceHolder"
+           readonly="@ReadOnly"
+           disabled="@Disabled"
+           value="@Value"
+           ValueChanged="ValueChanged"
+           @attributes="Attributes" />
