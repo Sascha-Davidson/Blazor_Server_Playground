@@ -21,7 +21,12 @@ namespace Playground.Lib.Extensions
                     };
                 }
 
-                var resourceManager = (ResourceManager)displayAttribute.ResourceType?.GetProperty("ResourceManager")?.GetValue(null)!;
+                var resourceManager = (ResourceManager?)displayAttribute.ResourceType?.GetProperty("ResourceManager")?.GetValue(null);
+                if (resourceManager == null)
+                {
+                    return displayAttribute.Name;
+                }
+
                 var translatedString = resourceManager.GetString(displayAttribute.Name ?? "");
 
                 return translatedString != null && translatedString.IsNullOrEmpty() ? displayAttribute.Name : translatedString;

@@ -10,7 +10,7 @@
                  disabled="@Disabled"
                  @bind-Value="Value"
                  @attributes="Attributes">
-        <button><selectedcontent></selectedcontent></button>
+        @* <button><selectedcontent></selectedcontent></button> *@
         @foreach (var item in SelectList)
         {
             <option value="@ValueSelector(item)">@OptionContent(item)</option>

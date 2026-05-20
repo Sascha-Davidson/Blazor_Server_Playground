@@ -1,0 +1,24 @@
+div[data-orientation="auto"] {
+    display: grid;
+    grid-auto-flow: column;
+    gap: .5rem;
+    width: 600px;
+
+    & label {
+        margin: auto 0;
+        font-weight: bold;
+    }
+}
+
+
+div[data-orientation="vertical"] {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    width: 600px;
+
+    & label {
+        margin: auto 0;
+        font-weight: bold;
+    }
+}

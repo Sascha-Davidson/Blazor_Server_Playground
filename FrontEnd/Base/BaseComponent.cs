@@ -66,7 +66,7 @@ namespace Playground.FrontEnd.Base
 
     public class EditorBase<T> : ComponentBase
     {
-        [Parameter]
+        [Parameter, EditorRequired]
         public T? Value { get; set; }
 
         [Parameter]
@@ -105,10 +105,10 @@ namespace Playground.FrontEnd.Base
         [Parameter]
         public IEnumerable<T> SelectList { get; set; } = [];
 
-        [Parameter, EditorRequired]
+        [Parameter]
         public Func<T, string> ValueSelector { get; set; } = _ => string.Empty;
 
-        [Parameter, EditorRequired]
+        [Parameter]
         public RenderFragment<T> OptionContent { get; set; } = item => builder => builder.AddContent(0, item?.ToString());
 
         [Parameter]
@@ -141,12 +141,5 @@ namespace Playground.FrontEnd.Base
 
         private string? ExpressionName => ExpressionMember?.GetDisplayValue();
         public string? LabelText => Label ?? ExpressionName;
-
-        public enum RowOrientation
-        {
-            Auto,
-            Horizontal,
-            Vertical,
-        }
     }
 }

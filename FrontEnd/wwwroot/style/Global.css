@@ -37,13 +37,13 @@
     /*border radius
     ------------------------------------------------- */
     --radius: 1em;
-    --radius-xxs: calc(0.25 * var(--radius-unit));
-    --radius-xs: calc(0.5 * var(--radius-unit));
-    --radius-s: calc(0.75 * var(--radius-unit));
-    --radius-m: calc(1.25 * var(--radius-unit));
-    --radius-l: calc(2 * var(--radius-unit));
-    --radius-xl: calc(3.25 * var(--radius-unit));
-    --radius-xxl: calc(5.25 * var(--radius-unit));
+    --radius-xxs: calc(0.25 * var(--radius));
+    --radius-xs: calc(0.5 * var(--radius));
+    --radius-s: calc(0.75 * var(--radius));
+    --radius-m: calc(1.25 * var(--radius));
+    --radius-l: calc(2 * var(--radius));
+    --radius-xl: calc(3.25 * var(--radius));
+    --radius-xxl: calc(5.25 * var(--radius));
     /*border
     ------------------------------------------------- */
     --border-size: 0.06em; /* 1px */

@@ -24,6 +24,13 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
             if (EditorKey is null)
                 return typeof(TextEditor);
 
+            if (SelectList != null && SelectList.Any())
+            {
+                return UseBlazorInputs
+                    ? typeof(SelectEditor)
+                    : typeof(SelectEditor);
+            }
+
             // Runtime-dependent case
             if (EditorKey == "string")
             {
@@ -63,6 +70,9 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
             ["PlaceHolder"] = PlaceHolder,
             ["ReadOnly"] = ReadOnly,
             ["Disabled"] = Disabled,
+            ["SelectList"] = SelectList,
+            ["ValueSelector"] = ValueSelector,
+            ["OptionContent"] = OptionContent,
         };
 
     private bool IsRequired =>
