@@ -15,7 +15,8 @@ public partial class NavMenu
 {
     new NavItem { Text = "Home", Url = "", Icon = "bi-house-door-fill-nav-menu", Match = NavLinkMatch.All },
     new NavItem { Text = "Higllight en bleur", Url = "HighlightendBleur", Icon = "bi-plus-square-fill-nav-menu" },
-    new NavItem { Text = "error component test", Url = "error/test", Icon = "bi-list-nested-nav-menu" },
+    new NavItem { Text = "Error component test", Url = "error/test", Icon = "bi-list-nested-nav-menu" },
     new NavItem { Text = "Dialog component", Url = "Dialog-Component", Icon = "bi-list-nested-nav-menu" },
+    new NavItem { Text = "Editor test room", Url = "Editor-test-room", Icon = "bi-list-nested-nav-menu"},
 };
 }
