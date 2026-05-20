@@ -55,6 +55,9 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
 
         ["bool"] = typeof(CheckboxEditor),
         ["boolean"] = typeof(CheckboxEditor),
+
+        ["int"] = typeof(NumberEditor),
+        ["int32"] = typeof(NumberEditor),
     };
 
     private Dictionary<string, object?> Parameters =>

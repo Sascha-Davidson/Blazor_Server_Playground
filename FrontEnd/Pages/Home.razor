@@ -18,6 +18,8 @@
 
     <AppRow Expression="() => Option" @bind-Value="Option" Orientation="RowOrientation.Vertical" SelectList="SelectList" ValueSelector="x => x" />
 
+    <AppRow Expression="() => Test3" @bind-Value="Test3" />
+
     <style>
         select{
                 padding: .75rem 1.2rem;
@@ -45,6 +47,9 @@
 
     [Display(Name = "test"), Required]
     public string? Test2 { get; set; }
+
+    [Display(Name = "test")]
+    public int Test3 { get; set; }
 
     private string? Option { get; set; }
     private static IEnumerable<string> SelectList =>

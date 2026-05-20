@@ -1,15 +1,15 @@
-﻿@inherits EditorBase<string>
+﻿@inherits EditorBase<int>
 
-<InputText class="text-editor"
-           required="@Required"
-           id="@ID"
-           name="@Name"
-           placeholder="@PlaceHolder"
-           readonly="@ReadOnly"
-           disabled="@Disabled"
-           min="@RangeMin?.ToInvariantString()"
-           max="@RangeMax?.ToInvariantString()"
-           Value="@Value"
-           ValueChanged="@(v => ValueChanged.InvokeAsync(v))"
-           ValueExpression="@(() => Value)"
-           @attributes="Attributes" />
+<div>
+    <InputNumber class="text-editor"
+                 required="@Required"
+                 id="@ID"
+                 name="@Name"
+                 placeholder="@PlaceHolder"
+                 readonly="@ReadOnly"
+                 disabled="@Disabled"
+                 Value="@Value"
+                 ValueChanged="@ValueChanged"
+                 ValueExpression="@Expression"
+                 @attributes="Attributes" />
+</div>
