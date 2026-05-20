@@ -1,23 +1,13 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Playground.FrontEnd.Base;
+using Playground.Lib.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
-using Microsoft.AspNetCore.Components.Forms;
 
 namespace Playground.FrontEnd.Components.Inputs;
-public partial class AppEditor<TValue>
+public partial class AppEditor<TValue> : EditorBase<TValue>
 {
-    [Parameter]
-    public TValue? Value { get; set; }
-
-    [Parameter]
-    public EventCallback<TValue?> ValueChanged { get; set; }
-
-    [Parameter]
-    public Expression<Func<TValue>>? Expression { get; set; }
-
-    [Parameter] 
-    public bool Required { get; set; }
-
     [Parameter] 
     public bool? ForceBlazor { get; set; }
 
@@ -27,19 +17,37 @@ public partial class AppEditor<TValue>
     private bool UseBlazorInputs =>
         ForceBlazor ?? (EditContext is not null);
 
-    private Type ResolvedComponent => typeof(TValue) switch
+    private Type ResolvedComponent
     {
-        var t when t == typeof(string)
-            => UseBlazorInputs
-                ? typeof(TextEditor)
-                : typeof(TextEditor),
+        get
+        {
+            if (EditorKey is null)
+                return typeof(TextEditor);
 
-        var t when t == typeof(DateTime)
-            => UseBlazorInputs
-                ? typeof(DateEditor)
-                : typeof(DateEditor),
+            // Runtime-dependent case
+            if (EditorKey == "string")
+            {
+                return UseBlazorInputs
+                    ? typeof(TextEditor)
+                    : typeof(TextEditor);
+            }
 
-        _ => typeof(DateEditor)
+            return EditorMap.TryGetValue(EditorKey, out var component)
+                ? component
+                : typeof(TextEditor);
+        }
+    }
+
+    private static readonly Dictionary<string, Type> EditorMap = new()
+    {
+        ["text"] = typeof(TextEditor),
+        ["textbox"] = typeof(TextEditor),
+
+        ["datetime"] = typeof(DateEditor),
+        ["date"] = typeof(DateEditor),
+
+        ["bool"] = typeof(CheckboxEditor),
+        ["boolean"] = typeof(CheckboxEditor),
     };
 
     private Dictionary<string, object?> Parameters =>
@@ -49,6 +57,12 @@ public partial class AppEditor<TValue>
             ["ValueChanged"] = ValueChanged,
             ["Expression"] = Expression,
             ["Required"] = IsRequired,
+            ["Style"] = CheckboxStyle,
+            ["ID"] = ID,
+            ["Name"] = Name,
+            ["PlaceHolder"] = PlaceHolder,
+            ["ReadOnly"] = ReadOnly,
+            ["Disabled"] = Disabled,
         };
 
     private bool IsRequired =>

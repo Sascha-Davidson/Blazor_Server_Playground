@@ -22,7 +22,7 @@ namespace Playground.Lib.Extensions
             public string GetDisplayName()
             {
                 var member = value.GetType().GetMember(value.ToString()).FirstOrDefault();
-                
+
                 if (member == null)
                     return $"[Undefined: {value}]";
 
@@ -31,7 +31,7 @@ namespace Playground.Lib.Extensions
                 if (attr == null)
                     return value.ToString();
 
-                if (attr.ResourceType == null) 
+                if (attr.ResourceType == null)
                     return attr.Name ?? value.ToString();
 
                 var prop = attr.ResourceType.GetProperty(attr.Name);
@@ -39,6 +39,16 @@ namespace Playground.Lib.Extensions
                     return prop.GetValue(null)?.ToString() ?? value.ToString();
 
                 return attr.Name ?? value.ToString();
+            }
+        }
+
+        extension<T>(IEnumerable<T> items)
+        {
+            public string JoinAsString(string separator = " ")
+            {
+#pragma warning disable DebitanW002
+                return string.Join(separator, items);
+#pragma warning restore DebitanW002
             }
         }
     }

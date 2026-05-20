@@ -1,0 +1,33 @@
+@inherits EditorBase<bool>
+
+<div class="checkbox-editor">
+    @if (Style == CheckboxStyle.Slider)
+    {
+        <label class="slider-label">
+            <InputCheckbox id="@ID"
+                   name="@Name"
+                   disabled="@Disabled"
+                   checked="@Value"
+                   Value="@Value"
+                   ValueChanged="@ValueChanged"
+                   ValueExpression="@Expression"
+                   @attributes="Attributes" />
+            <span class="slider-track">
+                <span class="slider-thumb"></span>
+            </span>
+        </label>
+    }
+    else
+    {
+        <label class="box-label">
+            <InputCheckbox id="@ID"
+                   name="@Name"
+                   disabled="@Disabled"
+                   checked="@Value"
+                   Value="@Value"
+                   ValueChanged="@ValueChanged"
+                   ValueExpression="@Expression"
+                   @attributes="Attributes" />
+        </label>
+    }
+</div>

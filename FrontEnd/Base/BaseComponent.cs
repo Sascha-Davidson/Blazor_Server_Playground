@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Playground.FrontEnd.Base.Functions;
-using Playground.Services;
-using System.Linq.Expressions;
+using Playground.Lib.Enums;
 using Playground.Lib.Extensions;
+using Playground.Services;
+using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Playground.FrontEnd.Base
 {
@@ -25,7 +28,7 @@ namespace Playground.FrontEnd.Base
         protected QueryHelper QueryHelper => _queryHelper ??= new QueryHelper(Navigation);
 
         protected int CurrentWidth => _breakPoint?.CurrentWidth ?? 0;
-        
+
         [Parameter]
         public int DefaultBreakpoint { get; set; } = 800;
 
@@ -75,7 +78,7 @@ namespace Playground.FrontEnd.Base
         [Parameter]
         public bool Required { get; set; }
 
-        [Parameter] 
+        [Parameter]
         public int ID { get; set; } = Guid.NewGuid().GetHashCode();
 
         [Parameter]
@@ -90,6 +93,12 @@ namespace Playground.FrontEnd.Base
         [Parameter]
         public bool Disabled { get; set; }
 
+        [Parameter]
+        public T? MinValue { get; set; }
+
+        [Parameter]
+        public T? MaxValue { get; set; }
+
         [Parameter(CaptureUnmatchedValues = true)]
         public Dictionary<string, object>? Attributes { get; set; }
 
@@ -101,5 +110,43 @@ namespace Playground.FrontEnd.Base
 
         [Parameter, EditorRequired]
         public RenderFragment<T> OptionContent { get; set; } = item => builder => builder.AddContent(0, item?.ToString());
+
+        [Parameter]
+        public CheckboxStyle CheckboxStyle { get; set; } = CheckboxStyle.Box;
+
+        public MemberInfo? ExpressionMember => (Expression?.Body as MemberExpression)?.Member;
+
+        public DataTypeAttribute? DataTypeAttribute => ExpressionMember?.GetCustomAttribute<DataTypeAttribute>();
+        public RangeAttribute? RangeAttribute => ExpressionMember?.GetCustomAttribute<RangeAttribute>();
+        public MaxLengthAttribute? MaxLengthAttribute => ExpressionMember?.GetCustomAttribute<MaxLengthAttribute>();
+
+        public decimal? RangeMin => (RangeAttribute?.Minimum != null ? Convert.ToDecimal(RangeAttribute.Minimum) : Convert.ToDecimal(MinValue)).NullIfEquals(0);
+        public decimal? RangeMax => (RangeAttribute?.Maximum != null ? Convert.ToDecimal(RangeAttribute.Maximum) : Convert.ToDecimal(MaxValue)).NullIfEquals(0);
+
+        private readonly Type _modelType = typeof(T);
+        public string? EditorKey => (DataTypeAttribute?.CustomDataType ?? DataTypeAttribute?.DataType.ToString() ?? _modelType.Name)?.ToLowerInvariant();
+
+    }
+
+    public class EditorRowBase<T> : EditorBase<T>
+    {
+        [Parameter]
+        public string? Label { get; set; }
+
+        [Parameter]
+        public bool? ForceBlazor { get; set; }
+
+        [Parameter]
+        public RowOrientation Orientation { get; set; } = RowOrientation.Auto;
+
+        private string? ExpressionName => ExpressionMember?.GetDisplayValue();
+        public string? LabelText => Label ?? ExpressionName;
+
+        public enum RowOrientation
+        {
+            Auto,
+            Horizontal,
+            Vertical,
+        }
     }
 }

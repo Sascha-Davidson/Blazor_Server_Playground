@@ -1,0 +1,94 @@
+.checkbox-editor {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* ── Box style ─────────────────────────────────── */
+.box-label {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.box-label input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--color-primary, #f60);
+    cursor: pointer;
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: .5;
+    }
+}
+
+.box-text {
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+}
+
+/* ── Slider style ───────────────────────────────── */
+.slider-label {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.slider-label input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider-track {
+    position: relative;
+    display: inline-block;
+    width: 2.8rem;
+    height: 1.55rem;
+    border-radius: var(--radius-full, 9999px);
+    background-color: var(--color-border, #ccc);
+    transition: background-color .2s ease;
+    flex-shrink: 0;
+}
+
+.slider-thumb {
+    position: absolute;
+    top: .2rem;
+    left: .2rem;
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+    transition: transform .2s ease;
+}
+
+.slider-label input[type="checkbox"]:checked + .slider-track {
+    background-color: var(--color-primary, #f60);
+}
+
+.slider-label input[type="checkbox"]:checked + .slider-track .slider-thumb {
+    transform: translateX(1.25rem);
+}
+
+.slider-label input[type="checkbox"]:focus-visible + .slider-track {
+    outline: 2px solid var(--color-primary, #f60);
+    outline-offset: 2px;
+}
+
+.slider-label input[type="checkbox"]:disabled + .slider-track {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.slider-text {
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+}
