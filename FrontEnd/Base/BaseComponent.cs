@@ -114,6 +114,9 @@ namespace Playground.FrontEnd.Base
         [Parameter]
         public CheckboxStyle CheckboxStyle { get; set; } = CheckboxStyle.Box;
 
+        [Parameter]
+        public CheckboxStyle Style { get; set; } = CheckboxStyle.Box;
+
         public MemberInfo? ExpressionMember => (Expression?.Body as MemberExpression)?.Member;
 
         public DataTypeAttribute? DataTypeAttribute => ExpressionMember?.GetCustomAttribute<DataTypeAttribute>();
