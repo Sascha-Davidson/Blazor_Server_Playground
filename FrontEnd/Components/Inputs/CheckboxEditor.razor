@@ -5,13 +5,12 @@
     {
         <label class="slider-label">
             <InputCheckbox id="@ID"
-                   name="@Name"
-                   disabled="@Disabled"
-                   checked="@Value"
-                   Value="@Value"
-                   ValueChanged="@ValueChanged"
-                   ValueExpression="@Expression"
-                   @attributes="Attributes" />
+                           name="@Name"
+                           disabled="@Disabled"
+                           checked="@Value"
+                           data-DataType="@EditorKey"
+                           @bind-Value="Value"
+                           @attributes="Attributes" />
             <span class="slider-track">
                 <span class="slider-thumb"></span>
             </span>
@@ -21,13 +20,12 @@
     {
         <label class="box-label">
             <InputCheckbox id="@ID"
-                   name="@Name"
-                   disabled="@Disabled"
-                   checked="@Value"
-                   Value="@Value"
-                   ValueChanged="@ValueChanged"
-                   ValueExpression="@Expression"
-                   @attributes="Attributes" />
+                           name="@Name"
+                           disabled="@Disabled"
+                           checked="@Value"
+                           data-DataType="@EditorKey"
+                           @bind-Value="Value"
+                           @attributes="Attributes" />
         </label>
     }
 </div>

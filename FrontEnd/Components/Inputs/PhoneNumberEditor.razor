@@ -1,6 +1,6 @@
-﻿@inherits EditorBase<DateTime?>
+﻿@inherits EditorBase<string?>
 
-<InputDate class="text-editor"
+<InputText class="text-editor"
            required="@Required"
            id="@ID"
            name="@Name"
@@ -9,5 +9,4 @@
            disabled="@Disabled"
            data-DataType="@EditorKey"
            @bind-Value="Value"
-           Type="InputDateType.DateTimeLocal"
            @attributes="Attributes" />

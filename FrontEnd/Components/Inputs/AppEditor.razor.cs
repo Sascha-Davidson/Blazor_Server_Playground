@@ -50,14 +50,34 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
         ["text"] = typeof(TextEditor),
         ["textbox"] = typeof(TextEditor),
 
-        ["datetime"] = typeof(DateEditor),
+        ["datetime"] = typeof(DateTimeEditor),
+
         ["date"] = typeof(DateEditor),
+        
+        ["time"] = typeof(TimeEditor),
 
         ["bool"] = typeof(CheckboxEditor),
         ["boolean"] = typeof(CheckboxEditor),
 
         ["int"] = typeof(NumberEditor),
+        ["int16"] = typeof(NumberEditor),
         ["int32"] = typeof(NumberEditor),
+        ["int64"] = typeof(NumberEditor),
+        ["uint16"] = typeof(NumberEditor),
+        ["uint32"] = typeof(NumberEditor),
+        ["uint64"] = typeof(NumberEditor),
+
+        ["currency"] = typeof(CurrencyEditor),
+
+        ["range"] = typeof(RangeEditor),
+
+        ["password"] = typeof(PasswordEditor),
+
+        ["email"] = typeof(EMailEditor),
+
+        ["phone"] = typeof(PhoneNumberEditor),
+
+        ["textarea"] = typeof(TextAreaEditor),
     };
 
     private Dictionary<string, object?> Parameters =>

@@ -1,0 +1,15 @@
+﻿@inherits EditorBase<string>
+
+<div>
+    <InputTextArea class="text-editor"
+                   required="@Required"
+                   id="@ID"
+                   name="@Name"
+                   placeholder="@PlaceHolder"
+                   readonly="@ReadOnly"
+                   disabled="@Disabled"
+                   maxlength="@MaxLengthAttribute?.Length"
+                   data-DataType="@EditorKey"
+                   @bind-Value="Value"
+                   @attributes="Attributes" />
+</div>
