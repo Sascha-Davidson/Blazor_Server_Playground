@@ -154,3 +154,43 @@ window.blazorDialog = {
         }
     }
 };
+
+window.showPopover = (inputEl, popoverEl) => {
+    if (popoverEl && popoverEl.showPopover) {
+        popoverEl.showPopover();
+
+        // Position the popover relative to the input element
+        const rect = inputEl.getBoundingClientRect();
+        popoverEl.style.top = `${rect.bottom + window.scrollY}px`;
+        popoverEl.style.left = `${rect.left + window.scrollX}px`;
+        popoverEl.style.width = `${rect.width}px`;
+    }
+};
+
+window.hidePopover = (popoverEl) => {
+    if (popoverEl && popoverEl.hidePopover) {
+        try {
+            popoverEl.hidePopover();
+        } catch (e) {
+            // Popover might already be hidden
+            console.debug('Popover already hidden');
+        }
+    }
+};
+
+        document.addEventListener("keydown", function(e) {
+            const el = e.target;
+
+            if (!el.matches('input[data-datatype="currency"]')) return;
+
+            const allowedKeys = [
+                "Backspace", "Tab", "ArrowLeft", "ArrowRight", "Delete"
+            ];
+
+            if (allowedKeys.includes(e.key)) return;
+
+            // allow digits and allowed symbols
+            if (!/[0-9.,\/]/.test(e.key)) {
+                e.preventDefault();
+            }
+        });

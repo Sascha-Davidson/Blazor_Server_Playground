@@ -1,0 +1,95 @@
+﻿@inherits EditorBase<string>
+
+<CascadingValue Value="this">
+    <div class="popover-wrapper">
+        <input type="search"
+               class="search-editor"
+               readonly="@ReadOnly"
+               disabled="@Disabled"
+               name="@Name"
+               @ref="InputRef"
+               @bind="Value"
+               @bind:event="oninput"
+               @onfocus="ShowPopover"
+               @onblur="HidePopover"
+               @onkeydown="HandleKeyDown"
+               id="@ID"
+               placeholder="Type to search..." />
+    </div>
+    @if (Popover && Items != null)
+    {
+        @if (CustomPopover == null)
+        {
+            <Popover />
+        }
+        else
+        {
+            <Popover>
+                @CustomPopover
+            </Popover>
+        }
+    }
+</CascadingValue>
+
+    @code {
+    [Parameter] 
+    public bool Popover { get; set; }
+
+    [Parameter] 
+    public List<string> Items { get; set; } = [];
+
+    [Parameter]
+    public RenderFragment<(string Item, bool IsSelected)>? CustomPopover { get; set; }
+
+    public string? SelectedValue { get; set; }
+    public Popover? PopoverInstance { get; set; }
+    public int SelectedIndex { get; set; } = -1;
+
+    private ElementReference InputRef;
+
+    public List<string> FilteredItems => Items
+        .Where(x => string.IsNullOrEmpty(Value) || Levenshtein.IsFuzzyMatch(x, Value))
+        .ToList();
+
+    public void SetValue(string value)
+    {
+        SelectedValue = value;
+        StateHasChanged();
+    }
+
+    public async Task SelectItem(string item)
+    {
+        Value = item;
+        SelectedIndex = -1;
+        if (PopoverInstance != null)
+            await PopoverInstance.HideAsync();
+        StateHasChanged();
+    }
+
+    private async Task ShowPopover()
+    {
+        if (PopoverInstance != null)
+            await PopoverInstance.ShowAsync(InputRef);
+    }
+
+    private async Task HidePopover()
+    {
+        await Task.Delay(100); // allow clicks
+        if (PopoverInstance != null)
+            await PopoverInstance.HideAsync();
+        SelectedIndex = -1;
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        var filtered = FilteredItems;
+        if (filtered.Count == 0) return;
+
+        if (e.Key == "ArrowDown")
+            SelectedIndex = (SelectedIndex + 1) % filtered.Count;
+        else if (e.Key == "ArrowUp")
+            SelectedIndex = (SelectedIndex - 1 + filtered.Count) % filtered.Count;
+        else if (e.Key == "Enter" && SelectedIndex >= 0)
+            await SelectItem(filtered[SelectedIndex]);
+    }
+}

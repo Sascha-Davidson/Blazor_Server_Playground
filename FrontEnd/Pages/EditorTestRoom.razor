@@ -17,6 +17,11 @@
 
     <AppRow Expression="() => Test3" @bind-Value="Test3" />
 
+    <SearchEditor @bind-Value="Test2" Items="@items" Popover/>
+
+    <AppRow Expression="() => Test4" @bind-Value="Test4" />
+
+
     <style>
             select {
                 padding: .75rem 1.2rem;
@@ -30,7 +35,6 @@
 
     <InputSelect class="app-select text-editor"
                  @bind-Value="Option">
-        @* <button><selectedcontent></selectedcontent></button> *@
         @foreach (var item in SelectList)
         {
             <option value="@item">@item</option>
@@ -48,6 +52,9 @@
     [Display(Name = "test")]
     public int Test3 { get; set; }
 
+    [DataType("currency")]
+    public decimal? Test4 { get; set; }
+
     private string? Option { get; set; }
     private static IEnumerable<string> SelectList =>
     [
@@ -55,4 +62,7 @@
         "Option 2",
         "Option 3"
     ];
+
+    private List<string> items = ["Apple", "Banana", "Cherry", "Date", "Elderberry"];
+
 }

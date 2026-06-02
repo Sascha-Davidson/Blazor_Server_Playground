@@ -1,0 +1,22 @@
+﻿@inject IJSRuntime JS
+
+<ul @ref="PopoverRef" popover="manual" @onmousedown:preventDefault>
+    @for (int i = 0; i < SearchParent.FilteredItems.Count; i++)
+    {
+        var item = SearchParent.FilteredItems[i];
+        var index = i;
+        var isSelected = index == SearchParent.SelectedIndex;
+
+        <li @onclick="() => SearchParent.SelectItem(item)"
+            class="@(isSelected ? "selected" : "")">
+            @if (ChildContent != null)
+            {
+                @ChildContent((item, isSelected))
+            }
+            else
+            {
+                @item
+            }
+        </li>
+    }
+</ul>

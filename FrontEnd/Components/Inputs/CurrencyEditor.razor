@@ -1,12 +1,52 @@
-﻿@inherits EditorBase<decimal?>
+﻿@using System.Globalization
+@inherits EditorBase<decimal?>
 
-<InputNumber class="text-editor"
-             required="@Required"
-             id="@ID"
-             name="@Name"
-             placeholder="@PlaceHolder"
-             readonly="@ReadOnly"
-             disabled="@Disabled"
-             data-DataType="@EditorKey"
-             @bind-Value="Value"
-             @attributes="Attributes" />
+<div>
+    <input type="text"
+           inputmode="decimal"
+           class="text-editor"
+           required="@Required"
+           id="@ID"
+           name="@Name"
+           placeholder="@PlaceHolder"
+           readonly="@ReadOnly"
+           disabled="@Disabled"
+           data-DataType="@EditorKey"
+           value="@DisplayValue"
+           @onfocus="HandleFocus"
+           @onblur="HandleBlur"
+           @oninput="HandleInput"
+           @attributes="Attributes" />
+</div>
+
+@code {
+    private bool _isEditing;
+    private static readonly CultureInfo DutchCulture = new("nl-NL");
+    private string DisplayValue =>
+    _isEditing
+        ? Value?.ToString("0.##", DutchCulture) ?? ""
+        : Value?.ToString("C2", DutchCulture) ?? "";
+
+    private void HandleFocus(FocusEventArgs args)
+    {
+        _isEditing = true;
+        StateHasChanged();
+    }
+
+    private void HandleBlur(FocusEventArgs args)
+    {
+        _isEditing = false;
+        StateHasChanged();
+    }
+
+    private async Task HandleInput(ChangeEventArgs args)
+    {
+        if (decimal.TryParse(
+                args.Value?.ToString(),
+                out var result))
+        {
+            Value = result;
+            await ValueChanged.InvokeAsync(result);
+        }
+    }
+}

@@ -1,0 +1,33 @@
+ul[popover] {
+    position: fixed;
+    inset-block-start: anchor(bottom); /* below input */
+    inset-inline-start: anchor(left); /* align left */
+
+    margin-top: 1rem;
+    min-width: anchor-size(width);
+    list-style: none;
+    padding: .5rem;
+    border-radius: .5rem;
+    overflow-y: auto;
+    z-index: 1000;
+    position-anchor: --search-anchor;
+    background-color: var(--color-gray-000);
+    box-shadow: var(--shadow);
+    max-height: 45vh;
+    overflow-y: auto;
+    border: none;
+
+    & li {
+        padding: .5rem 1rem;
+        border-radius: 3px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--color-surface-subtle);
+        }
+
+        &.selected {
+            background-color: var(--color-surface-subtle);
+        }
+    }
+}
