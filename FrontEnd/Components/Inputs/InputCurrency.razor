@@ -1,0 +1,9 @@
+﻿@inherits InputBase<decimal?>
+
+<input type="text" 
+       @attributes="AdditionalAttributes"
+       class="@CssClass"
+       value="@_inputText"
+       @oninput="HandleInput"
+       @onfocus="HandleFocus"
+       @onblur="HandleBlur" />
