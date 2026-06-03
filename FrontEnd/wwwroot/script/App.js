@@ -9,8 +9,18 @@ window.isDesktop = () => {
     return !isMobileOrTablet;
 }
 
+window.selectInputText = (element) => {
+    if (!element) return;
+
+    element.focus();
+
+    if (typeof element.select === 'function') {
+        element.select();
+    }
+};
+
 window.copyToClipboard = async (text) => {
-        await navigator.clipboard.writeText(text);
+    await navigator.clipboard.writeText(text);
 };
 
 window.responsiveLayout = (function () {
@@ -182,19 +192,19 @@ window.hidePopover = (popoverEl) => {
     }
 };
 
-        document.addEventListener("keydown", function(e) {
-            const el = e.target;
+document.addEventListener("keydown", function (e) {
+    const el = e.target;
 
-            if (!el.matches('input[data-datatype="currency"]')) return;
+    if (!el.matches('input[data-datatype="currency"]')) return;
 
-            const allowedKeys = [
-                "Backspace", "Tab", "ArrowLeft", "ArrowRight", "Delete"
-            ];
+    const allowedKeys = [
+        "Backspace", "Tab", "ArrowLeft", "ArrowRight", "Delete"
+    ];
 
-            if (allowedKeys.includes(e.key)) return;
+    if (allowedKeys.includes(e.key)) return;
 
-            // allow digits and allowed symbols
-            if (!/[0-9.,\/]/.test(e.key)) {
-                e.preventDefault();
-            }
-        });
+    // allow digits and allowed symbols
+    if (!/[0-9.,\/]/.test(e.key)) {
+        e.preventDefault();
+    }
+});

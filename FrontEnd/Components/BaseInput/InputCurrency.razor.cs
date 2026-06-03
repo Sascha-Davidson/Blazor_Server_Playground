@@ -1,14 +1,19 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using System.Globalization;
 
-namespace Playground.FrontEnd.Components.Inputs;
+namespace Playground.FrontEnd.Components.BaseInput;
 
 public partial class InputCurrency : InputBase<decimal?>
 {
     private bool _isFocused;
     private string _inputText = string.Empty;
+    private ElementReference _inputElement;
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
 
     // Called once when the component first renders, or when Value changes externally
     protected override void OnParametersSet()
@@ -20,13 +25,20 @@ public partial class InputCurrency : InputBase<decimal?>
             _inputText = FormatForDisplay(CurrentValue);
     }
 
-    private void HandleFocus(FocusEventArgs _)
+    private async Task HandleFocus(FocusEventArgs _)
     {
         _isFocused = true;
         // Switch to plain numeric text so the user can edit freely
         _inputText = CurrentValue.HasValue
             ? CurrentValue.Value.ToString("0.00", CultureInfo.CurrentCulture)
             : string.Empty;
+
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+
+        // Auto-select the text
+        if (CurrentValue.HasValue)
+            await JSRuntime.InvokeVoidAsync("selectInputText", _inputElement);
     }
 
     private void HandleBlur(FocusEventArgs _)

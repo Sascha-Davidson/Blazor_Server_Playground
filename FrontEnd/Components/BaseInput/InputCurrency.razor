@@ -1,6 +1,7 @@
 ﻿@inherits InputBase<decimal?>
 
-<input type="text" 
+<input @ref="_inputElement"
+       type="text" 
        @attributes="AdditionalAttributes"
        class="@CssClass"
        value="@_inputText"
