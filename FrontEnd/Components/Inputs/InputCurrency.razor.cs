@@ -9,7 +9,6 @@ public partial class InputCurrency : InputBase<decimal?>
 {
     private bool _isFocused;
     private string _inputText = string.Empty;
-    private static readonly CultureInfo DutchCulture = new("nl-NL");
 
     // Called once when the component first renders, or when Value changes externally
     protected override void OnParametersSet()
@@ -26,7 +25,7 @@ public partial class InputCurrency : InputBase<decimal?>
         _isFocused = true;
         // Switch to plain numeric text so the user can edit freely
         _inputText = CurrentValue.HasValue
-            ? CurrentValue.Value.ToString("0.##", DutchCulture)
+            ? CurrentValue.Value.ToString("0.00", CultureInfo.CurrentCulture)
             : string.Empty;
     }
 
@@ -56,15 +55,20 @@ public partial class InputCurrency : InputBase<decimal?>
             return;
         }
 
-        if (decimal.TryParse(_inputText, NumberStyles.Number, DutchCulture, out var parsed))
+        if (decimal.TryParse(_inputText, NumberStyles.Number, CultureInfo.CurrentCulture, out var parsed))
             CurrentValue = parsed;
         // If it doesn't parse yet (e.g. user just typed "12,") leave CurrentValue alone
     }
 
     private static string FormatForDisplay(decimal? value) =>
         value.HasValue
-            ? value.Value.ToString("C", DutchCulture)
+            ? value.Value.ToString("C", GetSpecificCulture(CultureInfo.CurrentCulture))
             : string.Empty;
+
+    private static CultureInfo GetSpecificCulture(CultureInfo culture) =>
+        culture.IsNeutralCulture
+            ? CultureInfo.CreateSpecificCulture(culture.Name)
+            : culture;
 
     // Still required by InputBase — only used if you ever call base rendering
     protected override string? FormatValueAsString(decimal? value) =>
@@ -82,7 +86,7 @@ public partial class InputCurrency : InputBase<decimal?>
             return true;
         }
 
-        if (decimal.TryParse(value, NumberStyles.Number, DutchCulture, out var parsed))
+        if (decimal.TryParse(value, NumberStyles.Number, CultureInfo.CurrentCulture, out var parsed))
         {
             result = parsed;
             validationErrorMessage = null;

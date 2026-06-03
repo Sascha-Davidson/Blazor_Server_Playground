@@ -39,14 +39,19 @@ var supportedCultures = new[]
     new CultureInfo("en"),
 };
 
-var localizationOptions = new RequestLocalizationOptions
+app.UseRequestLocalization(options =>
 {
-    DefaultRequestCulture = new RequestCulture("en"),
-    SupportedCultures = supportedCultures,
-    SupportedUICultures = supportedCultures
-};
-
-app.UseRequestLocalization(localizationOptions);
+    options.DefaultRequestCulture = new RequestCulture("en");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+    options.FallBackToParentCultures = true;
+    options.FallBackToParentUICultures = true;
+    options.RequestCultureProviders = new List<IRequestCultureProvider>
+    {
+        new UserAccountCultureProvider(),
+        new AcceptLanguageHeaderRequestCultureProvider(),
+    };
+});
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
