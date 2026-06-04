@@ -1,7 +1,7 @@
 ﻿@inherits EditorBase<string?>
 
 <div>
-    <InputEmail class="text-editor"
+    <InputPhone class="text-editor"
                 required="@Required"
                 id="@ID"
                 name="@Name"
@@ -12,7 +12,8 @@
                 @bind-Value="Value"
                 @attributes="Attributes" />
 
-                <a href="mailto:@Value">
-                    Mail
-                </a>
+
+    <a href="tel:@Value">
+        Call
+    </a>
 </div>

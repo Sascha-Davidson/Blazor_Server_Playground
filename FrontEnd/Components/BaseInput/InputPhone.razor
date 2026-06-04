@@ -1,0 +1,9 @@
+﻿@inherits InputBase<string>
+
+<input type="tel"
+       inputmode="tel"
+       autocomplete="tel"
+       class="@CssClass"
+       value="@CurrentValueAsString"
+       @oninput="HandleInput"
+       @attributes="AdditionalAttributes" />

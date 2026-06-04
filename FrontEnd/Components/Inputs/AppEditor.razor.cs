@@ -73,9 +73,9 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
 
         ["password"] = typeof(PasswordEditor),
 
-        ["email"] = typeof(EMailEditor),
+        ["email"] = typeof(EmailEditor),
 
-        ["phone"] = typeof(PhoneNumberEditor),
+        ["phone"] = typeof(PhoneEditor),
 
         ["textarea"] = typeof(TextAreaEditor),
     };

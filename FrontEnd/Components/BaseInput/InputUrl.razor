@@ -1,0 +1,8 @@
+﻿@inherits InputBase<string>
+
+<input type="url"
+       inputmode="url"
+       class="@CssClass"
+       value="@CurrentValueAsString"
+       @oninput="HandleInput"
+       @attributes="AdditionalAttributes" />

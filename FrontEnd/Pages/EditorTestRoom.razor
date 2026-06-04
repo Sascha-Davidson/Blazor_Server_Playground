@@ -19,7 +19,9 @@
 
     <SearchEditor @bind-Value="Test2" Items="@items" Popover/>
 
-    <AppRow Expression="() => Test4" @bind-Value="Test4" />
+    <AppRow Expression="() => Test4" @bind-Value="Test4" PlaceHolder="0.00" />
+
+    <EmailEditor Expression="() => Test" @bind-Value="Test" />
 
 
     <style>

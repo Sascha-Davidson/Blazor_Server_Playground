@@ -1,0 +1,8 @@
+﻿@inherits InputBase<string>
+
+<input type="email"
+       inputmode="email"
+       class="@CssClass"
+       value="@CurrentValueAsString"
+       @oninput="HandleInput"
+       @attributes="AdditionalAttributes" />
