@@ -1,13 +1,16 @@
-﻿@inherits EditorBase<int?>
+﻿@inherits EditorBase<int>
 
-<InputNumber Type="range"
-             class="text-editor"
-             required="@Required"
-             id="@ID"
-             name="@Name"
-             placeholder="@PlaceHolder"
-             readonly="@ReadOnly"
-             disabled="@Disabled"
-             data-DataType="@EditorKey"
-             @bind-Value="Value"
-             @attributes="Attributes" />
+<div>
+    <InputRange class="text-editor"
+                required="@Required"
+                id="@ID"
+                name="@Name"
+                placeholder="@PlaceHolder"
+                readonly="@ReadOnly"
+                disabled="@Disabled"
+                data-DataType="@EditorKey"
+                @bind-Value="Value"
+                @attributes="Attributes"
+                Min="@MinValue"
+                Max="@MaxValue" />
+</div>

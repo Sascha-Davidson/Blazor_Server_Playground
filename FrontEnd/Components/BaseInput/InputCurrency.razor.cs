@@ -15,6 +15,9 @@ public partial class InputCurrency : InputBase<decimal?>
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
+    [Parameter]
+    public bool ShowCurrencySymbol { get; set; }
+
     // Called once when the component first renders, or when Value changes externally
     protected override void OnParametersSet()
     {
@@ -22,7 +25,7 @@ public partial class InputCurrency : InputBase<decimal?>
 
         // Only sync external value → text when the user isn't actively typing
         if (!_isFocused)
-            _inputText = FormatForDisplay(CurrentValue);
+            _inputText = FormatForDisplay(CurrentValue, ShowCurrencySymbol);
     }
 
     private async Task HandleFocus(FocusEventArgs _)
@@ -48,7 +51,7 @@ public partial class InputCurrency : InputBase<decimal?>
         CommitCurrentText();
         // Tell EditContext this field was touched, triggering validation
         EditContext?.NotifyFieldChanged(FieldIdentifier);
-        _inputText = FormatForDisplay(CurrentValue);
+        _inputText = FormatForDisplay(CurrentValue, ShowCurrencySymbol);
         StateHasChanged();
     }
 
@@ -72,9 +75,9 @@ public partial class InputCurrency : InputBase<decimal?>
         // If it doesn't parse yet (e.g. user just typed "12,") leave CurrentValue alone
     }
 
-    private static string FormatForDisplay(decimal? value) =>
+    private static string FormatForDisplay(decimal? value, bool showCurrencySymbol) =>
         value.HasValue
-            ? value.Value.ToString("C", GetSpecificCulture(CultureInfo.CurrentCulture))
+            ? value.Value.ToString(showCurrencySymbol ? "C" : "N2", GetSpecificCulture(CultureInfo.CurrentCulture))
             : string.Empty;
 
     private static CultureInfo GetSpecificCulture(CultureInfo culture) =>
@@ -84,7 +87,7 @@ public partial class InputCurrency : InputBase<decimal?>
 
     // Still required by InputBase — only used if you ever call base rendering
     protected override string? FormatValueAsString(decimal? value) =>
-        FormatForDisplay(value);
+        FormatForDisplay(value, ShowCurrencySymbol);
 
     protected override bool TryParseValueFromString(
         string? value,

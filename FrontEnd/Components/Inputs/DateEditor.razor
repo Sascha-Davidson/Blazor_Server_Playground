@@ -1,13 +1,15 @@
-﻿@inherits EditorBase<DateTime?>
+﻿@inherits EditorBase<DateTime>
 
-<InputDate class="text-editor"
-           required="@Required"
-           id="@ID"
-           name="@Name"
-           placeholder="@PlaceHolder"
-           readonly="@ReadOnly"
-           disabled="@Disabled"
-           data-DataType="@EditorKey"
-           @bind-Value="Value"
-           Type="InputDateType.DateTimeLocal"
-           @attributes="Attributes" />
+<div>
+    <InputDate class="text-editor"
+               required="@Required"
+               id="@ID"
+               name="@Name"
+               placeholder="@PlaceHolder"
+               readonly="@ReadOnly"
+               disabled="@Disabled"
+               data-DataType="@EditorKey"
+               @bind-Value="Value"
+               Type="InputDateType.DateTimeLocal"
+               @attributes="Attributes" />
+</div>

@@ -2,60 +2,73 @@
 @inherits BaseComponent
 
 <div class="contact-details">
-   
-    <AppEditor Expression="() => Test" @bind-Value="Test" Required />
-    
-    <TextEditor @bind-Value="Test" Required />
-    
-    <SelectEditor Expression="() => Option" @bind-Value="Option" SelectList="SelectList" ValueSelector="x => x" />
+    <AppRow Expression="() => CheckBoxEditor" @bind-Value="CheckBoxEditor" Required />
 
-    <AppRow Expression="() => Test" @bind-Value="Test" PlaceHolder="Test" />
+    <AppRow Expression="() => CurrencyEditorNullable" @bind-Value="CurrencyEditorNullable" />
 
-    <AppRow Expression="() => Test2" @bind-Value="Test2" Orientation="RowOrientation.Vertical" PlaceHolder="Test2" />
+    <AppRow Expression="() => DecimalEditor" @bind-Value="DecimalEditor" Required />
 
-    <AppRow Expression="() => Option" @bind-Value="Option" Orientation="RowOrientation.Vertical" SelectList="SelectList" ValueSelector="x => x" />
-
-    <AppRow Expression="() => Test3" @bind-Value="Test3" />
-
-    <SearchEditor @bind-Value="Test2" Items="@items" Popover/>
-
-    <AppRow Expression="() => Test4" @bind-Value="Test4" PlaceHolder="0.00" />
-
-    <EmailEditor Expression="() => Test" @bind-Value="Test" />
-
-
-    <style>
-            select {
-                padding: .75rem 1.2rem;
-                border-radius: var(--radius-s);
-                border: 1px solid var(--color-gray-200);
-                outline-color: var(--color-success);
-                background-color: var(--color-gray-000);
-                cursor: pointer;
-            }
-    </style>
-
-    <InputSelect class="app-select text-editor"
-                 @bind-Value="Option">
-        @foreach (var item in SelectList)
-        {
-            <option value="@item">@item</option>
-        }
-    </InputSelect>
+    <AppRow Expression="() => DateEditor" @bind-Value="DateEditor" Required />
+    <AppRow Expression="() => EmailEditor" @bind-Value="EmailEditor" Required />
+    <AppRow Expression="() => NumberEditor" @bind-Value="NumberEditor" Required />
+    <AppRow Expression="() => PasswordEditor" @bind-Value="PasswordEditor" Required />
+    <AppRow Expression="() => PercentageEditor" @bind-Value="PercentageEditor" Required />
+    <AppRow Expression="() => PhoneEditor" @bind-Value="PhoneEditor" Required />
+    <AppRow Expression="() => RangeEditor" @bind-Value="RangeEditor" Required />
+    <AppRow Expression="() => SearchEditor" @bind-Value="SearchEditor" Required />
+    <AppRow Expression="() => SelectEditor" @bind-Value="SelectEditor" Required />
+    <AppRow Expression="() => TextAreaEditor" @bind-Value="TextAreaEditor" Required />
+    <AppRow Expression="() => TextEditor" @bind-Value="TextEditor" Required />
+    <AppRow Expression="() => TimeEditor" @bind-Value="TimeEditor" Required />
 </div>
 
 @code {
-    [Display(Name = "test")]
-    public string? Test { get; set; }
+    [Display(Name = "CheckBoxEditor")]
+    public bool CheckBoxEditor { get; set; }
 
-    [Display(Name = "test"), Required]
-    public string? Test2 { get; set; }
+    [Display(Name = "Decimal (NumberEditor)")]
+    public decimal DecimalEditor { get; set; }
 
-    [Display(Name = "test")]
-    public int Test3 { get; set; }
+    [Display(Name = "Currency (CurrencyEditor)")]
+    [DataType("Currency")]
+    public decimal? CurrencyEditorNullable { get; set; }
 
-    [DataType("currency")]
-    public decimal? Test4 { get; set; }
+    [Display(Name = "DateEditor")]
+    public DateTime DateEditor { get; set; } = DateTime.Now;
+
+    [DataType("EmailEditor")]
+    public string EmailEditor { get; set; }
+
+    [DataType("NumberEditor")]
+    public int NumberEditor { get; set; }
+
+    [DataType("PasswordEditor")]
+    public string PasswordEditor { get; set; }
+
+    [DataType("PercentageEditor")]
+    public int PercentageEditor { get; set; }
+
+    [DataType("PhoneEditor")]
+    public string PhoneEditor { get; set; }
+
+    [DataType("Range")]
+    [Range(0, 100)]
+    public int RangeEditor { get; set; }
+
+    [DataType("SearchEditor")]
+    public string SearchEditor { get; set; }
+
+    [DataType("SelectEditor")]
+    public string SelectEditor { get; set; }
+
+    [DataType("TextAreaEditor")]
+    public string TextAreaEditor { get; set; }
+
+    [DataType("TextEditor")]
+    public string TextEditor { get; set; }
+
+    [DataType("TimeEditor")]
+    public DateTime TimeEditor { get; set; } = DateTime.Now;
 
     private string? Option { get; set; }
     private static IEnumerable<string> SelectList =>

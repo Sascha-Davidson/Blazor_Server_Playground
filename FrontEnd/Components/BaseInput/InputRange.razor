@@ -1,0 +1,10 @@
+﻿@inherits InputBase<int>
+
+<input type="range"
+       class="@CssClass"
+       value="@CurrentValueAsString"
+       min="@Min"
+       max="@Max"
+       step="@Step"
+       @oninput="HandleInput"
+       @attributes="AdditionalAttributes" />

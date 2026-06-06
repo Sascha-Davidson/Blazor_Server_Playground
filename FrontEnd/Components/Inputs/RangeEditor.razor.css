@@ -1,0 +1,10 @@
+div {
+    display: grid;
+}
+
+::deep input {
+    padding: 1rem;
+    border-radius: var(--radius-s);
+    border: 1px solid var(--color-gray-200);
+    outline-color: var(--color-success);
+}

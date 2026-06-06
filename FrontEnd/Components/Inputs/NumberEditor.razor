@@ -1,7 +1,9 @@
-﻿@inherits EditorBase<int>
+﻿@typeparam TValue
+@inherits EditorBase<TValue>
 
 <div>
-    <InputNumber class="text-editor"
+    <InputNumber TValue="TValue"
+                 class="text-editor"
                  required="@Required"
                  id="@ID"
                  name="@Name"

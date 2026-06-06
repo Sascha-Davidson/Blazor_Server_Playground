@@ -1,15 +1,19 @@
-﻿@inherits EditorBase<int?>
+﻿@typeparam TValue
+@inherits EditorBase<TValue>
 
-<InputNumber Type="range"
-             class="text-editor"
-             required="@Required"
-             id="@ID"
-             name="@Name"
-             placeholder="@PlaceHolder"
-             readonly="@ReadOnly"
-             disabled="@Disabled"
-             min="@RangeAttribute?.Minimum"
-             max="@RangeAttribute?.Maximum"
-             data-DataType="@EditorKey"
-             @bind-Value="Value"
-             @attributes="Attributes" />
+<div>
+    <InputNumber TValue="TValue"
+                 Type="range"
+                 class="text-editor"
+                 required="@Required"
+                 id="@ID"
+                 name="@Name"
+                 placeholder="@PlaceHolder"
+                 readonly="@ReadOnly"
+                 disabled="@Disabled"
+                 min="@RangeAttribute?.Minimum"
+                 max="@RangeAttribute?.Maximum"
+                 data-DataType="@EditorKey"
+                 @bind-Value="Value"
+                 @attributes="Attributes" />
+</div>

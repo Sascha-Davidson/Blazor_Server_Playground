@@ -67,13 +67,13 @@ namespace Playground.FrontEnd.Base
     public class EditorBase<T> : ComponentBase
     {
         [Parameter, EditorRequired]
-        public T? Value { get; set; }
+        public T Value { get; set; }
 
         [Parameter]
-        public EventCallback<T?> ValueChanged { get; set; }
+        public EventCallback<T> ValueChanged { get; set; }
 
         [Parameter]
-        public Expression<Func<T>>? Expression { get; set; }
+        public Expression<Func<T>> Expression { get; set; }
 
         [Parameter]
         public bool Required { get; set; }
@@ -82,10 +82,10 @@ namespace Playground.FrontEnd.Base
         public int ID { get; set; } = Guid.NewGuid().GetHashCode();
 
         [Parameter]
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         [Parameter]
-        public string? PlaceHolder { get; set; }
+        public string PlaceHolder { get; set; }
 
         [Parameter]
         public bool ReadOnly { get; set; }
@@ -94,13 +94,13 @@ namespace Playground.FrontEnd.Base
         public bool Disabled { get; set; }
 
         [Parameter]
-        public T? MinValue { get; set; }
+        public T MinValue { get; set; }
 
         [Parameter]
-        public T? MaxValue { get; set; }
+        public T MaxValue { get; set; }
 
         [Parameter(CaptureUnmatchedValues = true)]
-        public Dictionary<string, object>? Attributes { get; set; }
+        public Dictionary<string, object> Attributes { get; set; }
 
         [Parameter]
         public IEnumerable<T> SelectList { get; set; } = [];
@@ -117,17 +117,17 @@ namespace Playground.FrontEnd.Base
         [Parameter]
         public CheckboxStyle Style { get; set; } = CheckboxStyle.Box;
 
-        public MemberInfo? ExpressionMember => (Expression?.Body as MemberExpression)?.Member;
+        public MemberInfo ExpressionMember => (Expression?.Body as MemberExpression)?.Member;
 
-        public DataTypeAttribute? DataTypeAttribute => ExpressionMember?.GetCustomAttribute<DataTypeAttribute>();
-        public RangeAttribute? RangeAttribute => ExpressionMember?.GetCustomAttribute<RangeAttribute>();
-        public MaxLengthAttribute? MaxLengthAttribute => ExpressionMember?.GetCustomAttribute<MaxLengthAttribute>();
+        public DataTypeAttribute DataTypeAttribute => ExpressionMember?.GetCustomAttribute<DataTypeAttribute>();
+        public RangeAttribute RangeAttribute => ExpressionMember?.GetCustomAttribute<RangeAttribute>();
+        public MaxLengthAttribute MaxLengthAttribute => ExpressionMember?.GetCustomAttribute<MaxLengthAttribute>();
 
         public decimal? RangeMin => (RangeAttribute?.Minimum != null ? Convert.ToDecimal(RangeAttribute.Minimum) : Convert.ToDecimal(MinValue)).NullIfEquals(0);
         public decimal? RangeMax => (RangeAttribute?.Maximum != null ? Convert.ToDecimal(RangeAttribute.Maximum) : Convert.ToDecimal(MaxValue)).NullIfEquals(0);
 
         private readonly Type _modelType = typeof(T);
-        public string? EditorKey => (DataTypeAttribute?.CustomDataType ?? DataTypeAttribute?.DataType.ToString() ?? _modelType.Name)?.ToLowerInvariant();
+        public string EditorKey => (DataTypeAttribute?.CustomDataType ?? DataTypeAttribute?.DataType.ToString() ?? _modelType.Name)?.ToLowerInvariant();
 
     }
 
