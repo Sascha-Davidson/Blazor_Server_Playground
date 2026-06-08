@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using Playground.FrontEnd.Base;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
@@ -10,19 +9,6 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
     [Parameter] 
     public bool? ForceBlazor { get; set; }
 
-    [CascadingParameter]
-    private EditContext? EditContext { get; set; }
-
-    private Type ModelType => typeof(TValue);
-    private bool IsNullable =>
-        Nullable.GetUnderlyingType(ModelType) != null;
-
-    // Override EditorKey to handle nullable types properly
-    private new string? EditorKey =>
-        (DataTypeAttribute?.CustomDataType
-         ?? DataTypeAttribute?.DataType.ToString()
-         ?? ModelType.Name);
-
     private Type ResolvedComponent
     {
         get
@@ -30,7 +16,6 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
             if (SelectList != null && SelectList.Any())
                 return typeof(SelectEditor);
 
-            // 1. CustomDataType (highest priority)
             if (DataTypeAttribute?.CustomDataType is { } custom)
             {
                 var key = custom.ToLowerInvariant();
@@ -38,7 +23,6 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
                     return CloseGeneric(t);
             }
 
-            // 2. DataType enum
             if (DataTypeAttribute?.DataType is { } dt)
             {
                 var key = dt.ToString().ToLowerInvariant();
@@ -46,13 +30,11 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
                     return CloseGeneric(t);
             }
 
-            // 3. CLR type name
-            var clrKey = (Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue))
-                .Name.ToLowerInvariant();
+            var clrKey = (Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue)).Name.ToLowerInvariant();
+
             if (EditorMap.TryGetValue(clrKey, out var byClr))
                 return CloseGeneric(byClr);
 
-            // 4. Fallback: string → TextEditor
             return typeof(TextEditor);
         }
     }
@@ -67,16 +49,18 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
         if (type == typeof(string))
             return typeof(TextEditor);
 
+        if (type == typeof(bool))
+            return typeof(CheckboxEditor);
+
         if (type == typeof(int) ||
             type == typeof(int?) ||
             type == typeof(long) ||
             type == typeof(long?) ||
             type == typeof(short) ||
-            type == typeof(short?))
+            type == typeof(short?) ||
+            type == typeof(decimal) ||
+            type == typeof(decimal?))
             return typeof(NumberEditor<>).MakeGenericType(type);
-
-        if (type == typeof(bool) || type == typeof(bool?))
-            return typeof(CheckboxEditor);
 
         if (type == typeof(DateTime) || type == typeof(DateTime?))
             return typeof(DateEditor);
@@ -129,16 +113,13 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
         ["multilinetext"] = typeof(TextAreaEditor),
     };
 
-    private Dictionary<string, object?> Parameters
+    private Dictionary<string, object> Parameters
     {
         get
         {
-            var parameters = new Dictionary<string, object?>();
+            var parameters = new Dictionary<string, object>();
 
             parameters["Value"] = Value;
-
-            // ❌ DO NOT PASS THIS:
-            // parameters["ValueChanged"] = ValueChanged;
 
             if (Expression is not null)
                 parameters["Expression"] = Expression;
