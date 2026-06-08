@@ -18,11 +18,10 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
         Nullable.GetUnderlyingType(ModelType) != null;
 
     // Override EditorKey to handle nullable types properly
-    private string? EditorKey =>
+    private new string? EditorKey =>
         (DataTypeAttribute?.CustomDataType
          ?? DataTypeAttribute?.DataType.ToString()
-         ?? ModelType.Name)
-        ?.ToLowerInvariant();
+         ?? ModelType.Name);
 
     private Type ResolvedComponent
     {
@@ -31,27 +30,37 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
             if (SelectList != null && SelectList.Any())
                 return typeof(SelectEditor);
 
-            if (EditorKey is not null && EditorMap.TryGetValue(EditorKey, out var editorComponent))
+            // 1. CustomDataType (highest priority)
+            if (DataTypeAttribute?.CustomDataType is { } custom)
             {
-                if (editorComponent.IsGenericTypeDefinition)
-                {
-                    var type = typeof(TValue);
-                    return editorComponent.MakeGenericType(type);
-                }
-
-                return editorComponent;
+                var key = custom.ToLowerInvariant();
+                if (EditorMap.TryGetValue(key, out var t))
+                    return CloseGeneric(t);
             }
 
-            return ResolveByClrType();
+            // 2. DataType enum
+            if (DataTypeAttribute?.DataType is { } dt)
+            {
+                var key = dt.ToString().ToLowerInvariant();
+                if (EditorMap.TryGetValue(key, out var t))
+                    return CloseGeneric(t);
+            }
+
+            // 3. CLR type name
+            var clrKey = (Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue))
+                .Name.ToLowerInvariant();
+            if (EditorMap.TryGetValue(clrKey, out var byClr))
+                return CloseGeneric(byClr);
+
+            // 4. Fallback: string → TextEditor
+            return typeof(TextEditor);
         }
     }
 
-    private static bool IsNullableType(Type type)
-    {
-        return Nullable.GetUnderlyingType(type) != null;
-    }
+    private static Type CloseGeneric(Type t) =>
+        t.IsGenericTypeDefinition ? t.MakeGenericType(typeof(TValue)) : t;
 
-    private Type ResolveByClrType()
+    private static Type ResolveByClrType()
     {
         var type = typeof(TValue);
 
@@ -113,10 +122,8 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
         ["password"] = typeof(PasswordEditor),
 
         ["email"] = typeof(EmailEditor),
-        ["emailaddress"] = typeof(EmailEditor),
 
         ["phone"] = typeof(PhoneEditor),
-        ["phonenumber"] = typeof(PhoneEditor),
 
         ["textarea"] = typeof(TextAreaEditor),
         ["multilinetext"] = typeof(TextAreaEditor),

@@ -1,18 +1,26 @@
 ﻿@inherits EditorBase<string>
 
 <div>
-    <InputEmail class="text-editor"
-                required="@Required"
-                id="@ID"
-                name="@Name"
-                placeholder="@PlaceHolder"
-                readonly="@ReadOnly"
-                disabled="@Disabled"
-                data-DataType="@EditorKey"
-                @bind-Value="Value"
-                @attributes="Attributes" />
+    <div>
+        <InputEmail class="mail-editor"
+                    required="@Required"
+                    id="@ID"
+                    name="@Name"
+                    placeholder="@PlaceHolder"
+                    readonly="@ReadOnly"
+                    disabled="@Disabled"
+                    data-Type="EmailEditor"
+                    data-Applayed-Type="@EditorKey"
+                    @bind-Value="Value"
+                    @attributes="Attributes" />
+    </div>
 
-                <a href="mailto:@Value">
-                    Mail
-                </a>
+    <a href="@MailTo(Value)">
+        Mail
+    </a>
 </div>
+
+@code {
+    private static string MailTo(string value) => $"mailto:{value}";
+
+}
