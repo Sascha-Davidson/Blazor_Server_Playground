@@ -1,0 +1,17 @@
+﻿@typeparam TValue
+@inherits EditorBase<TValue>
+
+<div>
+    <InputDecimal TValue="TValue"
+                 class="decimal-editor"
+                 required="@Required"
+                 id="@ID"
+                 name="@Name"
+                 placeholder="@PlaceHolder"
+                 readonly="@ReadOnly"
+                 disabled="@Disabled"
+                 data-Type="DecimalEditor"
+                 data-Applayed-Type="@EditorKey"
+                 @bind-Value="Value"
+                 @attributes="Attributes" />
+</div>

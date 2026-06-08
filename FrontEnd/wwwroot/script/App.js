@@ -195,7 +195,7 @@ window.hidePopover = (popoverEl) => {
 document.addEventListener("keydown", function (e) {
     const el = e.target;
 
-    if (!el.matches('input[data-datatype="currency"]')) return;
+    if (!el.matches('input[inputmode="decimal"]')) return;
 
     const allowedKeys = [
         "Backspace", "Tab", "ArrowLeft", "ArrowRight", "Delete"

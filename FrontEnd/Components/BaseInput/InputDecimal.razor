@@ -1,0 +1,12 @@
+﻿@typeparam TValue
+@inherits InputBase<TValue>
+
+<input @ref="_inputElement"
+       type="text"
+       inputmode="decimal"
+       @attributes="AdditionalAttributes"
+       class="@CssClass"
+       value="@_inputText"
+       @oninput="HandleInput"
+       @onfocus="HandleFocus"
+       @onblur="HandleBlur" />

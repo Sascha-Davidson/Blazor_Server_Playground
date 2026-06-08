@@ -42,32 +42,6 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
     private static Type CloseGeneric(Type t) =>
         t.IsGenericTypeDefinition ? t.MakeGenericType(typeof(TValue)) : t;
 
-    private static Type ResolveByClrType()
-    {
-        var type = typeof(TValue);
-
-        if (type == typeof(string))
-            return typeof(TextEditor);
-
-        if (type == typeof(bool))
-            return typeof(CheckboxEditor);
-
-        if (type == typeof(int) ||
-            type == typeof(int?) ||
-            type == typeof(long) ||
-            type == typeof(long?) ||
-            type == typeof(short) ||
-            type == typeof(short?) ||
-            type == typeof(decimal) ||
-            type == typeof(decimal?))
-            return typeof(NumberEditor<>).MakeGenericType(type);
-
-        if (type == typeof(DateTime) || type == typeof(DateTime?))
-            return typeof(DateEditor);
-
-        return typeof(TextEditor);
-    }
-
     private static readonly Dictionary<string, Type> EditorMap = new()
     {
         ["text"] = typeof(TextEditor),
@@ -94,9 +68,9 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
         ["long"] = typeof(NumberEditor<>),
         ["double"] = typeof(NumberEditor<>),
 
-        // Decimal: Use generic NumberEditor (will be instantiated with TValue)
+        // Decimal: Use DecimalEditor for proper decimal formatting
         // For currency formatting, use [DataType("Currency")] with nullable decimal
-        ["decimal"] = typeof(NumberEditor<>),
+        ["decimal"] = typeof(DecimalEditor<>),
 
         ["currency"] = typeof(CurrencyEditor<TValue>),
 

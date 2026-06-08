@@ -8,6 +8,7 @@
     <AppRow Expression="() => CurrencyEditorNullable" @bind-Value="CurrencyEditorNullable" />
 
     <AppRow Expression="() => DecimalEditor" @bind-Value="DecimalEditor" Required />
+    <AppRow Expression="() => DecimalEditorNullable" @bind-Value="DecimalEditorNullable" Required />
 
     <AppRow Expression="() => DateEditor" @bind-Value="DateEditor" Required />
     <AppRow Expression="() => EmailEditor" @bind-Value="EmailEditor" Required />
@@ -29,6 +30,9 @@
 
     [Display(Name = "Decimal")]
     public decimal DecimalEditor { get; set; }
+
+    [Display(Name = "Decimal")]
+    public decimal? DecimalEditorNullable { get; set; }
 
     [Display(Name = "Currency")]
     [DataType("Currency")]
