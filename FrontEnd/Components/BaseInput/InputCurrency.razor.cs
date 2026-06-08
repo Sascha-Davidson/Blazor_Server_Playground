@@ -6,7 +6,7 @@ using System.Globalization;
 
 namespace Playground.FrontEnd.Components.BaseInput;
 
-public partial class InputCurrency : InputBase<decimal?>
+public partial class InputCurrency<TValue> : InputBase<TValue>
 {
     private bool _isFocused;
     private string _inputText = string.Empty;
@@ -25,22 +25,23 @@ public partial class InputCurrency : InputBase<decimal?>
 
         // Only sync external value → text when the user isn't actively typing
         if (!_isFocused)
-            _inputText = FormatForDisplay(CurrentValue, ShowCurrencySymbol);
+            _inputText = FormatForDisplay(ToDecimal(CurrentValue), ShowCurrencySymbol);
     }
 
     private async Task HandleFocus(FocusEventArgs _)
     {
         _isFocused = true;
         // Switch to plain numeric text so the user can edit freely
-        _inputText = CurrentValue.HasValue
-            ? CurrentValue.Value.ToString("0.00", CultureInfo.CurrentCulture)
+        var decimalValue = ToDecimal(CurrentValue);
+        _inputText = decimalValue.HasValue
+            ? decimalValue.Value.ToString("0.00", CultureInfo.CurrentCulture)
             : string.Empty;
 
         await InvokeAsync(StateHasChanged);
         await Task.Yield();
 
         // Auto-select the text
-        if (CurrentValue.HasValue)
+        if (decimalValue.HasValue)
             await JSRuntime.InvokeVoidAsync("selectInputText", _inputElement);
     }
 
@@ -51,7 +52,7 @@ public partial class InputCurrency : InputBase<decimal?>
         CommitCurrentText();
         // Tell EditContext this field was touched, triggering validation
         EditContext?.NotifyFieldChanged(FieldIdentifier);
-        _inputText = FormatForDisplay(CurrentValue, ShowCurrencySymbol);
+        _inputText = FormatForDisplay(ToDecimal(CurrentValue), ShowCurrencySymbol);
         StateHasChanged();
     }
 
@@ -66,13 +67,32 @@ public partial class InputCurrency : InputBase<decimal?>
     {
         if (string.IsNullOrWhiteSpace(_inputText))
         {
-            CurrentValue = null;
+            SetCurrentValue(null);
             return;
         }
 
         if (decimal.TryParse(_inputText, NumberStyles.Number, CultureInfo.CurrentCulture, out var parsed))
-            CurrentValue = parsed;
+            SetCurrentValue(parsed);
         // If it doesn't parse yet (e.g. user just typed "12,") leave CurrentValue alone
+    }
+
+    private static decimal? ToDecimal(TValue value)
+    {
+        if (value is null) return null;
+        try { return Convert.ToDecimal(value); }
+        catch { return null; }
+    }
+
+    private void SetCurrentValue(decimal? value)
+    {
+        if (value is null)
+        {
+            CurrentValue = default!;
+            return;
+        }
+        var underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+        try { CurrentValue = (TValue)Convert.ChangeType(value.Value, underlyingType)!; }
+        catch { CurrentValue = default!; }
     }
 
     private static string FormatForDisplay(decimal? value, bool showCurrencySymbol) =>
@@ -86,29 +106,34 @@ public partial class InputCurrency : InputBase<decimal?>
             : culture;
 
     // Still required by InputBase — only used if you ever call base rendering
-    protected override string? FormatValueAsString(decimal? value) =>
-        FormatForDisplay(value, ShowCurrencySymbol);
+    protected override string? FormatValueAsString(TValue value) =>
+        FormatForDisplay(ToDecimal(value), ShowCurrencySymbol);
 
     protected override bool TryParseValueFromString(
         string? value,
-        out decimal? result,
+        out TValue result,
         out string? validationErrorMessage)
     {
         if (string.IsNullOrWhiteSpace(value))
         {
-            result = null;
+            result = default!;
             validationErrorMessage = null;
             return true;
         }
 
         if (decimal.TryParse(value, NumberStyles.Number, CultureInfo.CurrentCulture, out var parsed))
         {
-            result = parsed;
-            validationErrorMessage = null;
-            return true;
+            var underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+            try
+            {
+                result = (TValue)Convert.ChangeType(parsed, underlyingType)!;
+                validationErrorMessage = null;
+                return true;
+            }
+            catch { }
         }
 
-        result = null;
+        result = default!;
         validationErrorMessage = "Please enter a valid currency value.";
         return false;
     }

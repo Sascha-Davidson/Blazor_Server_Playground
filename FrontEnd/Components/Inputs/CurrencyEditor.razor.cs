@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Playground.FrontEnd.Components.Inputs;
 
-public partial class CurrencyEditor
+public partial class CurrencyEditor<TValue>
 {
     [Parameter]
     public bool ShowInputCurrencySymbol { get; set; }
@@ -15,14 +15,13 @@ public partial class CurrencyEditor
             if (!string.IsNullOrEmpty(PlaceHolder))
                 return PlaceHolder;
 
-            if (ShowInputCurrencySymbol)
-            {
-                var culture = GetSpecificCulture(CultureInfo.CurrentCulture);
-                var currencySymbol = culture.NumberFormat.CurrencySymbol;
-                return $"{currencySymbol} 0.00";
-            }
+            if (!ShowInputCurrencySymbol)
+                return (0m).ToString("F2", CultureInfo.CurrentCulture);
 
-            return "0.00";
+            var culture = GetSpecificCulture(CultureInfo.CurrentCulture);
+            var currencySymbol = culture.NumberFormat.CurrencySymbol;
+            return $"{currencySymbol} 0.00";
+
         }
     }
 

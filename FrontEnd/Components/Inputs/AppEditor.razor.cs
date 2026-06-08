@@ -59,14 +59,14 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
             return typeof(TextEditor);
 
         if (type == typeof(int) ||
+            type == typeof(int?) ||
             type == typeof(long) ||
-            type == typeof(short))
+            type == typeof(long?) ||
+            type == typeof(short) ||
+            type == typeof(short?))
             return typeof(NumberEditor<>).MakeGenericType(type);
 
-        if (type == typeof(decimal))
-            return typeof(CurrencyEditor);
-
-        if (type == typeof(bool))
+        if (type == typeof(bool) || type == typeof(bool?))
             return typeof(CheckboxEditor);
 
         if (type == typeof(DateTime) || type == typeof(DateTime?))
@@ -105,7 +105,7 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
         // For currency formatting, use [DataType("Currency")] with nullable decimal
         ["decimal"] = typeof(NumberEditor<>),
 
-        ["currency"] = typeof(CurrencyEditor),
+        ["currency"] = typeof(CurrencyEditor<TValue>),
 
         ["range"] = typeof(RangeEditor),
         ["percentage"] = typeof(PercentageEditor<>),

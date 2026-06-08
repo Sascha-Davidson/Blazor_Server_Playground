@@ -4,6 +4,7 @@
 <div class="contact-details">
     <AppRow Expression="() => CheckBoxEditor" @bind-Value="CheckBoxEditor" Required />
 
+    <AppRow Expression="() => CurrencyEditor" @bind-Value="CurrencyEditor" />
     <AppRow Expression="() => CurrencyEditorNullable" @bind-Value="CurrencyEditorNullable" />
 
     <AppRow Expression="() => DecimalEditor" @bind-Value="DecimalEditor" Required />
@@ -26,10 +27,14 @@
     [Display(Name = "CheckBoxEditor")]
     public bool CheckBoxEditor { get; set; }
 
-    [Display(Name = "Decimal (NumberEditor)")]
+    [Display(Name = "Decimal")]
     public decimal DecimalEditor { get; set; }
 
-    [Display(Name = "Currency (CurrencyEditor)")]
+    [Display(Name = "Currency")]
+    [DataType("Currency")]
+    public decimal CurrencyEditor{ get; set; }
+
+    [Display(Name = "Currency")]
     [DataType("Currency")]
     public decimal? CurrencyEditorNullable { get; set; }
 
