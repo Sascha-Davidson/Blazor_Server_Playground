@@ -24,7 +24,7 @@ namespace Playground.FrontEnd.Components.Dialog
             _currentDialog = new DialogInstance
             {
                 ComponentType = typeof(TDialog),
-                Parameters = parameters ?? new DialogParameters(),
+                Parameters = parameters ?? [],
                 Completion = new TaskCompletionSource<object>()
             };
 
@@ -39,7 +39,7 @@ namespace Playground.FrontEnd.Components.Dialog
             _currentDialog = new DialogInstance
             {
                 ComponentType = dialogType,
-                Parameters = parameters ?? new DialogParameters(),
+                Parameters = parameters ?? [],
                 Completion = new TaskCompletionSource<object>()
             };
 

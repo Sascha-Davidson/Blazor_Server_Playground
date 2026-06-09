@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Playground.FrontEnd.Components.TabControl
 {
-	public partial class TabView : ComponentBase, IDisposable
+	public partial class TabView : ComponentBase
 	{
 		[CascadingParameter]
 		public TabContainer Parent { get; set; } = default!;
@@ -23,11 +23,6 @@ namespace Playground.FrontEnd.Components.TabControl
 		{
 			base.OnInitialized();
 			Parent.AddTab(this);
-		}
-
-		public void Dispose()
-		{
-			Parent.RemoveTab(this);
 		}
 	}
 }

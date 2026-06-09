@@ -27,13 +27,13 @@ namespace Playground.FrontEnd.Components.TabControl
 		public bool AutoSortTabsByTabHeader { get; set; }
 
         [Parameter] public string TabKey { get; set; } // optional key for URL query
-        private string urlTabKey => !string.IsNullOrEmpty(TabKey) ? TabKey : "tab";
+        private string UrlTabKey => !string.IsNullOrEmpty(TabKey) ? TabKey : "tab";
 
         [CascadingParameter] private TabView ParentTabView { get; set; }
 
 		public void Refresh() => InvokeAsync(StateHasChanged);
 
-		internal ObservableCollection<TabView> Tabs { get; } = new();
+		internal ObservableCollection<TabView> Tabs { get; } = [];
 		internal TabView ActiveTab => Tabs.ElementAtOrDefault(ActiveTabIndex);
 		internal int ActiveTabIndex { get; private set; } = 0;
 
@@ -43,10 +43,7 @@ namespace Playground.FrontEnd.Components.TabControl
         {
             base.OnInitialized();
 
-            if (ParentTabView is not null)
-            {
-                ParentTabView.ChildTabContainer = this;
-            }
+            ParentTabView?.ChildTabContainer = this;
         }
 
         protected override void OnParametersSet()
@@ -143,7 +140,7 @@ namespace Playground.FrontEnd.Components.TabControl
             var baseUri = uri.GetLeftPart(UriPartial.Path);
             var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
 
-            query[urlTabKey] = Uri.EscapeDataString(Tabs[index].Tab);
+            query[UrlTabKey] = Uri.EscapeDataString(Tabs[index].Tab);
 
             var newQuery = string.Join("&", query.AllKeys.Select(k => $"{k}={query[k]}"));
             var newUri = string.IsNullOrEmpty(newQuery) ? baseUri : $"{baseUri}?{newQuery}";

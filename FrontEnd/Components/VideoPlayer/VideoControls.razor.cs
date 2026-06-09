@@ -7,8 +7,8 @@ namespace Playground.FrontEnd.Components.VideoPlayer
     {
         [CascadingParameter] public VideoPlayer Player { get; set; }
         [Inject] public IJSRuntime JS { get; set; } = default!;
-        private string currentTime => FormatTime(Player?.CurrentTime ?? 0);
-        private string duration => FormatTime(Player?.Duration ?? 0);
+        private string CurrentTime => FormatTime(Player?.CurrentTime ?? 0);
+        private string Duration => FormatTime(Player?.Duration ?? 0);
         private bool showSettings = false;
         private bool isFullscreen = false;
 
@@ -16,7 +16,7 @@ namespace Playground.FrontEnd.Components.VideoPlayer
         private double volume = 1.0;
         private bool isMuted = false;
 
-        private VideoPlayerIcon.VideoIcon volumeIcon =>
+        private VideoPlayerIcon.VideoIcon VolumeIcon =>
             isMuted || volume == 0
                 ? VideoPlayerIcon.VideoIcon.VolumeOff
                 : volume <= 0.5
@@ -32,7 +32,7 @@ namespace Playground.FrontEnd.Components.VideoPlayer
             }
         }
 
-        private string FormatTime(double seconds)
+        private static string FormatTime(double seconds)
         {
             var ts = TimeSpan.FromSeconds(seconds);
             return ts.Hours > 0
