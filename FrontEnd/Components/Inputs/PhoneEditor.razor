@@ -8,8 +8,8 @@
                 placeholder="@PlaceHolder"
                 readonly="@ReadOnly"
                 disabled="@Disabled"
-                data-Type="PhoneEditor"
-                data-Applayed-Type="@EditorKey"
+                data-Type="string"
+                data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
                 @bind-Value="Value"
                 @attributes="Attributes" />
 

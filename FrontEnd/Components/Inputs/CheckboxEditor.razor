@@ -8,8 +8,8 @@
                            name="@Name"
                            disabled="@Disabled"
                            checked="@Value"
-                           data-Type="CheckboxEditor"
-                           data-Applayed-Type="@EditorKey"
+                           data-Type="bool"
+                           data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
                            @bind-Value="Value"
                            @attributes="Attributes" />
             <span class="slider-track">
@@ -24,8 +24,8 @@
                            name="@Name"
                            disabled="@Disabled"
                            checked="@Value"
-                           data-Type="CheckboxEditor"
-                           data-Applayed-Type="@EditorKey"
+                           data-Type="bool"
+                           data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
                            @bind-Value="Value"
                            @attributes="Attributes" />
         </label>

@@ -9,7 +9,8 @@
                readonly="@ReadOnly"
                disabled="@Disabled"
                maxlength="@MaxLengthAttribute?.Length"
-               data-Type="TextEditor"
-               data-Applayed-Type="@EditorKey" @bind-Value="Value"
+               data-Type="string"
+               data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
+               @bind-Value="Value"
                @attributes="Attributes" />
 </div>

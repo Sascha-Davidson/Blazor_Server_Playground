@@ -44,47 +44,41 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
 
     private static readonly Dictionary<string, Type> EditorMap = new()
     {
+        // typeparam
+        ["string"] = typeof(TextEditor),
+        ["decimal"] = typeof(DecimalEditor<>),
+        ["double"] = typeof(NumberEditor<>),
+        ["float"] = typeof(NumberEditor<>),
+        ["int"] = typeof(NumberEditor<>),
+        ["long"] = typeof(NumberEditor<>),
+        ["short"] = typeof(NumberEditor<>),
+        ["byte"] = typeof(NumberEditor<>),
+        ["uint"] = typeof(NumberEditor<>),
+        ["ulong"] = typeof(NumberEditor<>),
+        ["ushort"] = typeof(NumberEditor<>),
+        ["bool"] = typeof(CheckboxEditor),
+        ["datetime"] = typeof(DateTimeEditor),
+        ["datetimeoffset"] = typeof(DateTimeEditor),
+        ["timespan"] = typeof(DateTimeEditor),
+
+        // datatype
         ["text"] = typeof(TextEditor),
         ["textbox"] = typeof(TextEditor),
-        ["string"] = typeof(TextEditor),
-
-        ["datetime"] = typeof(DateTimeEditor),
-
         ["date"] = typeof(DateEditor),
-
-        ["time"] = typeof(TimeEditor),
-        ["timespan"] = typeof(TimeEditor),
-
-        ["bool"] = typeof(CheckboxEditor),
         ["boolean"] = typeof(CheckboxEditor),
-
-        ["int"] = typeof(NumberEditor<>),
         ["int16"] = typeof(NumberEditor<>),
         ["int32"] = typeof(NumberEditor<>),
         ["int64"] = typeof(NumberEditor<>),
         ["uint16"] = typeof(NumberEditor<>),
         ["uint32"] = typeof(NumberEditor<>),
         ["uint64"] = typeof(NumberEditor<>),
-        ["long"] = typeof(NumberEditor<>),
-        ["double"] = typeof(NumberEditor<>),
-
-        // Decimal: Use DecimalEditor for proper decimal formatting
-        // For currency formatting, use [DataType("Currency")] with nullable decimal
-        ["decimal"] = typeof(DecimalEditor<>),
-
         ["currency"] = typeof(CurrencyEditor<TValue>),
-
         ["range"] = typeof(RangeEditor),
         ["percentage"] = typeof(PercentageEditor<>),
-
         ["password"] = typeof(PasswordEditor),
-
         ["email"] = typeof(EmailEditor),
-
         ["phone"] = typeof(PhoneEditor),
-
         ["textarea"] = typeof(TextAreaEditor),
-        ["multilinetext"] = typeof(TextAreaEditor),
     };
 
     private Dictionary<string, object> Parameters

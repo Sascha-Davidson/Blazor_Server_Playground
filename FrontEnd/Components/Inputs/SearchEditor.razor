@@ -8,8 +8,8 @@
                readonly="@ReadOnly"
                disabled="@Disabled"
                name="@Name"
-               data-Type="SearchEditor"
-               data-Applayed-Type="@EditorKey"
+               data-Type="string"
+               data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
                @ref="InputRef"
                @bind="Value"
                @bind:event="oninput"
@@ -42,10 +42,10 @@
     public List<string> Items { get; set; } = [];
 
     [Parameter]
-    public RenderFragment<(string Item, bool IsSelected)>? CustomPopover { get; set; }
+    public RenderFragment<(string Item, bool IsSelected)> CustomPopover { get; set; }
 
-    public string? SelectedValue { get; set; }
-    public Popover? PopoverInstance { get; set; }
+    public string SelectedValue { get; set; }
+    public Popover PopoverInstance { get; set; }
     public int SelectedIndex { get; set; } = -1;
 
     private ElementReference InputRef;

@@ -13,7 +13,7 @@
     <AppRow Expression="() => DateEditor" @bind-Value="DateEditor" Required />
     <AppRow Expression="() => EmailEditor" @bind-Value="EmailEditor" Required />
     <AppRow Expression="() => NumberEditor" @bind-Value="NumberEditor" Required />
-    <AppRow Expression="() => PasswordEditor" @bind-Value="PasswordEditor" Required />
+    <AppRow Orientation="RowOrientation.Auto2" Expression="() => PasswordEditor" @bind-Value="PasswordEditor" Required />
     <AppRow Expression="() => PercentageEditor" @bind-Value="PercentageEditor" Required />
     <AppRow Expression="() => PhoneEditor" @bind-Value="PhoneEditor" Required />
     <AppRow Expression="() => RangeEditor" @bind-Value="RangeEditor" Required />
@@ -79,7 +79,7 @@
     [DataType("TimeEditor")]
     public DateTime TimeEditor { get; set; } = DateTime.Now;
 
-    private string? Option { get; set; }
+    private string Option { get; set; }
     private static IEnumerable<string> SelectList =>
     [
         "Option 1",

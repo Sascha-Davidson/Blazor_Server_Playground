@@ -9,8 +9,8 @@
                    placeholder="@EffectivePlaceholder"
                    readonly="@ReadOnly"
                    disabled="@Disabled"
-                   data-Type="CurrencyEditor"
-                   data-Applayed-Type="@EditorKey"
+                   data-Type="decimal"
+                   data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
                    ShowCurrencySymbol="ShowInputCurrencySymbol"
                    @bind-Value="Value"
                    @attributes="Attributes"/>

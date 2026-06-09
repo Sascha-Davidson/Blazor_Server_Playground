@@ -3,19 +3,21 @@
 
 <div data-orientation="@Orientation.ToLowerString()">
     <label for="@ID.ToString()">@LabelText</label>
-    <AppEditor TValue="TValue"
-               Value="@Value"
-               ValueChanged="@ValueChanged"
-               Expression="@Expression"
-               Required="@Required"
-               ForceBlazor="@ForceBlazor"
-               CheckboxStyle="@CheckboxStyle"
-               ID="@ID"
-               Name="@Name"
-               PlaceHolder="@PlaceHolder"
-               ReadOnly="@ReadOnly"
-               Disabled="@Disabled"
-               SelectList="@SelectList"
-               ValueSelector="@ValueSelector"
-               OptionContent="@OptionContent" />
+    <div class="input-container">
+        <AppEditor TValue="TValue"
+                   Value="@Value"
+                   ValueChanged="@ValueChanged"
+                   Expression="@Expression"
+                   Required="@Required"
+                   ForceBlazor="@ForceBlazor"
+                   CheckboxStyle="@CheckboxStyle"
+                   ID="@ID"
+                   Name="@Name"
+                   PlaceHolder="@PlaceHolder"
+                   ReadOnly="@ReadOnly"
+                   Disabled="@Disabled"
+                   SelectList="@SelectList"
+                   ValueSelector="@ValueSelector"
+                   OptionContent="@OptionContent"/>
+    </div>
 </div>

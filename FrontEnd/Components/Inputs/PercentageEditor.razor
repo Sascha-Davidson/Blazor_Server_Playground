@@ -13,8 +13,8 @@
                  disabled="@Disabled"
                  min="@RangeAttribute?.Minimum"
                  max="@RangeAttribute?.Maximum"
-                 data-Type="PercentageEditor"
-                 data-Applayed-Type="@EditorKey"
+                 data-Type="int"
+                 data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
                  @bind-Value="Value"
                  @attributes="Attributes" />
 </div>

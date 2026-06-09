@@ -1,16 +1,20 @@
 div[data-orientation="auto"] {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 300px 1fr;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     gap: .5rem;
     width: 600px;
 
     & label {
-        margin: auto 0;
+        flex: 1 0 150px;
         font-weight: bold;
     }
-}
 
+    & .input-container {
+        flex: 2 1 300px;
+        min-width: 0;
+    }
+}
 
 div[data-orientation="vertical"] {
     display: flex;
@@ -19,7 +23,39 @@ div[data-orientation="vertical"] {
     width: 600px;
 
     & label {
+        flex: 0 0 150px;
+        font-weight: bold;
+    }
+
+    & .input-container {
+        flex: 1 1 300px;
+        min-width: 0;
+    }
+}
+
+div[data-orientation="auto2"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem;
+    container-type: inline-size;
+
+    & label {
+        flex: 0 0 150px;
         margin: auto 0;
         font-weight: bold;
+    }
+
+    & .editor-input {
+        flex: 1 1 300px;
+        min-width: 0;
+        display: flex;
+        gap: 1rem;
+    }
+
+    @container (max-width: 458px) {
+        & label {
+            flex: 0 0 100%;
+        }
     }
 }

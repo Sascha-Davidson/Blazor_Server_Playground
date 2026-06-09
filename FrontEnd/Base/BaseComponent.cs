@@ -12,15 +12,15 @@ namespace Playground.FrontEnd.Base
 {
     public class BaseComponent : ComponentBase, IAsyncDisposable
     {
-        [Inject] protected IJSRuntime JsRuntime { get; set; } = default!;
-        [Inject] protected ToastService ToastService { get; set; } = default!;
-        [Inject] protected NavigationManager Navigation { get; set; } = default!;
-        [Inject] protected IDialogService DialogService { get; set; } = default!;
+        [Inject] protected IJSRuntime JsRuntime { get; set; } = null!;
+        [Inject] protected ToastService ToastService { get; set; } = null!;
+        [Inject] protected NavigationManager Navigation { get; set; } = null!;
+        [Inject] protected IDialogService DialogService { get; set; } = null!;
 
-        private DeviceDetected? _deviceDetected;
-        private QueryHelper? _queryHelper;
-        private BreakPoint? _breakPoint;
-        private Func<Task>? _breakPointChangedHandler;
+        private DeviceDetected _deviceDetected;
+        private QueryHelper _queryHelper;
+        private BreakPoint _breakPoint;
+        private Func<Task> _breakPointChangedHandler;
 
         protected bool IsDesktop =>
             _deviceDetected is { IsDetected: true, ShowDesktop: true };
@@ -134,7 +134,7 @@ namespace Playground.FrontEnd.Base
     public class EditorRowBase<T> : EditorBase<T>
     {
         [Parameter]
-        public string? Label { get; set; }
+        public string Label { get; set; }
 
         [Parameter]
         public bool? ForceBlazor { get; set; }
@@ -142,7 +142,7 @@ namespace Playground.FrontEnd.Base
         [Parameter]
         public RowOrientation Orientation { get; set; } = RowOrientation.Auto;
 
-        private string? ExpressionName => ExpressionMember?.GetDisplayValue();
-        public string? LabelText => Label ?? ExpressionName;
+        private string ExpressionName => ExpressionMember?.GetDisplayValue();
+        public string LabelText => Label ?? ExpressionName;
     }
 }
