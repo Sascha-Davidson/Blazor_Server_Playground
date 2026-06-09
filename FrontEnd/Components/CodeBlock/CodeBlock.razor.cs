@@ -13,7 +13,7 @@ namespace Playground.FrontEnd.Components.CodeBlock
         /// It will be HTML-encoded to ensure safe rendering.
         /// </summary>
         [Parameter]
-        public string? Code { get; set; }
+        public string Code { get; set; }
 
         /// <summary>
         /// The programming language used for syntax highlighting.
@@ -32,7 +32,7 @@ namespace Playground.FrontEnd.Components.CodeBlock
         public int TabSize { get; set; } = 4;
 
         protected string EncodedCode => WebUtility.HtmlEncode(Code ?? "");
-        protected string? CodeClass => Language == CodeLanguage.None ? null : $"language-{LanguageType.GetLanguageClass(Language)}";
+        protected string CodeClass => Language == CodeLanguage.None ? null : $"language-{LanguageType.GetLanguageClass(Language)}";
 
         private ElementReference CodeElement;
 

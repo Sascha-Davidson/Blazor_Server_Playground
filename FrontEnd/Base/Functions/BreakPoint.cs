@@ -5,8 +5,8 @@ namespace Playground.FrontEnd.Base.Functions
     public sealed class BreakPoint : IAsyncDisposable
     {
         private readonly IJSRuntime _js;
-        private DotNetObjectReference<BreakPoint>? _objRef;
-        private string? _containerSelector;
+        private DotNetObjectReference<BreakPoint> _objRef;
+        private string _containerSelector;
 
         /// <summary>
         /// The currently detected container width in px
@@ -16,7 +16,7 @@ namespace Playground.FrontEnd.Base.Functions
         /// <summary>
         /// Event triggered when container width changes
         /// </summary>
-        public event Func<Task>? OnChange;
+        public event Func<Task> OnChange;
         public BreakPoint(IJSRuntime js)
         {
             _js = js;

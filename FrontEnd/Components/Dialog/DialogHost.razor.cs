@@ -8,39 +8,39 @@ namespace Playground.FrontEnd.Components.Dialog
     {
         private readonly NavigationManager _navigation;
 
-        public event Action<DialogInstance>? OnDialogOpen;
-        public event Action<DialogInstance>? OnDialogClose;
+        public event Action<DialogInstance> OnDialogOpen;
+        public event Action<DialogInstance> OnDialogClose;
 
-        private DialogInstance? _currentDialog;
+        private DialogInstance _currentDialog;
 
         public DialogService(NavigationManager navigation)
         {
             _navigation = navigation;
         }
 
-        public Task<TResult?> ShowAsync<TDialog, TResult>(DialogParameters? parameters = null)
+        public Task<TResult> ShowAsync<TDialog, TResult>(DialogParameters parameters = null)
             where TDialog : ComponentBase
         {
             _currentDialog = new DialogInstance
             {
                 ComponentType = typeof(TDialog),
                 Parameters = parameters ?? new DialogParameters(),
-                Completion = new TaskCompletionSource<object?>()
+                Completion = new TaskCompletionSource<object>()
             };
 
             OnDialogOpen?.Invoke(_currentDialog);
             UpdateUrl(typeof(TDialog).Name);
 
-            return _currentDialog.Completion.Task.ContinueWith(t => (TResult?)t.Result);
+            return _currentDialog.Completion.Task.ContinueWith(t => (TResult)t.Result);
         }
 
-        public Task ShowByTypeAsync(Type dialogType, DialogParameters? parameters = null)
+        public Task ShowByTypeAsync(Type dialogType, DialogParameters parameters = null)
         {
             _currentDialog = new DialogInstance
             {
                 ComponentType = dialogType,
                 Parameters = parameters ?? new DialogParameters(),
-                Completion = new TaskCompletionSource<object?>()
+                Completion = new TaskCompletionSource<object>()
             };
 
             OnDialogOpen?.Invoke(_currentDialog);
@@ -48,7 +48,7 @@ namespace Playground.FrontEnd.Components.Dialog
             return Task.CompletedTask;
         }
 
-        public void Close<TResult>(TResult? result = default)
+        public void Close<TResult>(TResult result = default)
         {
             if (_currentDialog != null)
             {

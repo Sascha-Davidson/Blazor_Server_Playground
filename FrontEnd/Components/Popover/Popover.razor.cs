@@ -12,7 +12,7 @@ public partial class Popover
     public SearchEditor SearchParent { get; set; } = default!;
 
     [Parameter]
-    public RenderFragment<(string Item, bool IsSelected)>? ChildContent { get; set; }
+    public RenderFragment<(string Item, bool IsSelected)> ChildContent { get; set; }
 
     protected override void OnAfterRender(bool firstRender)
     {

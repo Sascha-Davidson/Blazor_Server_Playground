@@ -8,7 +8,7 @@ namespace Playground.FrontEnd.Components.TabControl
 		private TabContainer Parent { get; set; } = default!;
 
 		[Parameter]
-		public string? Class { get; set; }
+		public string Class { get; set; }
 
 		private ElementReference TabsWrapperRef;
 

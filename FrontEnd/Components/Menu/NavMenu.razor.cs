@@ -7,7 +7,7 @@ public partial class NavMenu
     {
         public required string Text { get; set; }
         public required string Url { get; set; }
-        public string? Icon { get; set; }
+        public string Icon { get; set; }
         public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
     }
 

@@ -13,11 +13,11 @@ namespace Playground.FrontEnd.Components.TabControl
 		[Parameter] 
 		public string Tab { get; set; } = string.Empty;
 		[Parameter] 
-		public RenderFragment? ChildContent { get; set; }
+		public RenderFragment ChildContent { get; set; }
 		[Parameter] 
 		public EventCallback OnSelect { get; set; }
 
-		internal TabContainer? ChildTabContainer { get; set; }
+		internal TabContainer ChildTabContainer { get; set; }
 
 		protected override void OnInitialized()
 		{

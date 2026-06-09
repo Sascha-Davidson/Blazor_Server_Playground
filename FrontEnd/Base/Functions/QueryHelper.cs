@@ -17,7 +17,7 @@ namespace Playground.FrontEnd.Base.Functions
         // - If 'setValues' is provided, updates the URL with those parameters.
         // - Returns the current value of 'key' if specified, or null if key is null.
         // </summary>
-        public string? QueryParam(string? key = null, string? defaultValue = null, Dictionary<string, string>? setValues = null)
+        public string QueryParam(string key = null, string defaultValue = null, Dictionary<string, string> setValues = null)
         {
             var uri = _navigation.ToAbsoluteUri(_navigation.Uri);
             var query = HttpUtility.ParseQueryString(uri.Query);

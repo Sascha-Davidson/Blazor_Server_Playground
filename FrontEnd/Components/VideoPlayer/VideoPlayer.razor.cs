@@ -12,7 +12,7 @@ namespace Playground.FrontEnd.Components.VideoPlayer
 
         private bool isFullscreen = false;
         private DateTime lastMouseMove = DateTime.Now;
-        private System.Timers.Timer? mouseIdleTimer;
+        private System.Timers.Timer mouseIdleTimer;
 
         private ElementReference videoRef;
         public ElementReference VideoRef => videoRef;
@@ -23,7 +23,7 @@ namespace Playground.FrontEnd.Components.VideoPlayer
         public double Duration { get; private set; }
         [Parameter] public string Source { get; set; } = string.Empty;
 
-        private DotNetObjectReference<VideoPlayer>? objRef;
+        private DotNetObjectReference<VideoPlayer> objRef;
 
 
         public async Task PlayAsync()

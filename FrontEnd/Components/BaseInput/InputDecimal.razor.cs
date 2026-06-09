@@ -106,13 +106,13 @@ public partial class InputDecimal<TValue> : InputBase<TValue>
             : culture;
 
     // Still required by InputBase — only used if you ever call base rendering
-    protected override string? FormatValueAsString(TValue value) =>
+    protected override string FormatValueAsString(TValue value) =>
         FormatForDisplay(ToDecimal(value), ShowCurrencySymbol);
 
     protected override bool TryParseValueFromString(
-        string? value,
+        string value,
         out TValue result,
-        out string? validationErrorMessage)
+        out string validationErrorMessage)
     {
         if (string.IsNullOrWhiteSpace(value))
         {

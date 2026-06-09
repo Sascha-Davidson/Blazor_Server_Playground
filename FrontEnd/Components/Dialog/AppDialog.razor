@@ -24,12 +24,12 @@
 
 @code {
     private ElementReference _dialog;
-    private DotNetObjectReference<AppDialog>? _dotNetRef;
+    private DotNetObjectReference<AppDialog> _dotNetRef;
 
     [Parameter] public string Title { get; set; } = default!;
-    [Parameter] public RenderFragment? Header { get; set; }
+    [Parameter] public RenderFragment Header { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; } = default!;
-    [Parameter] public RenderFragment? Footer { get; set; }
+    [Parameter] public RenderFragment Footer { get; set; }
     [Parameter] public EventCallback OnClose { get; set; }
 
     [Parameter] public DialogAnimation Animation { get; set; } = DialogAnimation.BlowUp;

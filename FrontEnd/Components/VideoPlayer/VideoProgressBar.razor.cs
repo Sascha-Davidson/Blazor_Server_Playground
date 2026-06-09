@@ -7,7 +7,7 @@ namespace Playground.FrontEnd.Components.VideoPlayer
 {
     public partial class VideoProgressBar
     {
-        [CascadingParameter] public VideoPlayer? Player { get; set; }
+        [CascadingParameter] public VideoPlayer Player { get; set; }
 
         [Inject] public IJSRuntime JS { get; set; } = default!;
 
@@ -17,7 +17,7 @@ namespace Playground.FrontEnd.Components.VideoPlayer
         private bool isDragging = false; 
         private ElementReference progressBarRef;
 
-        private DotNetObjectReference<VideoProgressBar>? _dotNetRef;
+        private DotNetObjectReference<VideoProgressBar> _dotNetRef;
 
         [Parameter] public double Duration { get; set; } = 100;
         [Parameter] public EventCallback<double> OnSeek { get; set; }

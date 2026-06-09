@@ -33,13 +33,13 @@ public partial class Icon
     public IconType Type { get; set; }
 
     [Parameter]
-    public string? Title { get; set; }
+    public string Title { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object>? Attributes { get; set; }
+    public Dictionary<string, object> Attributes { get; set; }
 
     [Parameter]
-    public string? AdditionalClasses { get; set; }
+    public string AdditionalClasses { get; set; }
 
     [Parameter]
     public bool? SuperUser { get; set; }

@@ -1,5 +1,4 @@
 ﻿@page "/error/test"
-@using System.Collections
 
 <PageTitle>@Global.FullName</PageTitle>
 
@@ -23,7 +22,7 @@
 </div>
 
 @code {
-    private CrashableComponent? crashableComponent;
+    private CrashableComponent crashableComponent;
 
     private void TriggerPageCrash()
     {

@@ -5,7 +5,7 @@ namespace Playground.FrontEnd.Components.Button
 {
     public partial class AppButton
     {
-        [Parameter] public RenderFragment? ChildContent { get; set; }
+        [Parameter] public RenderFragment ChildContent { get; set; }
         [Parameter] public EventCallback OnClick { get; set; }
         [Parameter] public bool Disabled { get; set; }
         [Parameter] public Color Color { get; set; } = Color.Default;

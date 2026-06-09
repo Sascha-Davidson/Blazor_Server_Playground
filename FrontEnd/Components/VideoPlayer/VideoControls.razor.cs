@@ -5,10 +5,8 @@ namespace Playground.FrontEnd.Components.VideoPlayer
 {
     public partial class VideoControls
     {
-        [CascadingParameter] public VideoPlayer? Player { get; set; }
+        [CascadingParameter] public VideoPlayer Player { get; set; }
         [Inject] public IJSRuntime JS { get; set; } = default!;
-        private bool CanCast = false;
-        private bool isCasting = false;
         private string currentTime => FormatTime(Player?.CurrentTime ?? 0);
         private string duration => FormatTime(Player?.Duration ?? 0);
         private bool showSettings = false;

@@ -9,35 +9,35 @@ namespace Playground.FrontEnd.Components.TabControl
 
 
         [Parameter]
-		public RenderFragment? ChildContent { get; set; }
+		public RenderFragment ChildContent { get; set; }
 
 		[Parameter]
 		public TabVariant Variant { get; set; } = TabVariant.Default;
 
 		[Parameter]
-		public object? InitialPage { get; set; }
+		public object InitialPage { get; set; }
 
         [Parameter]
 		public EventCallback<int> OnTabChanged { get; set; }
 
 		[Parameter]
-		public Func<int, bool>? OnBeforeTabChange { get; set; }
+		public Func<int, bool> OnBeforeTabChange { get; set; }
 		
 		[Parameter]
 		public bool AutoSortTabsByTabHeader { get; set; }
 
-        [Parameter] public string? TabKey { get; set; } // optional key for URL query
+        [Parameter] public string TabKey { get; set; } // optional key for URL query
         private string urlTabKey => !string.IsNullOrEmpty(TabKey) ? TabKey : "tab";
 
-        [CascadingParameter] private TabView? ParentTabView { get; set; }
+        [CascadingParameter] private TabView ParentTabView { get; set; }
 
 		public void Refresh() => InvokeAsync(StateHasChanged);
 
 		internal ObservableCollection<TabView> Tabs { get; } = new();
-		internal TabView? ActiveTab => Tabs.ElementAtOrDefault(ActiveTabIndex);
+		internal TabView ActiveTab => Tabs.ElementAtOrDefault(ActiveTabIndex);
 		internal int ActiveTabIndex { get; private set; } = 0;
 
-        private string? pendingInitialTab;
+        private string pendingInitialTab;
 
         protected override void OnInitialized()
         {
