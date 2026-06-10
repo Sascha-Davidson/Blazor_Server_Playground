@@ -79,6 +79,17 @@ namespace Playground.FrontEnd.Base
         public bool Required { get; set; }
 
         [Parameter]
+        public string AutoComplete { get; set; }
+
+        public string AutoCompleteValue =>
+            !string.IsNullOrWhiteSpace(AutoComplete)
+                ? AutoComplete
+                : ExpressionMember?
+                    .GetCustomAttribute<AutoCompleteAttribute>()?
+                    .Type
+                    .ToHtmlValue();
+
+        [Parameter]
         public int ID { get; set; } = Guid.NewGuid().GetHashCode();
 
         [Parameter]
@@ -122,7 +133,9 @@ namespace Playground.FrontEnd.Base
         public DataTypeAttribute DataTypeAttribute => ExpressionMember?.GetCustomAttribute<DataTypeAttribute>();
         public RangeAttribute RangeAttribute => ExpressionMember?.GetCustomAttribute<RangeAttribute>();
         public MaxLengthAttribute MaxLengthAttribute => ExpressionMember?.GetCustomAttribute<MaxLengthAttribute>();
-
+        public bool IsRequired =>
+            Required || (ExpressionMember?.GetCustomAttributes<RequiredAttribute>(true).Any() ?? false);
+        
         public decimal? RangeMin => (RangeAttribute?.Minimum != null ? Convert.ToDecimal(RangeAttribute.Minimum) : Convert.ToDecimal(MinValue)).NullIfEquals(0);
         public decimal? RangeMax => (RangeAttribute?.Maximum != null ? Convert.ToDecimal(RangeAttribute.Maximum) : Convert.ToDecimal(MaxValue)).NullIfEquals(0);
 

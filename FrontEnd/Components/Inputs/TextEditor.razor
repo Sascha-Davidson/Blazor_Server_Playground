@@ -2,7 +2,7 @@
 
 <div>
     <InputText class="text-editor"
-               required="@Required"
+               required="@IsRequired"
                id="@ID"
                name="@Name"
                placeholder="@PlaceHolder"
@@ -11,6 +11,7 @@
                maxlength="@MaxLengthAttribute?.Length"
                data-Type="string"
                data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
+               autocomplete="@AutoCompleteValue"
                @bind-Value="Value"
                @attributes="Attributes" />
 </div>

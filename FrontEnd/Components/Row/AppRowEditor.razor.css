@@ -48,6 +48,7 @@ div[data-orientation="auto2"] {
         flex: 1 1 300px;
         min-width: 0;
         display: flex;
+        flex-wrap: wrap;
         gap: 1rem;
     }
 
@@ -60,4 +61,9 @@ div[data-orientation="auto2"] {
 
 .input-container ::deep > div{
     width: 100%;
+}
+
+div[data-orientation="auto2"] .input-container ::deep > div {
+    width: 100%;
+    flex: 1 1 150px;
 }

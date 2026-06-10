@@ -3,11 +3,12 @@
 <div class="checkbox-editor">
     @if (Style == CheckboxStyle.Slider)
     {
-        <label class="slider-label">
+        <div class="slider-label">
             <InputCheckbox id="@ID"
                            name="@Name"
                            disabled="@Disabled"
                            checked="@Value"
+                           required="@IsRequired"
                            data-Type="bool"
                            data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
                            @bind-Value="Value"
@@ -15,19 +16,20 @@
             <span class="slider-track">
                 <span class="slider-thumb"></span>
             </span>
-        </label>
+        </div>
     }
     else
     {
-        <label class="box-label">
+        <div class="box-label">
             <InputCheckbox id="@ID"
                            name="@Name"
                            disabled="@Disabled"
                            checked="@Value"
+                           required="@IsRequired"
                            data-Type="bool"
                            data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
                            @bind-Value="Value"
                            @attributes="Attributes" />
-        </label>
+        </div>
     }
 </div>

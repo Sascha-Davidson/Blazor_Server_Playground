@@ -2,29 +2,47 @@
 @inherits BaseComponent
 
 <div class="contact-details">
-    <AppRow Expression="() => CheckBoxEditor" @bind-Value="CheckBoxEditor" Required />
+    <AppRowEditor Expression="() => FullName" @bind-Value="FullName" />
+    <AppRowEditor Expression="() => Name" @bind-Value="Name" />
+    <AppRowEditor Expression="() => LastName" @bind-Value="LastName" />
 
-    <AppRow Expression="() => CurrencyEditor" @bind-Value="CurrencyEditor" />
-    <AppRow Expression="() => CurrencyEditorNullable" @bind-Value="CurrencyEditorNullable" />
+    <AppRowEditor Expression="() => CheckBoxEditor" @bind-Value="CheckBoxEditor" Required />
 
-    <AppRow Expression="() => DecimalEditor" @bind-Value="DecimalEditor" Required />
-    <AppRow Expression="() => DecimalEditorNullable" @bind-Value="DecimalEditorNullable" Required />
+    <AppRowEditor Expression="() => CurrencyEditor" @bind-Value="CurrencyEditor" />
+    <AppRowEditor Expression="() => CurrencyEditorNullable" @bind-Value="CurrencyEditorNullable" />
 
-    <AppRow Expression="() => DateEditor" @bind-Value="DateEditor" Required />
-    <AppRow Expression="() => EmailEditor" @bind-Value="EmailEditor" Required />
-    <AppRow Expression="() => NumberEditor" @bind-Value="NumberEditor" Required />
-    <AppRow Orientation="RowOrientation.Auto2" Expression="() => PasswordEditor" @bind-Value="PasswordEditor" Required />
-    <AppRow Expression="() => PercentageEditor" @bind-Value="PercentageEditor" Required />
-    <AppRow Expression="() => PhoneEditor" @bind-Value="PhoneEditor" Required />
-    <AppRow Expression="() => RangeEditor" @bind-Value="RangeEditor" Required />
-    <AppRow Expression="() => SearchEditor" @bind-Value="SearchEditor" Required />
-    <AppRow Expression="() => SelectEditor" @bind-Value="SelectEditor" Required />
-    <AppRow Expression="() => TextAreaEditor" @bind-Value="TextAreaEditor" Required />
-    <AppRow Expression="() => TextEditor" @bind-Value="TextEditor" Required />
-    <AppRow Expression="() => TimeEditor" @bind-Value="TimeEditor" Required />
+    <AppRowEditor Expression="() => DecimalEditor" @bind-Value="DecimalEditor" Required />
+    <AppRowEditor Expression="() => DecimalEditorNullable" @bind-Value="DecimalEditorNullable" Required />
+
+    <AppRowEditor Expression="() => DateEditor" @bind-Value="DateEditor" Required />
+    <AppRowEditor Expression="() => EmailEditor" @bind-Value="EmailEditor" Required />
+    <AppRowEditor Expression="() => NumberEditor" @bind-Value="NumberEditor" Required />
+    <AppRowEditor Orientation="RowOrientation.Auto2" Expression="() => PasswordEditor" @bind-Value="PasswordEditor" Required />
+    <AppRowEditor Expression="() => PercentageEditor" @bind-Value="PercentageEditor" Required />
+    <AppRowEditor Expression="() => PhoneEditor" @bind-Value="PhoneEditor" Required />
+    <AppRowEditor Expression="() => RangeEditor" @bind-Value="RangeEditor" Required />
+    <AppRowEditor Expression="() => SearchEditor" @bind-Value="SearchEditor" Required />
+    <AppRowEditor Expression="() => SelectEditor" @bind-Value="SelectEditor" Required />
+    <AppRowEditor Expression="() => TextAreaEditor" @bind-Value="TextAreaEditor" Required />
+    <AppRowEditor Expression="() => TextEditor" @bind-Value="TextEditor" Required />
+    <AppRowEditor Expression="() => TimeEditor" @bind-Value="TimeEditor" Required>
+        <AppEditor Expression="() => TimeEditor" @bind-Value="TimeEditor" />
+    </AppRowEditor>
+    <AppRowEditor Orientation="RowOrientation.Auto2" Expression="() => TimeEditor" @bind-Value="TimeEditor" Required>
+        <AppEditor Expression="() => TimeEditor" @bind-Value="TimeEditor" />
+    </AppRowEditor>
 </div>
 
 @code {
+    [Display(Name = "Name"), AutoComplete(AutoCompleteType.Name), Required]
+    public string FullName { get; set; }
+
+    [Display(Name = "Name"), AutoComplete(AutoCompleteType.GivenName), Required]
+    public string Name { get; set; }
+
+    [Display(Name = "Name"), AutoComplete(AutoCompleteType.FamilyName), Required]
+    public string LastName { get; set; }
+
     [Display(Name = "CheckBoxEditor")]
     public bool CheckBoxEditor { get; set; }
 
@@ -34,12 +52,10 @@
     [Display(Name = "Decimal")]
     public decimal? DecimalEditorNullable { get; set; }
 
-    [Display(Name = "Currency")]
-    [DataType("Currency")]
+    [Display(Name = "Currency"), DataType("Currency")]
     public decimal CurrencyEditor{ get; set; }
 
-    [Display(Name = "Currency")]
-    [DataType("Currency")]
+    [Display(Name = "Currency"), DataType("Currency")]
     public decimal? CurrencyEditorNullable { get; set; }
 
     [Display(Name = "DateEditor")]
@@ -57,11 +73,10 @@
     [DataType("PercentageEditor")]
     public int PercentageEditor { get; set; }
 
-    [DataType("Phone")]
+    [DataType("Phone"), AutoComplete(AutoCompleteType.Tel)]
     public string PhoneEditor { get; set; }
 
-    [DataType("Range")]
-    [Range(0, 100)]
+    [DataType("Range"), Range(0, 100)]
     public int RangeEditor { get; set; }
 
     [DataType("SearchEditor")]

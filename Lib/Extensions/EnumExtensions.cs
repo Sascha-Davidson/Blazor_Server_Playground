@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Playground.Lib.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace Playground.Lib.Extensions
@@ -51,11 +52,34 @@ namespace Playground.Lib.Extensions
 #pragma warning restore DebitanW002
             }
         }
+
+        public static string? ToHtmlValue(this AutoCompleteType type)
+        {
+            var member = typeof(AutoCompleteType)
+                .GetMember(type.ToString())
+                .FirstOrDefault();
+
+            return member?
+                .GetCustomAttribute<AutoCompleteValueAttribute>()?
+                .Value;
+        }
     }
 
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class CssClassAttribute(string className) : Attribute
     {
         public string ClassName { get; } = className;
+    }
+
+    [AttributeUsage(AttributeTargets.Field)]
+    public sealed class AutoCompleteValueAttribute(string value) : Attribute
+    {
+        public string Value { get; } = value;
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public sealed class AutoCompleteAttribute(AutoCompleteType type) : Attribute
+    {
+        public AutoCompleteType Type { get; } = type;
     }
 }
