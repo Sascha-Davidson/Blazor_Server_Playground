@@ -2,6 +2,67 @@
 
 namespace Playground.Lib.Enums;
 
+/// <summary>
+/// Defines supported HTML autocomplete field types based on the WHATWG
+/// autocomplete specification.
+///
+/// Use these values with <see cref="AutoCompleteAttribute"/> to indicate
+/// the type of information a form field represents, allowing browsers and
+/// password managers to provide appropriate autofill suggestions.
+/// </summary>
+/// <remarks>
+/// Supported categories:
+/// <list type="bullet">
+///   <item>
+///     <description>
+///       <b>Name and Organization</b>:
+///       Name, HonorificPrefix, GivenName, AdditionalName, FamilyName,
+///       HonorificSuffix, Nickname, OrganizationTitle, Organization
+///     </description>
+///   </item>
+///   <item>
+///     <description>
+///       <b>Credentials</b>:
+///       Username, NewPassword, CurrentPassword
+///     </description>
+///   </item>
+///   <item>
+///     <description>
+///       <b>Address Information</b>:
+///       StreetAddress, AddressLine1, AddressLine2, AddressLine3,
+///       AddressLevel1-4, Country, CountryName, PostalCode
+///     </description>
+///   </item>
+///   <item>
+///     <description>
+///       <b>Payment Information</b>:
+///       CcName, CcGivenName, CcAdditionalName, CcFamilyName,
+///       CcNumber, CcExp, CcExpMonth, CcExpYear, CcCsc, CcType
+///     </description>
+///   </item>
+///   <item>
+///     <description>
+///       <b>Transaction Information</b>:
+///       TransactionCurrency, TransactionAmount, TransactionLanguage
+///     </description>
+///   </item>
+///   <item>
+///     <description>
+///       <b>Personal Information</b>:
+///       Language, Bday, BdayDay, BdayMonth, BdayYear,
+///       Sex, Url, Photo
+///     </description>
+///   </item>
+///   <item>
+///     <description>
+///       <b>Contact Information</b>:
+///       Tel, TelCountryCode, TelNational, TelAreaCode,
+///       TelLocal, TelLocalPrefix, TelLocalSuffix,
+///       TelExtension, Email, Impp
+///     </description>
+///   </item>
+/// </list>
+/// </remarks>
 public enum AutoCompleteType
 {
     // Name and Company --------------------------------------------------------------------------------------------------------------------------------------------
