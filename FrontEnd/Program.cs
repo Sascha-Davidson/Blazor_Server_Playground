@@ -3,6 +3,8 @@ using Playground.FrontEnd;
 using Playground.FrontEnd.Components.Dialog;
 using Playground.Services;
 using System.Globalization;
+using Playground.Templating.Email;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,8 @@ builder.Services.AddSingleton<ToastService>();
 
 //DialogService
 builder.Services.AddScoped<IDialogService, DialogService>();
+
+builder.Services.AddScoped<Mail>();
 
 var app = builder.Build();
 

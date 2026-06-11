@@ -1,0 +1,9 @@
+@using Playground.Templating.Email.Models
+@model WelcomeEmailModel
+@{
+    Layout = "Email/Layout/MainLayout.cshtml";
+}
+
+@{ await IncludeAsync("Email/Component/EmailHeader.cshtml", Model.Header); }
+
+<p>Hello @Model.UserName</p>

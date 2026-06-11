@@ -1,0 +1,56 @@
+﻿@page "/email-preview"
+@inject Mail Mail
+
+<section>
+    <h3>Email Preview</h3>
+
+    <button class="btn btn-primary" disabled="@isLoading" @onclick="LoadEmail">
+        Load Welcome Email
+    </button>
+
+    <hr />
+
+    @if (isLoading)
+    {
+        <div class="text-center p-3">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(html))
+    {
+        <div>
+            @((MarkupString)html)
+        </div>
+    }
+
+</section>
+@code {
+    private string html = "";
+    private bool isLoading = false;
+
+    private async Task LoadEmail()
+    {
+        isLoading = true;
+        html = ""; // optional: clear previous preview
+        try
+        {
+            var model = new WelcomeEmailModel
+            {
+                UserName = "Test User",
+                Header = new EmailHeaderModel
+                {
+                    Title = "Welcome to our system",
+                    LogoUrl = "https://placehold.co/150x50"
+                }
+            };
+
+            html = await Mail.RenderWelcomeEmailAsync(model);
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

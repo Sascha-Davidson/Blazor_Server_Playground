@@ -1,0 +1,10 @@
+section {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+section button{
+    height: fit-content;
+    width: fit-content;
+}
