@@ -4,6 +4,7 @@ using Playground.FrontEnd.Base.Functions;
 using Playground.Lib.Enums;
 using Playground.Lib.Extensions;
 using Playground.Services;
+using Playground.Templating.Email;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -16,6 +17,7 @@ namespace Playground.FrontEnd.Base
         [Inject] protected ToastService ToastService { get; set; } = null!;
         [Inject] protected NavigationManager Navigation { get; set; } = null!;
         [Inject] protected IDialogService DialogService { get; set; } = null!;
+        [Inject] protected Mail Mail { get; set; } = null!;
 
         private DeviceDetected _deviceDetected;
         private QueryHelper _queryHelper;
