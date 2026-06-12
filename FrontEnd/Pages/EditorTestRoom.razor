@@ -1,46 +1,51 @@
 ﻿@page "/editor-test-room"
 @inherits BaseComponent
 
-<div class="contact-details">
-    <AppRowEditor Expression="() => FullName" @bind-Value="FullName" />
-    <AppRowEditor Expression="() => Name" @bind-Value="Name" />
-    <AppRowEditor Expression="() => LastName" @bind-Value="LastName" />
+<EditForm Model="this" OnSubmit="HandleSubmit" novalidate>
+    <DataAnnotationsValidator />
 
-    <AppRowEditor Expression="() => CheckBoxEditor" @bind-Value="CheckBoxEditor" Required />
+    <div class="contact-details">
+        <AppRowEditor Expression="() => FullName" @bind-Value="FullName" />
+        <AppRowEditor Expression="() => Name" @bind-Value="Name" />
+        <AppRowEditor Expression="() => LastName" @bind-Value="LastName" />
 
-    <AppRowEditor Expression="() => CurrencyEditor" @bind-Value="CurrencyEditor" />
-    <AppRowEditor Expression="() => CurrencyEditorNullable" @bind-Value="CurrencyEditorNullable" />
+        <AppRowEditor Expression="() => CheckBoxEditor" @bind-Value="CheckBoxEditor" Required />
 
-    <AppRowEditor Expression="() => DecimalEditor" @bind-Value="DecimalEditor" Required />
-    <AppRowEditor Expression="() => DecimalEditorNullable" @bind-Value="DecimalEditorNullable" Required />
+        <AppRowEditor Expression="() => CurrencyEditor" @bind-Value="CurrencyEditor" />
+        <AppRowEditor Expression="() => CurrencyEditorNullable" @bind-Value="CurrencyEditorNullable" />
 
-    <AppRowEditor Expression="() => DateEditor" @bind-Value="DateEditor" Required />
-    <AppRowEditor Expression="() => EmailEditor" @bind-Value="EmailEditor" Required />
-    <AppRowEditor Expression="() => NumberEditor" @bind-Value="NumberEditor" Required />
-    <AppRowEditor Orientation="RowOrientation.Auto2" Expression="() => PasswordEditor" @bind-Value="PasswordEditor" Required />
-    <AppRowEditor Expression="() => PercentageEditor" @bind-Value="PercentageEditor" Required />
-    <AppRowEditor Expression="() => PhoneEditor" @bind-Value="PhoneEditor" Required />
-    <AppRowEditor Expression="() => RangeEditor" @bind-Value="RangeEditor" Required />
-    <AppRowEditor Expression="() => SearchEditor" @bind-Value="SearchEditor" Required />
-    <AppRowEditor Expression="() => SelectEditor" @bind-Value="SelectEditor" Required />
-    <AppRowEditor Expression="() => TextAreaEditor" @bind-Value="TextAreaEditor" Required />
-    <AppRowEditor Expression="() => TextEditor" @bind-Value="TextEditor" Required />
-    <AppRowEditor Expression="() => TimeEditor" @bind-Value="TimeEditor" Required>
-        <AppEditor Expression="() => TimeEditor" @bind-Value="TimeEditor" />
-    </AppRowEditor>
-    <AppRowEditor Orientation="RowOrientation.Auto2" Expression="() => TimeEditor" @bind-Value="TimeEditor" Required>
-        <AppEditor Expression="() => TimeEditor" @bind-Value="TimeEditor" />
-    </AppRowEditor>
-</div>
+        <AppRowEditor Expression="() => DecimalEditor" @bind-Value="DecimalEditor" Required />
+        <AppRowEditor Expression="() => DecimalEditorNullable" @bind-Value="DecimalEditorNullable" Required />
+
+        <AppRowEditor Expression="() => DateEditor" @bind-Value="DateEditor" Required />
+        <AppRowEditor Expression="() => EmailEditor" @bind-Value="EmailEditor" Required />
+        <AppRowEditor Expression="() => NumberEditor" @bind-Value="NumberEditor" Required />
+        <AppRowEditor Orientation="RowOrientation.Auto2" Expression="() => PasswordEditor" @bind-Value="PasswordEditor" Required />
+        <AppRowEditor Expression="() => PercentageEditor" @bind-Value="PercentageEditor" Required />
+        <AppRowEditor Expression="() => PhoneEditor" @bind-Value="PhoneEditor" Required />
+        <AppRowEditor Expression="() => RangeEditor" @bind-Value="RangeEditor" Required />
+        <AppRowEditor Expression="() => SearchEditor" @bind-Value="SearchEditor" Required />
+        <AppRowEditor Expression="() => SelectEditor" @bind-Value="SelectEditor" Required />
+        <AppRowEditor Expression="() => TextAreaEditor" @bind-Value="TextAreaEditor" Required />
+        <AppRowEditor Expression="() => TextEditor" @bind-Value="TextEditor" Required />
+        <AppRowEditor Expression="() => TimeEditor" @bind-Value="TimeEditor" Required>
+            <AppEditor Expression="() => TimeEditor" @bind-Value="TimeEditor" />
+        </AppRowEditor>
+        <AppRowEditor Orientation="RowOrientation.Auto2" Expression="() => TimeEditor" @bind-Value="TimeEditor" Required>
+            <AppEditor Expression="() => TimeEditor" @bind-Value="TimeEditor" />
+        </AppRowEditor>
+    </div>
+    <button type="submit">Submit</button>
+</EditForm>
 
 @code {
-    [Display(Name = "Name"), AutoComplete(AutoCompleteType.Name), Required]
+    [Display(Name = "Full name"), AutoComplete(AutoCompleteType.Name), Required(ErrorMessage = "Full name is required")]
     public string FullName { get; set; }
 
-    [Display(Name = "Name"), AutoComplete(AutoCompleteType.GivenName), Required]
+    [Display(Name = "First name"), AutoComplete(AutoCompleteType.GivenName), Required]
     public string Name { get; set; }
 
-    [Display(Name = "Name"), AutoComplete(AutoCompleteType.FamilyName), Required]
+    [Display(Name = "Last name"), AutoComplete(AutoCompleteType.FamilyName), Required]
     public string LastName { get; set; }
 
     [Display(Name = "CheckBoxEditor")]
@@ -53,9 +58,9 @@
     public decimal? DecimalEditorNullable { get; set; }
 
     [Display(Name = "Currency"), DataType("Currency")]
-    public decimal CurrencyEditor{ get; set; }
+    public decimal CurrencyEditor { get; set; }
 
-    [Display(Name = "Currency"), DataType("Currency")]
+    [Display(Name = "Currency"), DataType("Currency"), Required]
     public decimal? CurrencyEditorNullable { get; set; }
 
     [Display(Name = "DateEditor")]
@@ -103,5 +108,22 @@
     ];
 
     private List<string> items = ["Apple", "Banana", "Cherry", "Date", "Elderberry"];
+
+
+    [CascadingParameter] private EditContext? EditContext { get; set; }
+
+    private async Task HandleSubmit(EditContext editContext)
+    {
+        var valid = editContext.Validate();
+
+        Console.WriteLine($"Valid = {valid}");
+
+        foreach (var message in editContext.GetValidationMessages())
+        {
+            Console.WriteLine(message);
+        }
+
+        await JsRuntime.InvokeVoidAsync("scrollToTop");
+    }
 
 }

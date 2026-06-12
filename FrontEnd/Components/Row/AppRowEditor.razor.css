@@ -54,6 +54,7 @@ div[data-orientation="auto2"] {
 
     @container (max-width: 458px) {
         & label {
+            margin-top: .5rem;
             flex: 0 0 100%;
         }
     }

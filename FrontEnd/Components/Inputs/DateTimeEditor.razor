@@ -10,6 +10,13 @@
                disabled="@Disabled"
                data-Type="datetime"
                data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
-               @bind-Value="Value"
+               Value="@Value"
+               ValueChanged="@ValueChanged"
+               ValueExpression="@(Expression ?? (() => Value))"
                @attributes="Attributes" />
+
+    @if (Expression != null)
+    {
+        <ValidationMessage For="Expression" />
+    }
 </div>

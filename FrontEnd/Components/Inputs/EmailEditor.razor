@@ -1,26 +1,22 @@
 ﻿@inherits EditorBase<string>
 
 <div>
-    <div>
-        <InputEmail class="mail-editor"
-                    required="@IsRequired"
-                    id="@ID"
-                    name="@Name"
-                    placeholder="@PlaceHolder"
-                    readonly="@ReadOnly"
-                    disabled="@Disabled"
-                    data-Type="string"
-                    data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
-                    @bind-Value="Value"
-                    @attributes="Attributes" />
-    </div>
+    <InputEmail class="mail-editor"
+                required="@IsRequired"
+                id="@ID"
+                name="@Name"
+                placeholder="@PlaceHolder"
+                readonly="@ReadOnly"
+                disabled="@Disabled"
+                data-Type="string"
+                data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
+                Value="@Value"
+                ValueChanged="@ValueChanged"
+                ValueExpression="@(Expression ?? (() => Value))"
+                @attributes="Attributes" />
 
-    <a href="@MailTo(Value)">
-        Mail
-    </a>
+    @if (Expression != null)
+    {
+        <ValidationMessage For="Expression" />
+    }
 </div>
-
-@code {
-    private static string MailTo(string value) => $"mailto:{value}";
-
-}

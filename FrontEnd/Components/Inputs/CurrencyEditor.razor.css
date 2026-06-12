@@ -9,3 +9,12 @@ div {
     outline-color: var(--color-success);
     text-align: right;
 }
+
+::deep input.invalid {
+    outline: 2px solid red;
+    outline-offset: -1px;
+}
+
+::deep .validation-message {
+    color: red;
+}

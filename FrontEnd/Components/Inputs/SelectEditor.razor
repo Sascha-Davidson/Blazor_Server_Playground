@@ -10,7 +10,9 @@
                  disabled="@Disabled"
                  data-Type="int"
                  data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
-                 @bind-Value="Value"
+                 Value="@Value"
+                 ValueChanged="@ValueChanged"
+                 ValueExpression="@(Expression ?? (() => Value))"
                  @attributes="Attributes">
         @* <button><selectedcontent></selectedcontent></button> *@
         @foreach (var item in SelectList)
@@ -18,4 +20,9 @@
             <option value="@ValueSelector(item)">@OptionContent(item)</option>
         }
     </InputSelect>
+    
+    @if (Expression != null)
+    {
+        <ValidationMessage For="Expression" />
+    }
 </div>

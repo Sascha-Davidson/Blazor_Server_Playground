@@ -11,7 +11,9 @@
                            required="@IsRequired"
                            data-Type="bool"
                            data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
-                           @bind-Value="Value"
+                           Value="@Value"
+                           ValueChanged="@ValueChanged"
+                           ValueExpression="@(Expression ?? (() => Value))"
                            @attributes="Attributes" />
             <span class="slider-track">
                 <span class="slider-thumb"></span>

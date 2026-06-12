@@ -74,7 +74,7 @@ namespace Playground.FrontEnd.Base
         [Parameter]
         public EventCallback<T> ValueChanged { get; set; }
 
-        [Parameter]
+        [Parameter, EditorRequired]
         public Expression<Func<T>> Expression { get; set; }
 
         [Parameter]

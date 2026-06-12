@@ -8,3 +8,12 @@ div{
     border: 1px solid var(--color-gray-200);
     outline-color: var(--color-success);
 }
+
+::deep input.invalid {
+    outline: 2px solid red;
+    outline-offset: -1px;
+}
+
+::deep .validation-message{
+    color: red;
+}

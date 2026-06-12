@@ -10,11 +10,13 @@
                 disabled="@Disabled"
                 data-Type="string"
                 data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
-                @bind-Value="Value"
+                Value="@Value"
+                ValueChanged="@ValueChanged"
+                ValueExpression="@(Expression ?? (() => Value))"
                 @attributes="Attributes" />
 
-
-    <a href="tel:@Value">
-        Call
-    </a>
+    @if (Expression != null)
+    {
+        <ValidationMessage For="Expression" />
+    }
 </div>

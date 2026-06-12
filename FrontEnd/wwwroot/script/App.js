@@ -23,6 +23,10 @@ window.copyToClipboard = async (text) => {
     await navigator.clipboard.writeText(text);
 };
 
+window.scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
 window.responsiveLayout = (function () {
 
     const observers = new Map();

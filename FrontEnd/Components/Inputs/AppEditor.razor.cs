@@ -88,6 +88,7 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
             var parameters = new Dictionary<string, object>();
 
             parameters["Value"] = Value;
+            parameters["ValueChanged"] = ValueChanged;
 
             if (Expression is not null)
                 parameters["Expression"] = Expression;

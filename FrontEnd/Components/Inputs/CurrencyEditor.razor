@@ -12,6 +12,13 @@
                    data-Type="decimal"
                    data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
                    ShowCurrencySymbol="ShowInputCurrencySymbol"
-                   @bind-Value="Value"
+                   Value="@Value"
+                   ValueChanged="@ValueChanged"
+                   ValueExpression="@(Expression ?? (() => Value))"
                    @attributes="Attributes"/>
+
+    @if (Expression != null)
+    {
+        <ValidationMessage For="Expression" />
+    }
 </div>

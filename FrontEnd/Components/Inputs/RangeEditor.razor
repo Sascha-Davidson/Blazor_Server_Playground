@@ -10,8 +10,15 @@
                 disabled="@Disabled"
                 data-Type="int"
                 data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
-                @bind-Value="Value"
+                Value="@Value"
+                ValueChanged="@ValueChanged"
+                ValueExpression="@(Expression ?? (() => Value))"
                 @attributes="Attributes"
                 Min="@MinValue"
                 Max="@MaxValue" />
+
+    @if (Expression != null)
+    {
+        <ValidationMessage For="Expression" />
+    }
 </div>
