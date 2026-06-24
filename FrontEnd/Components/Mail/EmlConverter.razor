@@ -52,18 +52,37 @@
 
         fileName = Path.GetFileNameWithoutExtension(file.Name) + ".html";
 
+        var extension = Path.GetExtension(file.Name).ToLowerInvariant();
+
         await using var inputStream =
             file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
 
-        using var memoryStream = new MemoryStream();
+        switch (extension)
+        {
+            case ".html":
+            case ".htm":
+            {
+                using var reader = new StreamReader(inputStream);
+                html = await reader.ReadToEndAsync();
+                break;
+            }
+            case ".eml":
+            {
+                using var memoryStream = new MemoryStream();
 
-        await inputStream.CopyToAsync(memoryStream);
+                await inputStream.CopyToAsync(memoryStream);
 
-        memoryStream.Position = 0;
+                memoryStream.Position = 0;
 
-        var message = await MimeMessage.LoadAsync(memoryStream);
+                var message = await MimeMessage.LoadAsync(memoryStream);
 
-        html = message.HtmlBody ?? "<p>No HTML body found</p>";
+                html = message.HtmlBody ?? "<p>No HTML body found</p>";
+                break;
+            }
+            default:
+                html = "<p>Unsupported file type</p>";
+                break;
+        }
     }
 
     async Task DownloadHtml()
