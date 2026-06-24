@@ -1,0 +1,82 @@
+﻿@page "/eml"
+@using MimeKit
+@inherits BaseComponent
+
+<style>
+    .page{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    input{
+        display: block;
+        height: fit-content;
+    }
+
+    .mail-test-container{
+        background-color: white;
+    }
+
+    .mail-frame {
+        width: 100%;
+        height: 80vh;
+        border: none;
+        background: white;
+    }
+</style>
+
+<div class="page">
+    <InputFile OnChange="HandleFile" />
+
+    @if (!string.IsNullOrEmpty(Html))
+    {
+        <button @onclick="DownloadHtml">
+            Save as HTML
+        </button>
+
+        <div class="mail-test-container">
+            <iframe class="mail-frame" srcdoc="@Html" @ref="frameRef" @onload="OnFrameLoad"></iframe>
+        </div>
+    }
+</div>
+
+@code {
+    string? Html;
+    string? fileName;
+    ElementReference frameRef;
+
+    async Task HandleFile(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+
+        fileName = Path.GetFileNameWithoutExtension(file.Name) + ".html";
+
+        await using var inputStream =
+            file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
+
+        using var memoryStream = new MemoryStream();
+
+        await inputStream.CopyToAsync(memoryStream);
+
+        memoryStream.Position = 0;
+
+        var message = MimeMessage.Load(memoryStream);
+
+        Html = message.HtmlBody ?? "<p>No HTML body found</p>";
+    }
+
+    async Task DownloadHtml()
+    {
+        var name = fileName ?? "email.html";
+        await JsRuntime.InvokeVoidAsync("downloadFile", name, Html);
+    }
+
+    async Task OnFrameLoad()
+    {
+        if (frameRef.Context == null)
+            return;
+
+        await JsRuntime.InvokeVoidAsync("iframeResize.setHeight", frameRef);
+    }
+}
