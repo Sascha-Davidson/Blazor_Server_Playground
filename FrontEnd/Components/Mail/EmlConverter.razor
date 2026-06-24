@@ -29,21 +29,21 @@
 <div class="page">
     <InputFile OnChange="HandleFile" />
 
-    @if (!string.IsNullOrEmpty(Html))
+    @if (!string.IsNullOrEmpty(html))
     {
         <button @onclick="DownloadHtml">
             Save as HTML
         </button>
 
         <div class="mail-test-container">
-            <iframe class="mail-frame" srcdoc="@Html" @ref="frameRef" @onload="OnFrameLoad"></iframe>
+            <iframe class="mail-frame" srcdoc="@html" @ref="frameRef" @onload="OnFrameLoad"></iframe>
         </div>
     }
 </div>
 
 @code {
-    string? Html;
-    string? fileName;
+    string html;
+    string fileName;
     ElementReference frameRef;
 
     async Task HandleFile(InputFileChangeEventArgs e)
@@ -61,15 +61,15 @@
 
         memoryStream.Position = 0;
 
-        var message = MimeMessage.Load(memoryStream);
+        var message = await MimeMessage.LoadAsync(memoryStream);
 
-        Html = message.HtmlBody ?? "<p>No HTML body found</p>";
+        html = message.HtmlBody ?? "<p>No HTML body found</p>";
     }
 
     async Task DownloadHtml()
     {
         var name = fileName ?? "email.html";
-        await JsRuntime.InvokeVoidAsync("downloadFile", name, Html);
+        await JsRuntime.InvokeVoidAsync("downloadFile", name, html);
     }
 
     async Task OnFrameLoad()
