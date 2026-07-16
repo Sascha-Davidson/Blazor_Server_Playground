@@ -7,6 +7,29 @@
     <h1>Home</h1>
 </div>
 
-@code {
+<button @onclick="RunTest">
+    Test Home.razor.js
+</button>
 
+<p>@Message</p>
+
+
+@code {
+    private string Message = "";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await ScopedJs();
+        }
+    }
+
+    private async Task RunTest()
+    {
+        if (JsModule is not null)
+        {
+            Message = await JsModule.InvokeAsync<string>("test");
+        }
+    }
 }

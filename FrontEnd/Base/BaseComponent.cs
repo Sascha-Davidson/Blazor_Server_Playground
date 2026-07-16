@@ -55,6 +55,37 @@ namespace Playground.FrontEnd.Base
 
             await InvokeAsync(StateHasChanged);
         }
+        
+        protected IJSObjectReference? JsModule { get; private set; }
+        protected async Task ScopedJs()
+        {
+            if (JsModule is not null)
+                return;
+            Type type = GetType();
+
+            string? namespaceName = type.Namespace;
+
+            if (string.IsNullOrWhiteSpace(namespaceName))
+                throw new InvalidOperationException(
+                    $"Cannot determine namespace for {type.Name}"
+                );
+
+            string rootNamespace = type.Assembly.GetName().Name!;
+
+            string namespacePath = namespaceName
+                .Replace(rootNamespace, "")
+                .Trim('.')
+                .Replace(".", "/");
+
+            string className = type.Name.Split('`')[0];
+
+            string path = $"./{namespacePath}/{className}.razor.js";
+
+            JsModule = await JsRuntime.InvokeAsync<IJSObjectReference>(
+                "import",
+                path
+            );
+        }
 
         public async ValueTask DisposeAsync()
         {
@@ -62,6 +93,18 @@ namespace Playground.FrontEnd.Base
             {
                 _breakPoint.OnChange -= _breakPointChangedHandler;
                 await _breakPoint.DisposeAsync();
+            }
+
+            if (JsModule is not null)
+            {
+                try
+                {
+                    await JsModule.DisposeAsync();
+                }
+                catch (JSDisconnectedException)
+                {
+                    // Circuit already disconnected, nothing to clean up
+                }
             }
         }
     }
