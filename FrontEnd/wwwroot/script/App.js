@@ -2,13 +2,6 @@
     return navigator.language || navigator.userLanguage;
 };
 
-window.isDesktop = () => {
-    const ua = navigator.userAgent;
-    // Treat phones and tablets as non-desktop
-    const isMobileOrTablet = /Mobi|Android|iPhone|iPad|iPod|Tablet/i.test(ua);
-    return !isMobileOrTablet;
-}
-
 window.selectInputText = (element) => {
     if (!element) return;
 

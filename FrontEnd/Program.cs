@@ -16,6 +16,8 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "Resources")
 
 builder.Services.AddAuthorizationCore();
 
+builder.Services.AddHttpContextAccessor();
+
 //ToastService
 builder.Services.AddSingleton<ToastService>();
 
