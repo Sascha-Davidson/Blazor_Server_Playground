@@ -23,7 +23,7 @@ builder.Services.AddSingleton<ToastService>();
 
 //DialogService
 builder.Services.AddScoped<IDialogService, DialogService>();
-builder.Services.AddScoped<UserAccountCultureProvider>();
+builder.Services.AddSingleton<UserAccountCultureProvider>();
 
 builder.Services.AddScoped<Mail>();
 

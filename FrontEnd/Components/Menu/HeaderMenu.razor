@@ -39,6 +39,17 @@
                 Contact
             </NavLink>
         </li>
+        <li class="theme-switcher" role="group" aria-label="Theme selector">
+            <button type="button" class="theme-btn @(CurrentTheme == "light" ? "active" : "")" title="Light theme" @onclick='() => SetTheme("light")'>
+                ☀
+            </button>
+            <button type="button" class="theme-btn @(CurrentTheme == "dark" ? "active" : "")" title="Dark theme" @onclick='() => SetTheme("dark")'>
+                ☾
+            </button>
+            <button type="button" class="theme-btn @(CurrentTheme == "system" ? "active" : "")" title="System theme" @onclick='() => SetTheme("system")'>
+                🖥
+            </button>
+        </li>
     </ul>
 
 </nav>

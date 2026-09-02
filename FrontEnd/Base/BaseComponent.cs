@@ -46,8 +46,8 @@ namespace Playground.FrontEnd.Base
             if (!firstRender)
                 return;
 
-            _deviceDetected ??= new DeviceDetected(JsRuntime);
-            await _deviceDetected.DetectAsync();
+            //_deviceDetected ??= new DeviceDetected(JsRuntime);
+            //await _deviceDetected.DetectAsync();
 
             if (_breakPoint == null)
             {

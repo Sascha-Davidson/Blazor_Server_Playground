@@ -1,8 +1,9 @@
-﻿body {
+﻿button {
+    padding: 1rem;
+    font-size: var(--font-size);
 }
 
-
-button.empty{
+button.empty {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -11,3 +12,202 @@ button.empty{
     padding: .8rem;
     text-align: left;
 }
+
+.tooltip {
+    position: absolute;
+    position-try-fallbacks: flip-block, flip-inline;
+    container-type: anchored;
+    background: #1e293b;
+    color: #fff;
+    padding: 4px 8px;
+    font-weight: 500;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+}
+
+@supports (position-area: top center) {
+    /* Top Row */
+    .tooltip.origin-top-left {
+        position-area: top left;
+        translate: -50% -8px;
+    }
+
+    .tooltip.origin-top-center {
+        position-area: top center;
+        translate: 0 -8px;
+    }
+
+    .tooltip.origin-top-right {
+        position-area: top right;
+        translate: -50% -8px;
+    }
+
+    /* Center Row / Sides */
+
+    .tooltip.origin-center-left {
+        position-area: center left;
+        translate: -8px 0;
+    }
+
+    .tooltip.origin-center-center {
+        position-area: center center;
+    }
+
+    .tooltip.origin-center-right {
+        position-area: center right;
+        translate: 8px 0;
+    }
+
+    .tooltip.origin-left-center {
+        position-area: left center;
+        translate: -8px 0;
+    }
+
+    .tooltip.origin-right-center {
+        position-area: right center;
+        translate: 8px 0;
+    }
+
+    /* Bottom Row */
+    .tooltip.origin-bottom-left {
+        position-area: bottom left;
+        translate: -50% 8px;
+    }
+
+    .tooltip.origin-bottom-center {
+        position-area: bottom center;
+        translate: -50% 8px;
+    }
+
+    .tooltip.origin-bottom-right {
+        position-area: bottom right;
+        translate: -50% 8px;
+    }
+}
+
+@supports not (position-area: top center) {
+    .tooltip {
+        top: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #1e293b transparent transparent transparent;
+}
+
+@container anchored(fallback: flip-block) {
+    .tooltip::after {
+        top: auto;
+        bottom: 100%;
+        border-color: transparent transparent #1e293b transparent;
+    }
+}
+
+.tooltip.origin-left-center::after {
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    border-color: transparent transparent transparent #1e293b;
+}
+
+.tooltip.origin-right-center::after {
+    top: 50%;
+    right: 100%;
+    left: auto;
+    transform: translateY(-50%);
+    border-color: transparent #1e293b transparent transparent;
+}
+
+button:hover + .tooltip, button:focus-visible + .tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==========================================
+   CONFIRMATION POPOVER STYLING (Native Top Layer)
+   ========================================== */
+
+.confirm-popover-panel {
+    position: absolute;
+    position-area: top center;
+    position-try-fallbacks: flip-block;
+    background: #1e293b;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    max-width: 280px;
+    font-size: 0.875rem;
+    /* Native popover animation states */
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.2s ease, transform 0.2s ease, overlay 0.2s ease allow-discrete, display 0.2s ease allow-discrete;
+}
+
+    /* Open state for the Popover API */
+    .confirm-popover-panel:popover-open {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+/* Entry transition helper for modern browsers */
+@starting-style {
+    .confirm-popover-panel:popover-open {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+.confirm-message {
+    margin: 0 0 0.75rem 0;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.confirm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+    .confirm-actions button {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border-radius: 4px;
+        cursor: pointer;
+        border: none;
+        transition: background 0.15s ease;
+    }
+
+.btn-cancel {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+    .btn-cancel:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+.btn-confirm {
+    background: #ef4444; /* Danger red for confirmations */
+    color: #fff;
+}
+
+    .btn-confirm:hover {
+        background: #dc2626;
+    }

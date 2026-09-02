@@ -12,6 +12,32 @@ window.selectInputText = (element) => {
     }
 };
 
+window.themeManager = {
+    get: () => localStorage.getItem('theme') || 'system',
+
+    set: (value) => {
+        localStorage.setItem('theme', value);
+        window.themeManager.apply(value);
+    },
+
+    apply: (value) => {
+        const scheme = value === 'system' ? 'light dark' : value;
+        document.documentElement.style.colorScheme = scheme;
+        document.documentElement.setAttribute('data-theme', value);
+
+        const isDark = value === 'dark' || (value === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        const prismLight = document.getElementById('prism-light');
+        const prismDark = document.getElementById('prism-dark');
+        if (prismLight && prismDark) {
+            prismLight.media = isDark ? 'not all' : 'all';
+            prismDark.media = isDark ? 'all' : 'not all';
+        }
+    }
+};
+
+// Apply the persisted (or system) theme immediately to avoid a flash of the wrong theme.
+window.themeManager.apply(window.themeManager.get());
+
 window.copyToClipboard = async (text) => {
     await navigator.clipboard.writeText(text);
 };

@@ -3,16 +3,27 @@
 
 <PageTitle>@Global.FullName</PageTitle>
 
-<div class="contact-details">
-    <h1>Home</h1>
+<div class="page">
+    <div class="contact-details">
+        <h1>Home</h1>
+    </div>
+
+    <div class="button-container">
+        <AppButton OnClick="ResetTest">
+            reset test
+        </AppButton>
+
+        <AppButton OnClick="RunTest" TooltipText="test">
+            test button
+        </AppButton>
+
+        <AppButton OnConfirmed="RunTest" TooltipText="test" Origin="AnchorOrigin.Right" Direction="AnchorDirection.Center">
+            test confirm button
+        </AppButton>
+    </div>
+    <p>@Message</p>
+
 </div>
-
-<button @onclick="RunTest">
-    Test Home.razor.js
-</button>
-
-<p>@Message</p>
-
 
 @code {
     private string Message = "";
@@ -31,5 +42,10 @@
         {
             Message = await JsModule.InvokeAsync<string>("test");
         }
+    }
+
+    private async Task ResetTest()
+    {
+        Message = null;
     }
 }

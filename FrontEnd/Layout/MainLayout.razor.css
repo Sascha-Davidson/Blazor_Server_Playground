@@ -13,8 +13,8 @@ header {
     backdrop-filter: blur(10px);
     z-index: 2;
     grid-area: header;
-    background-color: white;
-    border-bottom: 1px solid #efefef;
+    background-color: var(--color-foreground);
+    border-bottom: var(--border);
 }
 
 aside {
@@ -22,7 +22,7 @@ aside {
     top: 0;
     height: 100%;
     grid-area: aside;
-    background-color: white;
+    background-color: var(--color-foreground);
 }
 
 main {

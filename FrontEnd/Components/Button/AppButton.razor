@@ -1,3 +1,30 @@
-﻿<button class="@ClassBuilder" @onclick="OnClick" disabled="@Disabled">
+﻿<button class="@ButtonClass" 
+    @onclick="HandleClick" 
+    popovertarget="@(HasConfirmation ? popoverId : null)" 
+    disabled="@Disabled" 
+    aria-label="@AriaLabel" 
+    aria-describedby="@Guid" 
+    style="anchor-name: --btn-@(Guid);" 
+    @attributes="AdditionalAttributes">
     @ChildContent
 </button>
+
+@if (!string.IsNullOrEmpty(TooltipText))
+{
+    <div role="tooltip" id="@Guid" class="@TooltipClass" style="position-anchor: --btn-@(Guid);">
+        @TooltipText
+    </div>
+}
+
+@if (HasConfirmation)
+{
+    <div id="@popoverId" popover="auto" class="confirm-popover-panel">
+        <div class="confirm-content">
+            <p class="confirm-message">@ConfirmMessage</p>
+            <div class="confirm-actions">
+                <button type="button" class="btn-cancel" autofocus popovertarget="@popoverId" popovertargetaction="hide">No</button>
+                <button type="button" class="btn-confirm" popovertarget="@popoverId" popovertargetaction="hide" @onclick="ExecuteConfirmedAction">Yes</button>
+            </div>
+        </div>
+    </div>
+}

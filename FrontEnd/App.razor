@@ -10,77 +10,37 @@
     <meta name="keywords" content="HTML, CSS, JavaScript, Web Development, Front-End Development developer, progameur, UI/UX Design, Playground, Frontend Engineer, Web Interface Designer">
     <meta name="author" content="Sascha Davidson">
     <base href="/" />
-    <!-- Css
-    --------------------------------------------------->
+
     <link rel="stylesheet" href="style/global.css">
     <link rel="stylesheet" href="Playground.FrontEnd.styles.css" />
     <link rel="icon" type="image/png" href="favicon_optimized.png" />
     <link id="prism-light" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" media="(prefers-color-scheme: light)" />
     <link id="prism-dark" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)" />
-    <script>
-        window.blazorDialog = {
-            open: (dialog) => {
-                if (!dialog.open) dialog.showModal();
-
-                // Add outside click listener
-                const outsideClickHandler = (e) => {
-                    if (e.target === dialog) {
-                        dialog.close();
-                        if (dialog._blazorCloseCallback) {
-                            dialog._blazorCloseCallback();
-                        }
-                    }
-                };
-
-                dialog.addEventListener('click', outsideClickHandler);
-
-                // Save reference so we can remove listener later if needed
-                dialog._outsideClickHandler = outsideClickHandler;
-            },
-
-            close: (dialog) => {
-                if (dialog.open) dialog.close();
-
-                // Remove outside click listener
-                if (dialog._outsideClickHandler) {
-                    dialog.removeEventListener('click', dialog._outsideClickHandler);
-                    dialog._outsideClickHandler = null;
-                }
-            },
-
-            registerCloseCallback: (dialog, dotnetObj) => {
-                dialog._blazorCloseCallback = () => dotnetObj.invokeMethodAsync('NotifyClose');
-            }
-        };
-
-    </script>
-    <!-- Js
-    --------------------------------------------------->
-    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/gh/PrismJS/prism@master/components/prism-razor.min.js" defer></script> @* Use Razor language (unofficial). this may be incomplete or outdated. *@
 
     <HeadOutlet @rendermode="InteractiveServer" />
 </head>
 <body>
-<Routes @rendermode="InteractiveServer" />
+    <Routes @rendermode="InteractiveServer" />
 
-<div id="blazor-error-ui">
-    @if (HostEnvironment.IsProduction())
-    {
-        <span>An error has occurred.</span>
+    <div id="blazor-error-ui">
+        @if (HostEnvironment.IsProduction())
+        {
+            <span>An error has occurred.</span>
 
-    }
-    else
-    {
-        <span>An unhandled exception occurred.</span>
-    }
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
-</div>
-<script src="script/App.js"></script>
-<script src="_framework/blazor.web.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+        }
+        else
+        {
+            <span>An unhandled exception occurred.</span>
+        }
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="script/App.js"></script>
+    <script src="_framework/blazor.web.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/PrismJS/prism@master/components/prism-razor.min.js" defer></script> @* Use Razor language (unofficial). this may be incomplete or outdated. *@
 </body>
 </html>
 
