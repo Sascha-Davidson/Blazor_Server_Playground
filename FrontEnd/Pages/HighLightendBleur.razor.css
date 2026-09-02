@@ -1,5 +1,4 @@
-main{
-    position: relative;
+.page-container {
     display: flex;
     flex-direction: column;
 }
@@ -7,7 +6,7 @@ main{
 .bleur {
     position: absolute;
     inset: 0;
-    z-index: 10100;
+    z-index: 987;
     /* filter: blur(3px); */
     backdrop-filter: blur(3px);
 }
@@ -18,5 +17,9 @@ main{
 }
 
 .highlight {
-    z-index: 10101;
+    z-index: 988;
+}
+
+.non-highlight {
+    user-select: none;
 }

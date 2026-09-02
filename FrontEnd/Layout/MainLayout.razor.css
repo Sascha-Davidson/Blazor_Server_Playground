@@ -31,4 +31,5 @@ main {
     width: 100%;
     padding: 1rem var(--side-site-padding, 5vw);
     margin: 0 auto;
+    position: relative;
 }
