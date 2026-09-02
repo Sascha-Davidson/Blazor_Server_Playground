@@ -16,11 +16,14 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "Resources")
 
 builder.Services.AddAuthorizationCore();
 
+builder.Services.AddHttpContextAccessor();
+
 //ToastService
 builder.Services.AddSingleton<ToastService>();
 
 //DialogService
 builder.Services.AddScoped<IDialogService, DialogService>();
+builder.Services.AddScoped<UserAccountCultureProvider>();
 
 builder.Services.AddScoped<Mail>();
 
@@ -32,30 +35,30 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseAntiforgery();
-
 // Define supported languages
 var supportedCultures = new[]
 {
-    new CultureInfo("nl"),
-    new CultureInfo("en"),
+    new CultureInfo("nl-NL"),
+    new CultureInfo("en-US"),
 };
 
 app.UseRequestLocalization(options =>
 {
-    options.DefaultRequestCulture = new RequestCulture("en");
+    options.DefaultRequestCulture = new RequestCulture("en-US");
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
     options.FallBackToParentCultures = true;
     options.FallBackToParentUICultures = true;
     options.RequestCultureProviders = new List<IRequestCultureProvider>
     {
-        new UserAccountCultureProvider(),
+        app.Services.GetRequiredService<UserAccountCultureProvider>(),
         new AcceptLanguageHeaderRequestCultureProvider(),
     };
 });
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

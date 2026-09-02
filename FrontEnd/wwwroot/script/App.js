@@ -2,13 +2,6 @@
     return navigator.language || navigator.userLanguage;
 };
 
-window.isDesktop = () => {
-    const ua = navigator.userAgent;
-    // Treat phones and tablets as non-desktop
-    const isMobileOrTablet = /Mobi|Android|iPhone|iPad|iPod|Tablet/i.test(ua);
-    return !isMobileOrTablet;
-}
-
 window.selectInputText = (element) => {
     if (!element) return;
 
@@ -212,3 +205,35 @@ document.addEventListener("keydown", function (e) {
         e.preventDefault();
     }
 });
+
+window.iframeResize = {
+    setHeight: (iframe) => {
+        if (!iframe) return;
+
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+        if (!doc) return;
+
+        const resize = () => {
+            iframe.style.height = doc.body.scrollHeight + "px";
+        };
+
+        resize();
+
+        if (window.ResizeObserver) {
+            const observer = new ResizeObserver(resize);
+            observer.observe(doc.body);
+        }
+    }
+};
+
+window.downloadFile = (fileName, content) => {
+    const blob = new Blob([content], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName || "download.html";
+    a.click();
+
+    URL.revokeObjectURL(url);
+};
