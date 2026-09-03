@@ -23,9 +23,9 @@ namespace Playground.FrontEnd.Components.Button
 
         private readonly Guid Guid = Guid.NewGuid();
         private bool HasConfirmation => OnConfirmed.HasDelegate;
-        private string instanceId = System.Guid.NewGuid().ToString("N");
-        private string popoverId => $"confirm-{instanceId}";
-        private string tooltipId => $"tip-{instanceId}";
+        private string InstanceId = System.Guid.NewGuid().ToString("N");
+        private string popoverId => $"confirm-{InstanceId}";
+        private string tooltipId => $"tip-{InstanceId}";
         private string ComputedPositionClass => $"origin-{Origin.ToString().ToLower()}-{Direction.ToString().ToLower()}";
         private string ButtonClass => $"app-button {Color.ToCssClass()} {Variant.ToCssClass()} {Size.ToCssClass()}";
         private string TooltipClass => $"tooltip {ComputedPositionClass}";
