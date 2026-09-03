@@ -21,7 +21,6 @@ namespace Playground.FrontEnd.Components.Button
         [Parameter(CaptureUnmatchedValues = true)]
         public Dictionary<string, object> AdditionalAttributes { get; set; }
 
-        private readonly Guid Guid = Guid.NewGuid();
         private bool HasConfirmation => OnConfirmed.HasDelegate;
         private string InstanceId = System.Guid.NewGuid().ToString("N");
         private string popoverId => $"confirm-{InstanceId}";
