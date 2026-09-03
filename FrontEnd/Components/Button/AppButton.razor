@@ -3,15 +3,15 @@
     popovertarget="@(HasConfirmation ? popoverId : null)" 
     disabled="@Disabled" 
     aria-label="@AriaLabel" 
-    aria-describedby="@Guid" 
-    style="anchor-name: --btn-@(Guid);" 
+    aria-describedby="@InstanceId" 
+    style="anchor-name: --btn-@(InstanceId);" 
     @attributes="AdditionalAttributes">
     @ChildContent
 </button>
 
 @if (!string.IsNullOrEmpty(TooltipText))
 {
-    <div role="tooltip" id="@Guid" class="@TooltipClass" popover="manual" style="position-anchor: --btn-@(Guid);">
+    <div role="tooltip" id="@InstanceId" class="@TooltipClass" popover="manual" style="position-anchor: --btn-@(InstanceId);">
         @TooltipText
     </div>
 }
