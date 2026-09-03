@@ -11,7 +11,7 @@
 
 @if (!string.IsNullOrEmpty(TooltipText))
 {
-    <div role="tooltip" id="@InstanceId" class="@TooltipClass" popover="manual" style="position-anchor: --btn-@(InstanceId);">
+    <div role="tooltip" id="@InstanceId" class="@TooltipClass" style="position-anchor: --btn-@(InstanceId);">
         @TooltipText
     </div>
 }
