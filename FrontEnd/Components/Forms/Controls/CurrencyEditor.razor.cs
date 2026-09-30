@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using System.Globalization;
 
-namespace Playground.FrontEnd.Components.Inputs;
+namespace Playground.FrontEnd.Components.Forms.Controls;
 
 public partial class CurrencyEditor<TValue>
 {

@@ -1,22 +1,21 @@
-﻿@inherits EditorBase<string>
+﻿@inherits FieldEditorBase<DateTime>
 
 <div>
-    <InputText class="text-editor"
+    <InputDate class="date-editor"
                required="@IsRequired"
-               id="@ID"
+               id="@Id"
                name="@Name"
                placeholder="@PlaceHolder"
                readonly="@ReadOnly"
                disabled="@Disabled"
-               maxlength="@MaxLengthAttribute?.Length"
-               data-Type="string"
+               data-Type="datetime"
                data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
-               autocomplete="@AutoCompleteValue"
                Value="@Value"
                ValueChanged="@ValueChanged"
                ValueExpression="@(Expression ?? (() => Value))"
+               Type="InputDateType.DateTimeLocal"
                @attributes="Attributes" />
-    
+
     @if (Expression != null)
     {
         <ValidationMessage For="Expression" />

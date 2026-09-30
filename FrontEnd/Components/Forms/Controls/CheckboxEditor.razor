@@ -1,10 +1,10 @@
-@inherits EditorBase<bool>
+@inherits FieldEditorBase<bool>
 
 <div class="checkbox-editor">
     @if (Style == CheckboxStyle.Slider)
     {
         <div class="slider-label">
-            <InputCheckbox id="@ID"
+            <InputCheckbox id="@Id"
                            name="@Name"
                            disabled="@Disabled"
                            checked="@Value"
@@ -23,7 +23,7 @@
     else
     {
         <div class="box-label">
-            <InputCheckbox id="@ID"
+            <InputCheckbox id="@Id"
                            name="@Name"
                            disabled="@Disabled"
                            checked="@Value"

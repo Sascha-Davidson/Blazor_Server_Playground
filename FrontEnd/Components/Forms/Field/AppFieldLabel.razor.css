@@ -1,0 +1,9 @@
+/* CSS for AppFieldLabel component */
+.expressionDescription {
+    margin: 0;
+    line-height: normal;
+    overflow-wrap: anywhere;
+    display: flex;
+    max-width: 800px;
+    color: #676764;
+}

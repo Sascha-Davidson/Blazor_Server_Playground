@@ -1,22 +1,21 @@
-﻿@typeparam TValue
-@inherits EditorBase<TValue>
+﻿@inherits FieldEditorBase<string>
 
 <div>
-    <InputCurrency class="currency-editor"
+    <InputTextArea class="textarea-editor"
                    required="@IsRequired"
-                   id="@ID"
+                   id="@Id"
                    name="@Name"
-                   placeholder="@EffectivePlaceholder"
+                   placeholder="@PlaceHolder"
                    readonly="@ReadOnly"
                    disabled="@Disabled"
-                   data-Type="decimal"
+                   maxlength="@MaxLengthAttribute?.Length"
+                   data-Type="string"
                    data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
-                   ShowCurrencySymbol="ShowInputCurrencySymbol"
                    Value="@Value"
                    ValueChanged="@ValueChanged"
                    ValueExpression="@(Expression ?? (() => Value))"
-                   @attributes="Attributes"/>
-
+                   @attributes="Attributes" />
+    
     @if (Expression != null)
     {
         <ValidationMessage For="Expression" />

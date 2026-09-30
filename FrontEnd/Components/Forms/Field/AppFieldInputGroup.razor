@@ -1,0 +1,11 @@
+﻿<div class="deb-input-group @(Attached ? "attached" : "separate")">
+	@ChildContent
+</div>
+
+@code {
+	[Parameter] 
+    public bool Attached { get; set; } = true;
+
+    [Parameter] 
+    public RenderFragment ChildContent { get; set; }
+}

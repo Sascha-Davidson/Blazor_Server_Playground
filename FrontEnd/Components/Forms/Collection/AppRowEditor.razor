@@ -1,9 +1,16 @@
 ﻿@typeparam TValue
-@inherits EditorRowBase<TValue>
+@inherits FieldRowBase<TValue>
 
-<div data-orientation="@Orientation.ToLowerString()">
-    <label for="@ID.ToString()">@LabelText</label>
-    <div class="input-container">
+<AppField Class="@FieldClass"
+          LayoutClass="@ComputedFieldClass()">
+
+    <AppFieldLabel Attributes="Attributes"
+                   For="@SetId"
+                   Description="@(Description ?? ExpressionDescription)">
+        @(LabelText ?? ExpressionName)
+    </AppFieldLabel>
+
+    <AppFieldContent>
         <AppEditor TValue="TValue"
                    Value="@Value"
                    ValueChanged="@ValueChanged"
@@ -11,7 +18,7 @@
                    Required="@Required"
                    ForceBlazor="@ForceBlazor"
                    CheckboxStyle="@CheckboxStyle"
-                   ID="@ID"
+                   Id="@SetId"
                    Name="@Name"
                    PlaceHolder="@PlaceHolder"
                    ReadOnly="@ReadOnly"
@@ -20,7 +27,7 @@
                    ValueSelector="@ValueSelector"
                    OptionContent="@OptionContent"
                    AutoComplete="@AutoComplete"/>
-        
-        @ChildContent
-    </div>
-</div>
+    </AppFieldContent>
+
+    @ChildContent
+</AppField>

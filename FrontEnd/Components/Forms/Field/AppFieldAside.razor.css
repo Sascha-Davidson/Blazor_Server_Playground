@@ -1,0 +1,7 @@
+/* CSS for AppFieldAside component */
+.deb-field-aside {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 3rem;
+}

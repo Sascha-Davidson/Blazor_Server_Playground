@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Components;
 using Playground.FrontEnd.Base;
+using Playground.FrontEnd.Components.Forms.Controls;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 
-namespace Playground.FrontEnd.Components.Inputs;
-public partial class AppEditor<TValue> : EditorBase<TValue>
+namespace Playground.FrontEnd.Components.Forms.Collection;
+public partial class AppEditor<TValue> : FieldEditorBase<TValue>
 {
     [Parameter] 
     public bool? ForceBlazor { get; set; }
@@ -96,7 +97,7 @@ public partial class AppEditor<TValue> : EditorBase<TValue>
             parameters["Required"] = IsRequired;
             parameters["Style"] = CheckboxStyle;
 
-            parameters["ID"] = ID;
+            parameters["ID"] = Id;
             parameters["Name"] = Name;
             parameters["PlaceHolder"] = PlaceHolder;
 

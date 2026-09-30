@@ -1,21 +1,19 @@
-﻿@inherits EditorBase<int>
+﻿@inherits FieldEditorBase<string>
 
 <div>
-    <InputRange class="range-editor"
+    <InputPhone class="phone-editor"
                 required="@IsRequired"
-                id="@ID"
+                id="@Id"
                 name="@Name"
                 placeholder="@PlaceHolder"
                 readonly="@ReadOnly"
                 disabled="@Disabled"
-                data-Type="int"
+                data-Type="string"
                 data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
                 Value="@Value"
                 ValueChanged="@ValueChanged"
                 ValueExpression="@(Expression ?? (() => Value))"
-                @attributes="Attributes"
-                Min="@MinValue"
-                Max="@MaxValue" />
+                @attributes="Attributes" />
 
     @if (Expression != null)
     {

@@ -1,0 +1,27 @@
+﻿@typeparam TValue
+@inherits FieldRowBase<TValue>
+
+<div style="display: contents;">
+    <AppField Class="@FieldClass" 
+              LayoutClass="@ComputedFieldClass()">
+
+        <AppFieldLabel Attributes="Attributes"
+                       For="@SetId"
+                       Description="@(Description ?? ExpressionDescription)">
+            @(LabelText ?? ExpressionName)
+        </AppFieldLabel>
+
+        <AppFieldContent>
+            <AppDisplay TValue="TValue" Id="@SetId">
+                @((object)Value ?? ValueWhenNull ?? ExpressionValue)
+            </AppDisplay>
+        </AppFieldContent>
+
+        @ChildContent
+    </AppField>
+</div>
+
+@code {
+    [Parameter]
+    public string ValueWhenNull { get; set; }
+}

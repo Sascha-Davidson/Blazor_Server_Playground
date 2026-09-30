@@ -1,0 +1,20 @@
+﻿@typeparam TValue
+@inherits FieldEditorBase<TValue>
+
+<p id="@Id"
+   title="@Title"
+   for="@IdFor"
+   @attributes="Attributes">
+   @ChildContent
+</p>
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string IdFor { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

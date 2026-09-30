@@ -1,0 +1,108 @@
+/* CSS for AppFieldInputGroup component */
+.deb-input-group {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+    grid-auto-columns: auto;
+    /* Fill the field, also when the container is a flex box: as a flex item the group would
+	   otherwise shrink to its content and the addon would not reach the right edge. */
+    width: 100%;
+    min-width: 0;
+    /* The control keeps its own height instead of being stretched to the tallest addon. */
+    align-items: center;
+}
+
+    /* A leading addon (a currency or scheme picker) sizes to its content, so the control
+	   after it still takes the remaining width instead of the addon taking it. */
+    .deb-input-group:has(> .deb-input-group-addon:first-child) {
+        grid-template-columns: auto 1fr;
+    }
+
+    /* -------------------- attached -------------------- */
+    .deb-input-group.attached {
+        border-radius: .6rem;
+        border: 1px solid var(--color-input-border);
+    }
+
+        /* Only a group holding an editable control reacts to hover: a read-only value has
+	   nothing to type in, so highlighting its border just reads as a dead affordance. */
+        .deb-input-group.attached:has(input, textarea, select, .custom-select):hover {
+            border-color: var(--color-input-border-hover);
+        }
+
+        .deb-input-group.attached:has(input:focus) {
+            outline: auto;
+        }
+
+        .deb-input-group.attached ::deep .default.NewLayout input {
+            border: none;
+            outline: none;
+        }
+
+        /* Same for a dropdown used as the addon: the group's border is the only one, and its own
+	   fixed height would otherwise make the group taller than every other field. */
+        .deb-input-group.attached ::deep .custom-select {
+            height: auto;
+        }
+
+            .deb-input-group.attached ::deep .custom-select button {
+                border: none;
+            }
+
+        /* Hold the addon off the shared border, the way the inset of a bordered container used
+	   to: flush against it, the addon's own hover background runs into the border. Inline
+	   only — vertical centring already spaces it, and a vertical margin would make the field
+	   taller than every other field in the form. */
+        .deb-input-group.attached ::deep .deb-input-group-addon:first-child > * {
+            margin-inline-start: .5rem;
+        }
+
+        .deb-input-group.attached ::deep .deb-input-group-addon:last-child > * {
+            margin-inline-end: .5rem;
+        }
+
+        /* A read-only value (DebDisplayBox) brings no padding of its own. Give it the same inset
+	   DebEditor gives an input (--input-padding) and a full line even when empty, so a field
+	   is the same height whether it shows a value or an input. */
+        .deb-input-group.attached ::deep p {
+            padding: var(--input-padding, 1rem);
+            margin: 0;
+            /* border-box, so the padding has to be part of the minimum. */
+            min-height: calc(1lh + 2 * var(--input-padding, 1rem));
+        }
+
+    /* -------------------- separate -------------------- */
+    .deb-input-group.separate {
+        gap: 1rem;
+    }
+
+        .deb-input-group.separate ::deep .deb-input-group-addon button:not(.select-button),
+        .deb-input-group.separate ::deep .deb-input-group-addon a {
+            all: revert;
+            outline: unset !important;
+            padding: 1rem;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-input-background);
+            border-radius: .6rem;
+            border: 1px solid var(--color-input-border);
+            transition: all .2s ease-in-out;
+        }
+
+            .deb-input-group.separate ::deep .deb-input-group-addon button:not(.select-button):hover,
+            .deb-input-group.separate ::deep .deb-input-group-addon a:hover {
+                border-color: var(--color-input-border-hover);
+            }
+
+            .deb-input-group.separate ::deep .deb-input-group-addon button:not(.select-button):focus,
+            .deb-input-group.separate ::deep .deb-input-group-addon a:focus {
+                outline: auto;
+            }
+
+            .deb-input-group.separate ::deep .deb-input-group-addon button:not(.select-button) svg,
+            .deb-input-group.separate ::deep .deb-input-group-addon a svg {
+                height: 1lh;
+                width: auto;
+                line-height: normal;
+            }

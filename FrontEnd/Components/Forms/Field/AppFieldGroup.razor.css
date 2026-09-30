@@ -1,0 +1,6 @@
+/* CSS for AppFieldGroup component */
+.DebFieldGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

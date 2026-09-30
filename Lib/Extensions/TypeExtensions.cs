@@ -8,6 +8,20 @@ namespace Playground.Lib.Extensions
     {
         extension(MemberInfo memberInfo)
         {
+            public string GetDescriptionValue()
+            {
+                var displayAttribute = memberInfo.GetCustomAttribute<DisplayAttribute>();
+                if (displayAttribute?.Description == null)
+                    return null;
+
+                var resourceManager = (ResourceManager)displayAttribute.ResourceType?.GetProperty("ResourceManager")?.GetValue(null);
+                if (resourceManager == null)
+                    return displayAttribute.Description;
+
+                var translatedString = resourceManager.GetString(displayAttribute.Description);
+                return translatedString.IsNullOrEmpty() ? displayAttribute.Description : translatedString;
+            }
+
             public string? GetDisplayValue()
             {
                 var displayAttribute = memberInfo.GetCustomAttribute<DisplayAttribute>();

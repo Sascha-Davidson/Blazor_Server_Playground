@@ -1,0 +1,24 @@
+﻿<div class="label-container">
+	<label for="@For" @attributes="Attributes">@ChildContent</label>
+	@if (!string.IsNullOrEmpty(Description))
+	{
+		<p id="@DescriptionId" class="expressionDescription">@Description.Raw()</p>
+	}
+</div>
+
+@code {
+	[Parameter] public RenderFragment ChildContent { get; set; }
+
+	/// <summary>ID of the control this label belongs to.</summary>
+	[Parameter] public int For { get; set; }
+
+	/// <summary>Help text under the label, may contain html.</summary>
+	[Parameter] public string Description { get; set; }
+
+	/// <summary>ID of the description element, for aria-describedby on the control.</summary>
+	[Parameter] public string DescriptionId { get; set; }
+
+	/// <summary>Extra attributes for the label element.</summary>
+	[Parameter(CaptureUnmatchedValues = true)]
+	public Dictionary<string, object> Attributes { get; set; }
+}

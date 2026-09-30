@@ -1,11 +1,11 @@
 ﻿@typeparam TValue
-@inherits EditorBase<TValue>
+@inherits FieldEditorBase<TValue>
 
 <div>
     <InputDecimal TValue="TValue"
                   class="decimal-editor"
                   required="@IsRequired"
-                  id="@ID"
+                  id="@Id"
                   name="@Name"
                   placeholder="@PlaceHolder"
                   readonly="@ReadOnly"

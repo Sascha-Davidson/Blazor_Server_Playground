@@ -1,4 +1,4 @@
-﻿@inherits EditorBase<string>
+﻿@inherits FieldEditorBase<string>
 
 <CascadingValue Value="this">
     <div class="popover-wrapper">
@@ -17,7 +17,7 @@
                @onfocus="ShowPopover"
                @onblur="HidePopover"
                @onkeydown="HandleKeyDown"
-               id="@ID"
+               id="@Id"
                placeholder="Type to search..." />
     </div>
     @if (Popover && Items != null)

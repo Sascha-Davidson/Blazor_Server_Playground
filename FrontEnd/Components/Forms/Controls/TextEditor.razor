@@ -1,9 +1,9 @@
-﻿@inherits EditorBase<string>
+﻿@inherits FieldEditorBase<string>
 
 <div>
-    <InputText class="password-editor"
+    <InputText class="text-editor"
                required="@IsRequired"
-               id="@ID"
+               id="@Id"
                name="@Name"
                placeholder="@PlaceHolder"
                readonly="@ReadOnly"
@@ -11,11 +11,12 @@
                maxlength="@MaxLengthAttribute?.Length"
                data-Type="string"
                data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
+               autocomplete="@AutoCompleteValue"
                Value="@Value"
                ValueChanged="@ValueChanged"
                ValueExpression="@(Expression ?? (() => Value))"
                @attributes="Attributes" />
-
+    
     @if (Expression != null)
     {
         <ValidationMessage For="Expression" />

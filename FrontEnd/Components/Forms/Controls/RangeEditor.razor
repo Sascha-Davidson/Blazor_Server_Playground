@@ -1,19 +1,21 @@
-﻿@inherits EditorBase<string>
+﻿@inherits FieldEditorBase<int>
 
 <div>
-    <InputEmail class="mail-editor"
+    <InputRange class="range-editor"
                 required="@IsRequired"
-                id="@ID"
+                id="@Id"
                 name="@Name"
                 placeholder="@PlaceHolder"
                 readonly="@ReadOnly"
                 disabled="@Disabled"
-                data-Type="string"
+                data-Type="int"
                 data-Editor-key="@(Global.IsDebug ? EditorKey : null)"
                 Value="@Value"
                 ValueChanged="@ValueChanged"
                 ValueExpression="@(Expression ?? (() => Value))"
-                @attributes="Attributes" />
+                @attributes="Attributes"
+                Min="@MinValue"
+                Max="@MaxValue" />
 
     @if (Expression != null)
     {

@@ -1,0 +1,88 @@
+﻿using Microsoft.AspNetCore.Components;
+using Playground.Lib.Enums;
+using Playground.Lib.Extensions;
+using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using System.Reflection;
+
+namespace Playground.FrontEnd.Base
+{
+    public class FieldEditorBase<T> : ComponentBase
+    {
+        [Parameter, EditorRequired]
+        public T Value { get; set; }
+
+        [Parameter]
+        public EventCallback<T> ValueChanged { get; set; }
+
+        [Parameter, EditorRequired]
+        public Expression<Func<T>> Expression { get; set; }
+
+        [Parameter]
+        public bool Required { get; set; }
+
+        [Parameter]
+        public string AutoComplete { get; set; }
+
+        public string AutoCompleteValue =>
+            !string.IsNullOrWhiteSpace(AutoComplete)
+                ? AutoComplete
+                : ExpressionMember?
+                    .GetCustomAttribute<AutoCompleteAttribute>()?
+                    .Type
+                    .ToHtmlValue();
+
+        [Parameter]
+        public int Id { get; set; } = Guid.NewGuid().GetHashCode();
+
+        [Parameter]
+        public string Name { get; set; }
+
+        [Parameter]
+        public string PlaceHolder { get; set; }
+
+        [Parameter]
+        public bool ReadOnly { get; set; }
+
+        [Parameter]
+        public bool Disabled { get; set; }
+
+        [Parameter]
+        public T MinValue { get; set; }
+
+        [Parameter]
+        public T MaxValue { get; set; }
+
+        [Parameter(CaptureUnmatchedValues = true)]
+        public Dictionary<string, object> Attributes { get; set; }
+
+        [Parameter]
+        public IEnumerable<T> SelectList { get; set; } = [];
+
+        [Parameter]
+        public Func<T, string> ValueSelector { get; set; } = _ => string.Empty;
+
+        [Parameter]
+        public RenderFragment<T> OptionContent { get; set; } = item => builder => builder.AddContent(0, item?.ToString());
+
+        [Parameter]
+        public CheckboxStyle CheckboxStyle { get; set; } = CheckboxStyle.Box;
+
+        [Parameter]
+        public CheckboxStyle Style { get; set; } = CheckboxStyle.Box;
+
+        public MemberInfo ExpressionMember => (Expression?.Body as MemberExpression)?.Member;
+
+        public DataTypeAttribute DataTypeAttribute => ExpressionMember?.GetCustomAttribute<DataTypeAttribute>();
+        public RangeAttribute RangeAttribute => ExpressionMember?.GetCustomAttribute<RangeAttribute>();
+        public MaxLengthAttribute MaxLengthAttribute => ExpressionMember?.GetCustomAttribute<MaxLengthAttribute>();
+        public bool IsRequired =>
+            Required || (ExpressionMember?.GetCustomAttributes<RequiredAttribute>(true).Any() ?? false);
+
+        public decimal? RangeMin => (RangeAttribute?.Minimum != null ? Convert.ToDecimal(RangeAttribute.Minimum) : Convert.ToDecimal(MinValue)).NullIfEquals(0);
+        public decimal? RangeMax => (RangeAttribute?.Maximum != null ? Convert.ToDecimal(RangeAttribute.Maximum) : Convert.ToDecimal(MaxValue)).NullIfEquals(0);
+
+        private readonly Type _modelType = typeof(T);
+        public string EditorKey => (DataTypeAttribute?.CustomDataType ?? DataTypeAttribute?.DataType.ToString() ?? _modelType.Name).ToLowerInvariant();
+    }
+}
